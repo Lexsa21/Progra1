@@ -24,7 +24,7 @@ from utils import *
 def main():
     
     #-------------------------------------------------
-    # Inicialización de variables
+    # Inicialización de CONSTANTES
     #------------------------------------------------------------------------------------------
     
     ARCHIVO_PELICULAS = "movies.json"
@@ -35,7 +35,7 @@ def main():
     # Menú principal
     #------------------------------------------------------------------------------------------
     while True:
-        print("---------------------------")
+        print("\n---------------------------")
         print("SISTEMA DE GESTIÓN DE CINE")
         print("---------------------------")
         print("[1] Gestión de Películas y Entradas")
@@ -55,7 +55,7 @@ def main():
             while True:
                 print("\n---------------------------")
                 print("GESTIÓN DE PELÍCULAS Y ENTRADAS")
-                print("---------------------------")
+                print("---------------------------\n")
                 print("[1] Agregar Película")
                 print("[2] Modificar Película")
                 print("[3] Eliminar Película")
@@ -65,9 +65,9 @@ def main():
                 opcionPeliculas = input("Seleccione una opción: ")
 
                 if opcionPeliculas == "0": break
-                if opcionPeliculas == "1": movies = agregarPelicula(ARCHIVO_PELICULAS, ARCHIVO_ID_MAPPING, ARCHIVO_CINES)
-                elif opcionPeliculas == "2": movies = modificarPelicula(ARCHIVO_PELICULAS, ARCHIVO_ID_MAPPING)
-                elif opcionPeliculas == "3": movies = inactivarPelicula(ARCHIVO_PELICULAS, ARCHIVO_ID_MAPPING)
+                if opcionPeliculas == "1": agregarPelicula(ARCHIVO_PELICULAS, ARCHIVO_ID_MAPPING, ARCHIVO_CINES)
+                elif opcionPeliculas == "2": modificarPelicula(ARCHIVO_PELICULAS, ARCHIVO_ID_MAPPING)
+                elif opcionPeliculas == "3": inactivarPelicula(ARCHIVO_PELICULAS, ARCHIVO_ID_MAPPING)
                 elif opcionPeliculas == "4": modificarPrecioEntrada()
                 elif opcionPeliculas == "5": listarPeliculas(ARCHIVO_PELICULAS)
                 
