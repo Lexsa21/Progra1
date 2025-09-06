@@ -22,15 +22,6 @@ from utils import *
 # CUERPO PRINCIPAL
 #----------------------------------------------------------------------------------------------
 def main():
-    
-    #-------------------------------------------------
-    # Inicialización de CONSTANTES
-    #------------------------------------------------------------------------------------------
-    
-    ARCHIVO_PELICULAS = "movies.json"
-    ARCHIVO_ID_MAPPING = "id_mapping.txt"
-    ARCHIVO_CINES = "cines.json"
-    ARCHIVO_ENTRADAS = "entradas.json"
     #-------------------------------------------------
     # Menú principal
     #------------------------------------------------------------------------------------------
@@ -65,11 +56,32 @@ def main():
                 opcionPeliculas = input("Seleccione una opción: ")
 
                 if opcionPeliculas == "0": break
-                if opcionPeliculas == "1": agregarPelicula(ARCHIVO_PELICULAS, ARCHIVO_ID_MAPPING, ARCHIVO_CINES)
-                elif opcionPeliculas == "2": modificarPelicula(ARCHIVO_PELICULAS, ARCHIVO_ID_MAPPING)
-                elif opcionPeliculas == "3": inactivarPelicula(ARCHIVO_PELICULAS, ARCHIVO_ID_MAPPING)
+                if opcionPeliculas == "1": agregarPelicula()
+                elif opcionPeliculas == "2": 
+                    peliculaId = input("Ingresa el número de la película a modificar: ")
+
+                    modificarPelicula(peliculaId)
+                elif opcionPeliculas == "3": 
+                    peliculaId = input("Ingresa el número de la película a eliminar: ")
+                    inactivarPelicula(peliculaId)
                 elif opcionPeliculas == "4": modificarPrecioEntrada()
-                elif opcionPeliculas == "5": listarPeliculas(ARCHIVO_PELICULAS)
+                
+                elif opcionPeliculas == "5": 
+                    peliculas = listarPeliculas()
+                    if peliculas:
+                        print("\nLista de todas las películas:")
+                        for indice, (peliculaId, info) in enumerate(peliculas.items(), start=1):
+                            if peliculas[peliculaId]['activo']:
+                                print(
+                                    f"Número: {indice}, ID: {peliculaId}, Título: {info['title']}, Formato: {info['format']}, Idioma: {info['language']}")
+                                if info['schedule']:
+                                    print("  Horarios:")
+                                    for entry in info['schedule']:
+                                        print(f"    - {entry}")
+                                else:
+                                    print("  No hay horarios asignados.")
+                    else:
+                        print("No hay películas disponibles.")
                 
                 input("\nPresione ENTER para volver al menú.")
                 print("\n\n")
@@ -87,8 +99,8 @@ def main():
                 opcionEntradas = input("Seleccione una opción: ")
 
                 if opcionEntradas == "0": break
-                if opcionEntradas == "1": generarEntrada(ARCHIVO_PELICULAS, ARCHIVO_ENTRADAS, ARCHIVO_CINES)
-                elif opcionEntradas == "2": eliminarEntrada(ARCHIVO_PELICULAS, ARCHIVO_ENTRADAS, ARCHIVO_CINES)
+                if opcionEntradas == "1": generarEntrada()
+                elif opcionEntradas == "2": eliminarEntrada()
                 # Implementación de Generar Entrada y Eliminar Venta aquí...
 
                 input("\nPresione ENTER para volver al menú.")
@@ -109,9 +121,9 @@ def main():
 
                 if opcionInformes == "0": break
                 # Implementación de los informes aquí...
-                if opcionInformes == "1": informeVentas(ARCHIVO_ENTRADAS, ARCHIVO_PELICULAS, ARCHIVO_CINES)
-                if opcionInformes == "2": informeListadoPeliculasDisponibles(ARCHIVO_PELICULAS)
-                if opcionInformes == "3": informeButacasDisponibles(ARCHIVO_PELICULAS)
+                if opcionInformes == "1": informeVentas()
+                if opcionInformes == "2": informeListadoPeliculasDisponibles()
+                if opcionInformes == "3": informeButacasDisponibles()
 
                 input("\nPresione ENTER para volver al menú.")
                 print("\n\n")
@@ -131,10 +143,15 @@ def main():
                 opcionCines = input("Seleccione una opción: ")
 
                 if opcionCines == "0": break
-                if opcionCines == "1": listarCines(ARCHIVO_CINES)
-                if opcionCines == "2": nuevoCine(ARCHIVO_CINES)
-                if opcionCines == "3": eliminarCine(ARCHIVO_CINES)
-                if opcionCines == "4": modificarCine(ARCHIVO_CINES)
+                if opcionCines == "1": 
+                    cines = listarCines()
+                    print("Lista de todos los cines:")
+                    for i in cines:
+                        print(
+                            f"ID: {i}, Nombre: {cines[i]['nombre']}, Dirección: {cines[i]['direccion']}")
+                if opcionCines == "2": nuevoCine()
+                if opcionCines == "3": eliminarCine()
+                if opcionCines == "4": modificarCine()
                 # Implementación de gestión de cines aquí...
 
                 input("\nPresione ENTER para volver al menú.")
