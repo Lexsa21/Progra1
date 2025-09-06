@@ -65,7 +65,6 @@ def main():
                     peliculaId = input("Ingresa el número de la película a eliminar: ")
                     inactivarPelicula(peliculaId)
                 elif opcionPeliculas == "4": modificarPrecioEntrada()
-                
                 elif opcionPeliculas == "5": 
                     peliculas = listarPeliculas()
                     if peliculas:
