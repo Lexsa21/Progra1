@@ -18,145 +18,155 @@ Pendientes:
 # MÓDULOS
 #----------------------------------------------------------------------------------------------
 from utils import *
+
+#----------------------------------------------------------------------------------------------
+# CONFIGURACIÓN DE MENÚS CON TUPLAS (inmutables, apropiadas para datos constantes)
+#----------------------------------------------------------------------------------------------
+MENU_PRINCIPAL = (
+    "[1] Gestión de Películas y Entradas",
+    "[2] Venta de Entradas", 
+    "[3] Informes Generales",
+    "[4] Gestión de Complejo de Cines",
+    "[0] Salir"
+)
+
+MENU_PELICULAS = (
+    "[1] Agregar Película",
+    "[2] Modificar Película",
+    "[3] Eliminar Película", 
+    "[4] Modificar valor de la entrada",
+    "[5] Listar todas las películas",
+    "[0] Volver al menú"
+)
+
+MENU_ENTRADAS = (
+    "[1] Generar Entrada",
+    "[2] Eliminar Venta",
+    "[0] Volver al menú"
+)
+
+MENU_INFORMES = (
+    "[1] Emitir Informe de Ventas",
+    "[2] Emitir Listado de Películas Disponibles",
+    "[3] Emitir Informe de Butacas Disponibles",
+    "[0] Volver al menú"
+)
+
+MENU_CINES = (
+    "[1] Listar Cines",
+    "[2] Agregar Nuevo Cine",
+    "[3] Eliminar Cine",
+    "[4] Modificar Cine",
+    "[0] Volver al menú"
+)
+
+def mostrarMenu(titulo, opciones):
+    """Función auxiliar para mostrar menús de manera consistente"""
+    print("\n---------------------------")
+    print(titulo)
+    print("\n---------------------------")
+    for opcion in opciones:
+        print(opcion)
 #----------------------------------------------------------------------------------------------
 # CUERPO PRINCIPAL
 #----------------------------------------------------------------------------------------------
-def main():
-    #-------------------------------------------------
-    # Menú principal
-    #------------------------------------------------------------------------------------------
-    while True:
-        print("\n---------------------------")
-        print("SISTEMA DE GESTIÓN DE CINE")
-        print("---------------------------")
-        print("[1] Gestión de Películas y Entradas")
-        print("[2] Venta de Entradas")
-        print("[3] Informes Generales")
-        print("[4] Gestión de Complejo de Cines")
-        print("[0] Salir")
-        opcion = input("Seleccione una opción: ")
+while True:
+    mostrarMenu("SISTEMA DE GESTIÓN DE CINE", MENU_PRINCIPAL)
+    opcion = input("Seleccione una opción: ")
 
-        if opcion == "0":
-            print("Saliendo del sistema.")
-            break
+    if opcion == "0":
+        print("Saliendo del sistema.")
+        break
+        
+    # Opción 1: GESTIÓN DE PELÍCULAS Y ENTRADAS
+    elif opcion == "1":   
+        # Menú de Películas y Entradas
+        while True:
+            mostrarMenu("GESTIÓN DE PELÍCULAS Y ENTRADAS", MENU_PELICULAS)
+            opcionPeliculas = input("Seleccione una opción: ")
+
+            if opcionPeliculas == "0": break
+            if opcionPeliculas == "1": agregarPelicula()
+            elif opcionPeliculas == "2": 
+                peliculaId = input("Ingresa el número de la película a modificar: ")
+
+                modificarPelicula(peliculaId)
+            elif opcionPeliculas == "3": 
+                peliculaId = input("Ingresa el número de la película a eliminar: ")
+                inactivarPelicula(peliculaId)
+            elif opcionPeliculas == "4": modificarPrecioEntrada()
+            elif opcionPeliculas == "5": 
+                peliculas = listarPeliculas()
+                if peliculas:
+                    print("\nLista de todas las películas:")
+                    for indice, (peliculaId, info) in enumerate(peliculas.items(), start=1):
+                        if peliculas[peliculaId]['activo']:
+                            print(
+                                f"Número: {indice}, ID: {peliculaId}, Título: {info['title']}, Formato: {info['format']}, Idioma: {info['language']}")
+                            if info['schedule']:
+                                print("  Horarios:")
+                                for entry in info['schedule']:
+                                    print(f"    - {entry}")
+                            else:
+                                print("  No hay horarios asignados.")
+                else:
+                    print("No hay películas disponibles.")
             
-        # Opción 1: GESTIÓN DE PELÍCULAS Y ENTRADAS
-        elif opcion == "1":   
-            # Menú de Películas y Entradas
-            while True:
-                print("\n---------------------------")
-                print("GESTIÓN DE PELÍCULAS Y ENTRADAS")
-                print("---------------------------\n")
-                print("[1] Agregar Película")
-                print("[2] Modificar Película")
-                print("[3] Eliminar Película")
-                print("[4] Modificar valor de la entrada")
-                print("[5] Listar todas las películas")
-                print("[0] Volver al menú")
-                opcionPeliculas = input("Seleccione una opción: ")
+            input("\nPresione ENTER para volver al menú.")
+            print("\n\n")
 
-                if opcionPeliculas == "0": break
-                if opcionPeliculas == "1": agregarPelicula()
-                elif opcionPeliculas == "2": 
-                    peliculaId = input("Ingresa el número de la película a modificar: ")
+    # Opción 2: VENTA DE ENTRADAS
+    elif opcion == "2":   
+        # Menú de Venta de Entradas
+        while True:
+            mostrarMenu("VENTA DE ENTRADAS", MENU_ENTRADAS)
+            opcionEntradas = input("Seleccione una opción: ")
 
-                    modificarPelicula(peliculaId)
-                elif opcionPeliculas == "3": 
-                    peliculaId = input("Ingresa el número de la película a eliminar: ")
-                    inactivarPelicula(peliculaId)
-                elif opcionPeliculas == "4": modificarPrecioEntrada()
-                elif opcionPeliculas == "5": 
-                    peliculas = listarPeliculas()
-                    if peliculas:
-                        print("\nLista de todas las películas:")
-                        for indice, (peliculaId, info) in enumerate(peliculas.items(), start=1):
-                            if peliculas[peliculaId]['activo']:
-                                print(
-                                    f"Número: {indice}, ID: {peliculaId}, Título: {info['title']}, Formato: {info['format']}, Idioma: {info['language']}")
-                                if info['schedule']:
-                                    print("  Horarios:")
-                                    for entry in info['schedule']:
-                                        print(f"    - {entry}")
-                                else:
-                                    print("  No hay horarios asignados.")
-                    else:
-                        print("No hay películas disponibles.")
-                
-                input("\nPresione ENTER para volver al menú.")
-                print("\n\n")
+            if opcionEntradas == "0": break
+            if opcionEntradas == "1": generarEntrada()
+            elif opcionEntradas == "2": eliminarEntrada()
+            # Implementación de Generar Entrada y Eliminar Venta aquí...
 
-        # Opción 2: VENTA DE ENTRADAS
-        elif opcion == "2":   
-            # Menú de Venta de Entradas
-            while True:
-                print("\n---------------------------")
-                print("VENTA DE ENTRADAS")
-                print("---------------------------")
-                print("[1] Generar Entrada")
-                print("[2] Eliminar Venta")
-                print("[0] Volver al menú")
-                opcionEntradas = input("Seleccione una opción: ")
+            input("\nPresione ENTER para volver al menú.")
+            print("\n\n")
 
-                if opcionEntradas == "0": break
-                if opcionEntradas == "1": generarEntrada()
-                elif opcionEntradas == "2": eliminarEntrada()
-                # Implementación de Generar Entrada y Eliminar Venta aquí...
+    # Opción 3: INFORMES GENERALES
+    elif opcion == "3":   
+        # Menú de Informes Generales
+        while True:
+            mostrarMenu("INFORMES GENERALES", MENU_INFORMES)
+            opcionInformes = input("Seleccione una opción: ")
 
-                input("\nPresione ENTER para volver al menú.")
-                print("\n\n")
+            if opcionInformes == "0": break
+            # Implementación de los informes aquí...
+            if opcionInformes == "1": informeVentas()
+            if opcionInformes == "2": informeListadoPeliculasDisponibles()
+            if opcionInformes == "3": informeButacasDisponibles()
 
-        # Opción 3: INFORMES GENERALES
-        elif opcion == "3":   
-            # Menú de Informes Generales
-            while True:
-                print("\n---------------------------")
-                print("INFORMES GENERALES")
-                print("---------------------------")
-                print("[1] Emitir Informe de Ventas")
-                print("[2] Emitir Listado de Películas Disponibles")
-                print("[3] Emitir Informe de Butacas Disponibles")
-                print("[0] Volver al menú")
-                opcionInformes = input("Seleccione una opción: ")
+            input("\nPresione ENTER para volver al menú.")
+            print("\n\n")
 
-                if opcionInformes == "0": break
-                # Implementación de los informes aquí...
-                if opcionInformes == "1": informeVentas()
-                if opcionInformes == "2": informeListadoPeliculasDisponibles()
-                if opcionInformes == "3": informeButacasDisponibles()
+    # Opción 4: GESTIÓN DE COMPLEJO DE CINES
+    elif opcion == "4":   
+        # Menú de Gestión de Complejo de Cines
+        while True:
+            mostrarMenu("GESTIÓN DE COMPLEJO DE CINES", MENU_CINES)
+            opcionCines = input("Seleccione una opción: ")
 
-                input("\nPresione ENTER para volver al menú.")
-                print("\n\n")
-
-        # Opción 4: GESTIÓN DE COMPLEJO DE CINES
-        elif opcion == "4":   
-            # Menú de Gestión de Complejo de Cines
-            while True:
-                print("\n---------------------------")
-                print("GESTIÓN DE COMPLEJO DE CINES")
-                print("---------------------------")
-                print("[1] Listar Cines")
-                print("[2] Agregar Nuevo Cine")
-                print("[3] Eliminar Cine")
-                print("[4] Modificar Cine")
-                print("[0] Volver al menú")
-                opcionCines = input("Seleccione una opción: ")
-
-                if opcionCines == "0": break
-                if opcionCines == "1": 
-                    cines = listarCines()
-                    print("Lista de todos los cines:")
-                    for i in cines:
-                        print(
-                            f"ID: {i}, Nombre: {cines[i]['nombre']}, Dirección: {cines[i]['direccion']}")
-                if opcionCines == "2": nuevoCine()
-                if opcionCines == "3": eliminarCine()
-                if opcionCines == "4": 
-                    cines = listarCines()
-                    cineId = input("Ingrese el ID del cine que desea modificar: ")
-                    cineModificado = cines.get(cineId)
-                    if not cineModificado:
-                        print("Error: No se encontró un cine con el ID proporcionado.")
-                        return
+            if opcionCines == "0": break
+            if opcionCines == "1": 
+                cines = listarCines()
+                print("Lista de todos los cines:")
+                for i in cines:
+                    print(
+                        f"ID: {i}, Nombre: {cines[i]['nombre']}, Dirección: {cines[i]['direccion']}")
+            if opcionCines == "2": nuevoCine()
+            if opcionCines == "3": eliminarCine()
+            if opcionCines == "4": 
+                cines = listarCines()
+                cineId = input("Ingrese el ID del cine que desea modificar: ")
+                if cines.get(cineId):
+                    cineModificado = {}
                     # Pedir nuevos datos
                     nuevoNombre = input(
                         "Ingrese el nuevo nombre del cine (deje en blanco para no modificar): ")
@@ -170,13 +180,12 @@ def main():
                         cineModificado['direccion'] = nuevaDireccion
                     if (cineModificado != cines.get(cineId)):
                         cines = modificarCine(cineId, cineModificado, cines)
-                # Implementación de gestión de cines aquí...
+                else:
+                    print("Error: No se encontró un cine con el ID proporcionado.")
+            # Implementación de gestión de cines aquí...
 
-                input("\nPresione ENTER para volver al menú.")
-                print("\n\n")
-
-if __name__ == "__main__":
-    main()
+            input("\nPresione ENTER para volver al menú.")
+            print("\n\n")
 
 
 """Se optimizo lineas de codigo del menu principal"""

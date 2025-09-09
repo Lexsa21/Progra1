@@ -3,10 +3,20 @@
 # ----------------------------------------------------------------------------------------------
 import json
 
+# Constantes de archivos
 ARCHIVO_PELICULAS = "movies.json"
 ARCHIVO_ID_MAPPING = "id_mapping.txt"
 ARCHIVO_CINES = "cines.json"
 ARCHIVO_ENTRADAS = "entradas.json"
+
+# Conjuntos para validaciones (más eficientes que listas para verificar membresía)
+FORMATOS_VALIDOS = {"2d", "3d"}
+IDIOMAS_VALIDOS = {"español", "subtitulado"}
+DIAS_SEMANA = {"lunes", "martes", "miercoles", "jueves", "viernes", "sabado", "domingo"}
+
+# Tuplas para configuración de salas (inmutables, apropiadas para datos constantes)
+NUMERACION_FILAS = ("A", "B", "C", "D", "E", "F", "G", "H", "I")
+CONFIGURACION_SALA = (9, 8)  # (filas, columnas)
 
 def listarPeliculas():
     """- Función que lista las películas activas del archivo movies.txt
@@ -51,11 +61,11 @@ def agregarPelicula():
                 "Error. El título no puede estar vacío. Ingresa el título de la película: ")
 
         formatoPelicula = input("Ingresa el formato (2D/3D): ")
-        while formatoPelicula.lower() not in ["2d", "3d"]:
+        while formatoPelicula.lower() not in FORMATOS_VALIDOS:
             formatoPelicula = input("Error. Ingresa el formato (2D/3D): ")
 
         idioma = input("Ingresa el idioma (Español/Subtitulado): ")
-        while idioma.lower() not in ["español", "subtitulado"]:
+        while idioma.lower() not in IDIOMAS_VALIDOS:
             idioma = input(
                 "Error. Ingresa el idioma (Español/Subtitulado): ")
 
@@ -207,12 +217,13 @@ def crearSala():
        - Parámetro:
            NONE
        - Retorno:
-           sala (dicc): diccionario con disponibilidad de cada asiento"""
+           sala (dict): diccionario con disponibilidad de cada asiento"""
     sala = {}
-    numeracionSalas = ["A", "B", "C", "D", "E", "F", "G", "H", "I"]
-    for i in range(1, 10):
-        for j in range(0, 8):
-            asiento = str(numeracionSalas[j])+str(i)
+    filas, columnas = CONFIGURACION_SALA
+    
+    for i in range(1, filas + 1):
+        for j in range(columnas):
+            asiento = f"{NUMERACION_FILAS[j]}{i}"
             sala[asiento] = True
     return sala
 
@@ -230,7 +241,7 @@ def agregarSchedule(peliculas, peliculaId):
             "Ingresa el día de la semana para la proyección (o 'fin' para terminar): ")
         if dia.lower() == 'fin':
             break
-        if dia.lower() not in ["lunes", "martes", "miercoles", "jueves", "viernes", "sabado", "domingo"]:
+        if dia.lower() not in DIAS_SEMANA:
             print("Error. Día no válido. Ingresar un día correcto.")
             continue
 
@@ -295,6 +306,31 @@ def butacaDisponible(peliculaId):
         print("Error al decodificar JSON:", e)
 
     return
+
+def filtrar_peliculas_por_cine(peliculas, cine_id):
+    """- Función auxiliar que filtra películas por cine usando dictionary comprehension
+       - Parámetros:
+           peliculas (dict): diccionario con todas las películas
+           cine_id (int): ID del cine a filtrar
+       - Retorno:
+           dict: diccionario con películas filtradas por cine"""
+    return {
+        int(pelicula_id): info 
+        for pelicula_id, info in peliculas.items() 
+        if info.get('complejo') == cine_id and info.get('activo', False)
+    }
+
+def obtener_peliculas_activas(peliculas):
+    """- Función auxiliar que filtra solo películas activas usando dictionary comprehension
+       - Parámetros:
+           peliculas (dict): diccionario con todas las películas
+       - Retorno:
+           dict: diccionario con solo películas activas"""
+    return {
+        pelicula_id: info 
+        for pelicula_id, info in peliculas.items() 
+        if info.get('activo', False)
+    }
 
 def ingresarIdPelicula(comentario):
     """- Función para ingresar ID de película
@@ -394,9 +430,8 @@ def generarEntrada():
         # Cargar las películas
         peliculas = listarPeliculas()
 
-        # Filtrar las películas por cine
-        peliculasEnCine = {int(peliculaId): info for peliculaId, info in peliculas.items(
-        ) if info.get('complejo') == int(idCine)}
+        # Filtrar las películas por cine usando la nueva función auxiliar
+        peliculasEnCine = filtrar_peliculas_por_cine(peliculas, int(idCine))
 
         if peliculasEnCine:
             print("\nLista de todas las películas en este cine:")
@@ -540,6 +575,47 @@ def eliminarEntrada():
     except json.JSONDecodeError as e:
         print("Error al decodificar JSON:", e)
 
+def crear_estadisticas_ventas(entradas, peliculas, cines):
+    """- Función auxiliar que crea estadísticas de ventas
+       - Parámetros:
+           entradas (dict): diccionario con todas las entradas
+           peliculas (dict): diccionario con todas las películas
+           cines (dict): diccionario con todos los cines
+       - Retorno:
+           tuple: (informe, ventasGenerales)"""
+    
+    # Inicializar el diccionario de informe manualmente
+    informe = {}
+    ventasGenerales = 0
+    
+    for entrada in entradas.values():
+        cineId = entrada.get("cine")
+        peliculaId = str(entrada.get("pelicula"))
+        
+        # Verificaciones de existencia
+        if cineId not in cines or peliculaId not in peliculas:
+            continue
+            
+        # Inicializar la entrada del cine si no existe
+        if cineId not in informe:
+            informe[cineId] = {
+                "nombre": cines[cineId]["nombre"],
+                "entradas": {}
+            }
+        
+        # Inicializar la entrada de la película si no existe
+        if peliculaId not in informe[cineId]["entradas"]:
+            informe[cineId]["entradas"][peliculaId] = {
+                "titulo": peliculas[peliculaId]["title"],
+                "cantidad": 0
+            }
+        
+        # Incrementar contador de entradas para esta película
+        informe[cineId]["entradas"][peliculaId]["cantidad"] += 1
+        ventasGenerales += 1
+    
+    return informe, ventasGenerales
+
 def informeVentas():
     """- Genera un informe de ventas de entradas, mostrando la cantidad de entradas vendidas por película y cine.
        - Parámetro:
@@ -559,41 +635,8 @@ def informeVentas():
         with open(ARCHIVO_CINES, "r", encoding="utf-8") as f:
             cines = json.load(f)
 
-        # Crear un informe acumulativo de entradas vendidas por cine y película, un total general de ventas
-        informe = {}
-        ventasGenerales = 0
-        for entrada in entradas.values():
-            cineId = entrada.get("cine")
-            # Aseguramos que el ID de película tenga 4 dígitos
-            peliculaId = str(entrada.get("pelicula"))
-
-            # Verificar si el cine existe
-            if cineId not in cines:
-                print(
-                    f"Advertencia: El cine con ID {cineId} no existe. Ignorando esta entrada.")
-                continue  # Saltar si el cine no existe
-
-            # Verificar si la película existe
-            if peliculaId not in peliculas:
-                print(
-                    f"Advertencia: La película con ID {peliculaId} no existe. Ignorando esta entrada.")
-                continue  # Saltar si la película no existe
-
-            # Agregar cine al informe si no existe
-            if cineId not in informe:
-                informe[cineId] = {
-                    "nombre": cines[cineId]["nombre"], "entradas": {}}
-
-            # Agregar película al informe de ese cine si no existe
-            if peliculaId not in informe[cineId]["entradas"]:
-                informe[cineId]["entradas"][peliculaId] = {
-                    "titulo": peliculas[peliculaId]["title"],
-                    "cantidad": 0
-                }
-
-            # Incrementar la cantidad de entradas vendidas para esa película en ese cine
-            informe[cineId]["entradas"][peliculaId]["cantidad"] += 1
-            ventasGenerales += 1
+        # Usar la función auxiliar para crear estadísticas con defaultdict
+        informe, ventasGenerales = crear_estadisticas_ventas(entradas, peliculas, cines)
 
         # Imprimir el informe de ventas
         for cineId, cineData in informe.items():
@@ -653,30 +696,28 @@ def informeButacasDisponibles():
         with open(ARCHIVO_PELICULAS, mode="r", encoding="utf-8") as f:
             peliculas = json.load(f)
 
-        # Recorrer todas las películas
-        for peliculaId, informacionPelicula in peliculas.items():
-            if informacionPelicula['activo']:  # Solo películas activas
-                sala = informacionPelicula.get('sala')
+        # Usar la función auxiliar para obtener solo películas activas
+        peliculas_activas = obtener_peliculas_activas(peliculas)
 
-                if sala is None:  # Si no tiene sala asignada, asignamos una sala vacía por defecto
-                    sala = {}
+        # Recorrer todas las películas activas
+        for peliculaId, informacionPelicula in peliculas_activas.items():
+            sala = informacionPelicula.get('sala')
 
-                print(
-                    f"\nPelícula: {informacionPelicula['title']} ({informacionPelicula['format']} - {informacionPelicula['language']})")
-                print(f"ID de la película: {peliculaId}")
-                print("Butacas disponibles:")
+            if sala is None:  # Si no tiene sala asignada, asignamos una sala vacía por defecto
+                sala = {}
 
-                # Mostrar butacas disponibles
-                butacasDisponibles = [butaca for butaca, disponible in sala.items() if disponible]
-                if butacasDisponibles:
-                    # esto agrupa las butacas disponibles en una cadena separada por coma.
-                    print(", ".join(butacasDisponibles))
-                else:
-                    print("No hay butacas disponibles.")
+            print(
+                f"\nPelícula: {informacionPelicula['title']} ({informacionPelicula['format']} - {informacionPelicula['language']})")
+            print(f"ID de la película: {peliculaId}")
+            print("Butacas disponibles:")
 
+            # Mostrar butacas disponibles usando list comprehension
+            butacasDisponibles = [butaca for butaca, disponible in sala.items() if disponible]
+            if butacasDisponibles:
+                # esto agrupa las butacas disponibles en una cadena separada por coma.
+                print(", ".join(butacasDisponibles))
             else:
-                print(
-                    f"\nPelícula inactiva: {informacionPelicula['title']} no se muestra en el informe.")
+                print("No hay butacas disponibles.")
 
     except (FileNotFoundError, OSError) as detalle:
         print("Error al intentar abrir el archivo de películas:", detalle)
@@ -697,6 +738,41 @@ def modificarCine(cineId, cineModificado, cines):
             f"ID: {i}, Nombre: {cines[i]['nombre']}, Dirección: {cines[i]['direccion']}")
     return cines
     
+def obtener_estadisticas_sistema():
+    """- Función que obtiene estadísticas generales del sistema usando conjuntos
+       - Retorno:
+           dict: estadísticas del sistema"""
+    try:
+        with open(ARCHIVO_PELICULAS, "r", encoding="utf-8") as f:
+            peliculas = json.load(f)
+        
+        with open(ARCHIVO_CINES, "r", encoding="utf-8") as f:
+            cines = json.load(f)
+            
+        with open(ARCHIVO_ENTRADAS, "r", encoding="utf-8") as f:
+            entradas = json.load(f)
+        
+        # Usar conjuntos para obtener elementos únicos eficientemente
+        formatos_usados = {pelicula['format'] for pelicula in peliculas.values()}
+        idiomas_usados = {pelicula['language'] for pelicula in peliculas.values()}
+        clientes_unicos = {entrada['cliente'] for entrada in entradas.values()}
+        
+        estadisticas = {
+            'total_peliculas': len(peliculas),
+            'peliculas_activas': len(obtener_peliculas_activas(peliculas)),
+            'total_cines': len(cines),
+            'total_entradas_vendidas': len(entradas),
+            'clientes_unicos': len(clientes_unicos),
+            'formatos_disponibles': list(formatos_usados),
+            'idiomas_disponibles': list(idiomas_usados)
+        }
+        
+        return estadisticas
+        
+    except (FileNotFoundError, OSError) as e:
+        print(f"Error al obtener estadísticas: {e}")
+        return {}
+
 def eliminarCine():
     """- Elimina un cine del registro.
        - Parámetro:
