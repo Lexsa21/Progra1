@@ -150,7 +150,26 @@ def main():
                             f"ID: {i}, Nombre: {cines[i]['nombre']}, Dirección: {cines[i]['direccion']}")
                 if opcionCines == "2": nuevoCine()
                 if opcionCines == "3": eliminarCine()
-                if opcionCines == "4": modificarCine()
+                if opcionCines == "4": 
+                    cines = listarCines()
+                    cineId = input("Ingrese el ID del cine que desea modificar: ")
+                    cineModificado = cines.get(cineId)
+                    if not cineModificado:
+                        print("Error: No se encontró un cine con el ID proporcionado.")
+                        return
+                    # Pedir nuevos datos
+                    nuevoNombre = input(
+                        "Ingrese el nuevo nombre del cine (deje en blanco para no modificar): ")
+                    nuevaDireccion = input(
+                        "Ingrese la nueva dirección del cine (deje en blanco para no modificar): ")
+
+                    # Actualizar campos si se proporcionan nuevos valores
+                    if nuevoNombre:
+                        cineModificado['nombre'] = nuevoNombre
+                    if nuevaDireccion:
+                        cineModificado['direccion'] = nuevaDireccion
+                    if (cineModificado != cines.get(cineId)):
+                        cines = modificarCine(cineId, cineModificado, cines)
                 # Implementación de gestión de cines aquí...
 
                 input("\nPresione ENTER para volver al menú.")

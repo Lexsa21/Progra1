@@ -105,7 +105,6 @@ def agregarPelicula():
 
     return
 
-
 def modificarPelicula(peliculaId):
     """- Función que modifica una película del archivo movies.txt
        - Parámetros: 
@@ -203,8 +202,6 @@ def generarId():
 
 # Funcion que crea una sala nueva con butacas vacias para las funciones
 # Es una sala "simbolica", no tomarselo como que existe una sala diferente por pelicula.
-
-
 def crearSala():
     """- Función que genera una sala para cada pelicula, de iguales dimenciones y cantidad de asientos.
        - Parámetro:
@@ -246,7 +243,6 @@ def agregarSchedule(peliculas, peliculaId):
 
     return peliculas
 
-
 def esHorario(horario):
     """- Función que valida que el horario tenga el formato HH:MM y sea un horario válido.
        - Parámetro:
@@ -263,7 +259,7 @@ def esHorario(horario):
 
     return 0 <= int(horas) < 24 and 0 <= int(minutos) < 60
 
-# Esta función debuelve la butaca disponible (si la hay) o 0 si no existe para esa función. idp = id de la pelicula, pathMovies = ruta al archivo que contiene las peliculas.
+# # Esta función debuelve la butaca disponible (si la hay) o 0 si no existe para esa función. idp = id de la pelicula, pathMovies = ruta al archivo que contiene las peliculas.
 
 def butacaDisponible(peliculaId):
     """- Función que busca la primera butaca disponible en una pelicula determinada.
@@ -299,7 +295,6 @@ def butacaDisponible(peliculaId):
         print("Error al decodificar JSON:", e)
 
     return
-
 
 def ingresarIdPelicula(comentario):
     """- Función para ingresar ID de película
@@ -364,7 +359,6 @@ def nuevoCine():
 
     return
 
-
 def listarCines():
     """- Función que lista los cines creados.
        - Parámetro:
@@ -381,11 +375,7 @@ def listarCines():
     except json.JSONDecodeError as e:
         print(f"Error al decodificar JSON: {e}")
 
-    return
-
 # Reserva un asiento para una pelicula. listapelis = archivo / estructura de datos con las peliculas, listaentradas = archivo/estructura de datos que gusrde las entradas a las peliculas.
-
-
 def generarEntrada():
     """- Función que genera una entrada para un cliente para asistir a una pelicula
        - Parámetro:
@@ -550,7 +540,6 @@ def eliminarEntrada():
     except json.JSONDecodeError as e:
         print("Error al decodificar JSON:", e)
 
-
 def informeVentas():
     """- Genera un informe de ventas de entradas, mostrando la cantidad de entradas vendidas por película y cine.
        - Parámetro:
@@ -692,43 +681,22 @@ def informeButacasDisponibles():
     except (FileNotFoundError, OSError) as detalle:
         print("Error al intentar abrir el archivo de películas:", detalle)
 
-def modificarCine():
+def modificarCine(cineId, cineModificado, cines):
     """- Modifica los datos de un cine existente.
        - Parámetro:
-           pathCines (str): ruta de archivo JSON cines.txt con los cines
+           cineId (str): ID del cine a modificar
+           cineModificado (dict): diccionario con los datos modificados del cine
+           cines (dict): diccionario con todos los cines
        - Retorno:
            None"""
-    try:
-        with open(ARCHIVO_CINES, mode="r", encoding="utf-8") as f1:
-            cines = json.load(f1)
-
-        cineId = input("Ingrese el ID del cine que desea modificar: ")
-        if cineId not in cines:
-            print("Error: No se encontró un cine con el ID proporcionado.")
-            return
-
-        # Pedir nuevos datos
-        nuevoNombre = input(
-            "Ingrese el nuevo nombre del cine (deje en blanco para no modificar): ")
-        nuevaDireccion = input(
-            "Ingrese la nueva dirección del cine (deje en blanco para no modificar): ")
-
-        # Actualizar campos si se proporcionan nuevos valores
-        if nuevoNombre:
-            cines[cineId]['nombre'] = nuevoNombre
-        if nuevaDireccion:
-            cines[cineId]['direccion'] = nuevaDireccion
-
-        # Guardar datos actualizados
-        with open(ARCHIVO_CINES, mode="w", encoding="utf-8") as f1:
-            json.dump(cines, f1, ensure_ascii=False, indent=4)
-
-        print("¡Cine modificado con éxito!")
-    except (FileNotFoundError, OSError) as e:
-        print(f"Error al intentar abrir o guardar archivo: {e}")
-    except json.JSONDecodeError as e:
-        print(f"Error al decodificar JSON: {e}")
-
+    cines[cineId].update(cineModificado)
+    print("¡Cine modificado con éxito!")
+    print("Cines actuales:", cines)
+    for i in cines:
+        print(
+            f"ID: {i}, Nombre: {cines[i]['nombre']}, Dirección: {cines[i]['direccion']}")
+    return cines
+    
 def eliminarCine():
     """- Elimina un cine del registro.
        - Parámetro:
