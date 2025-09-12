@@ -474,47 +474,42 @@ while True:
             if opcionCines == "0": break
             if opcionCines == "1": 
                 print("Lista de todos los cines:")
-                listado = [(cineId, data["nombre"].strip(), data["direccion"].strip()) for cineId, data in cines.items()]
-
-                # Mostramos como tabla formateada usando cadenas
-                print("\n--- LISTADO DE CINES ---")
-                for cineId, nombre, direccion in listado:
-                    print(f"ID: {cineId:<3} | Nombre: {nombre:<25} | Dirección: {direccion}")
+                imprimirCines(cines)
 
             if opcionCines == "2": 
                 nombre = input("Ingrese el nombre del cine: ").strip()
                 direccion = input("Ingrese la dirección del cine: ").strip()
-                cine_data = (nombre, direccion)
-                cines = nuevoCine(cine_data, cines)
+                cineData = (nombre, direccion)
+                cines = nuevoCine(cineData, cines)
+                print("¡Cine agregado con éxito!")
+
             if opcionCines == "3": 
                 cineId = input("Ingrese el ID del cine que desea eliminar: ")
-                if cines.get(cineId):
-                    confirmacion = input("¿Está seguro que desea eliminar el cine? (s/n): ").lower()
-                    if confirmacion == "s":
-                        cines = eliminarCine(cineId, cines)
-                else:
+                if not cines.get(cineId):
                     print("Error: No se encontró un cine con el ID proporcionado.")
+                    break
+                confirmacion = input("¿Está seguro que desea eliminar el cine? (s/n): ").lower()
+                if confirmacion == "s":
+                    cines = eliminarCine(cineId, cines)
+                    print("¡Cine eliminado con éxito!")
 
             if opcionCines == "4": 
                 cineId = input("Ingrese el ID del cine que desea modificar: ")
-                if cines.get(cineId):
-                    cineModificado = {}
-                    # Pedir nuevos datos
-                    nuevoNombre = input(
-                        "Ingrese el nuevo nombre del cine (deje en blanco para no modificar): ")
-                    nuevaDireccion = input(
-                        "Ingrese la nueva dirección del cine (deje en blanco para no modificar): ")
-
-                    # Actualizar campos si se proporcionan nuevos valores
-                    if nuevoNombre:
-                        cineModificado['nombre'] = nuevoNombre
-                    if nuevaDireccion:
-                        cineModificado['direccion'] = nuevaDireccion
-                    if (cineModificado != cines.get(cineId)):
-                        cines = modificarCine(cineId, cineModificado, cines)
-                else:
+                cineExistente = cines.get(cineId)
+                if not cineExistente:
                     print("Error: No se encontró un cine con el ID proporcionado.")
-            # Implementación de gestión de cines aquí...
+                    break
+
+                nuevoNombre = input(
+                    "Ingrese el nuevo nombre del cine (deje en blanco para no modificar): ").strip()
+                nuevaDireccion = input(
+                    "Ingrese la nueva dirección del cine (deje en blanco para no modificar): ").strip()
+                cineEditado = (nuevoNombre if nuevoNombre else cineExistente['nombre'],
+                                nuevaDireccion if nuevaDireccion else cineExistente['direccion'])
+                
+                if (cineEditado != tuple(cineExistente.values())):
+                    cines = modificarCine(cineId, cineEditado, cines)
+                    print("¡Cine modificado con éxito!")
 
             input("\nPresione ENTER para volver al menú.")
             print("\n\n")

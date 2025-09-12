@@ -405,21 +405,12 @@ def nuevoCine(cineData, cines):
 
 #     return
 
-def listarCines():
-    """- Función que lista los cines creados.
-       - Parámetro:
-           path (str): ruta de archivo JSON cines.txt con los cines
-       - Retorno:
-           None
-           """
-    try:
-        with open(ARCHIVO_CINES, mode="r", encoding="utf-8") as f1:
-            cines = json.load(f1)
-        return cines
-    except (FileNotFoundError, OSError) as e:
-        print(f"Error al intentar abrir archivo: {e}")
-    except json.JSONDecodeError as e:
-        print(f"Error al decodificar JSON: {e}")
+def imprimirCines(cines):
+    listado = [(cineId, data["nombre"].strip(), data["direccion"].strip()) for cineId, data in cines.items()]
+    # Mostramos como tabla formateada usando cadenas
+    print("\n--- LISTADO DE CINES ---")
+    for cineId, nombre, direccion in listado:
+        print(f"ID: {cineId:<3} | Nombre: {nombre:<25} | Dirección: {direccion}")
 
 # Reserva un asiento para una pelicula. listapelis = archivo / estructura de datos con las peliculas, listaentradas = archivo/estructura de datos que gusrde las entradas a las peliculas.
 def generarEntrada():
@@ -685,20 +676,12 @@ def informeButacasDisponibles(sala):
     butacasDisponibles = set([butaca for butaca, disponible in sala.items() if disponible])
     return butacasDisponibles
 
-def modificarCine(cineId, cineModificado, cines):
-    """- Modifica los datos de un cine existente.
-       - Parámetro:
-           cineId (str): ID del cine a modificar
-           cineModificado (dict): diccionario con los datos modificados del cine
-           cines (dict): diccionario con todos los cines
-       - Retorno:
-           None"""
+def modificarCine(cineId, cineData, cines):
+    cineModificado = {
+        "nombre": cineData[0],
+        "direccion": cineData[1]
+    }
     cines[cineId].update(cineModificado)
-    print("¡Cine modificado con éxito!")
-    print("Cines actuales:", cines)
-    for i in cines:
-        print(
-            f"ID: {i}, Nombre: {cines[i]['nombre']}, Dirección: {cines[i]['direccion']}")
     return cines
     
 def obtener_estadisticas_sistema():
