@@ -71,6 +71,292 @@ def mostrarMenu(titulo, opciones):
 # CUERPO PRINCIPAL
 #----------------------------------------------------------------------------------------------
 while True:
+    cines = {
+            "1": {
+                "nombre": "Nuestra Señora del Lujan",
+                "direccion": "Calle 24 e/ 125 y 127"
+            },
+            "2": {
+                "nombre": "Los Sauces",
+                "direccion": "Calle 79 e/ 10 y 12"
+            },
+            "3": {
+                "nombre": "York",
+                "direccion": "Calle 60 e/ 125 y 127"
+            },
+            "4": {
+                "nombre": "Abasto",
+                "direccion": "Rivadavia888"
+            },
+            "5": {
+                "nombre": "Rey",
+                "direccion": "corrientes 1145 olivos"
+            },
+            "6": {
+                "nombre": "Cinemark Caballito",
+                "direccion": "Av la plata 600"
+            },
+            "7": {
+                "nombre": "cinemaxi",
+                "direccion": "cine123"
+            }
+        }
+    
+    peliculas = {
+        "1": {
+            "title": "Spiderman",
+            "format": "2D",
+            "language": "Español",
+            "schedule": [
+                "Martes a las 14:00"
+            ],
+            "activo": True,
+            "sala": {
+                "A1": True,
+                "B1": True,
+                "C1": True,
+                "D1": True,
+                "E1": True,
+                "F1": True,
+                "G1": True,
+                "H1": True,
+                "A2": True,
+                "B2": True,
+                "C2": True,
+                "D2": True,
+                "E2": True,
+                "F2": True,
+                "G2": True,
+                "H2": True,
+                "A3": True,
+                "B3": True,
+                "C3": True,
+                "D3": True,
+                "E3": True,
+                "F3": True,
+                "G3": True,
+                "H3": True,
+                "A4": True,
+                "B4": True,
+                "C4": True,
+                "D4": True,
+                "E4": True,
+                "F4": True,
+                "G4": True,
+                "H4": True,
+                "A5": True,
+                "B5": True,
+                "C5": True,
+                "D5": True,
+                "E5": True,
+                "F5": True,
+                "G5": True,
+                "H5": True,
+                "A6": True,
+                "B6": True,
+                "C6": True,
+                "D6": True,
+                "E6": True,
+                "F6": True,
+                "G6": True,
+                "H6": True,
+                "A7": True,
+                "B7": True,
+                "C7": True,
+                "D7": True,
+                "E7": True,
+                "F7": True,
+                "G7": True,
+                "H7": True,
+                "A8": True,
+                "B8": True,
+                "C8": True,
+                "D8": True,
+                "E8": True,
+                "F8": True,
+                "G8": True,
+                "H8": True,
+                "A9": True,
+                "B9": True,
+                "C9": True,
+                "D9": True,
+                "E9": True,
+                "F9": True,
+                "G9": True,
+                "H9": True
+            },
+            "complejo": "1"
+        },
+        "2": {
+            "title": "Avengers: Endgame",
+            "format": "3D",
+            "language": "Subtitulado",
+            "schedule": [
+                "Miércoles a las 18:00"
+            ],
+            "activo": True,
+            "sala": {
+                "A1": True,
+                "B1": True,
+                "C1": True,
+                "D1": True,
+                "E1": True,
+                "F1": True,
+                "G1": True,
+                "H1": True,
+                "A2": True,
+                "B2": True,
+                "C2": True,
+                "D2": True,
+                "E2": True,
+                "F2": True,
+                "G2": True,
+                "H2": True,
+                "A3": True,
+                "B3": True,
+                "C3": True,
+                "D3": True,
+                "E3": True,
+                "F3": True,
+                "G3": True,
+                "H3": True,
+                "A4": True,
+                "B4": True,
+                "C4": True,
+                "D4": True,
+                "E4": True,
+                "F4": True,
+                "G4": True,
+                "H4": True,
+                "A5": True,
+                "B5": True,
+                "C5": True,
+                "D5": True,
+                "E5": True,
+                "F5": True,
+                "G5": True,
+                "H5": True,
+                "A6": True,
+                "B6": True,
+                "C6": True,
+                "D6": True,
+                "E6": True,
+                "F6": True,
+                "G6": True,
+                "H6": True,
+                "A7": True,
+                "B7": True,
+                "C7": True,
+                "D7": True,
+                "E7": True,
+                "F7": True,
+                "G7": True,
+                "H7": True,
+                "A8": True,
+                "B8": True,
+                "C8": True,
+                "D8": True,
+                "E8": True,
+                "F8": True,
+                "G8": True,
+                "H8": True,
+                "A9": True,
+                "B9": True,
+                "C9": True,
+                "D9": True,
+                "E9": True,
+                "F9": True,
+                "G9": True,
+                "H9": True
+            },
+            "complejo": "2"
+        },
+        "3": {
+            "title": "Coco",
+            "format": "2D",
+            "language": "Español",
+            "schedule": [
+                "Jueves a las 16:00"
+            ],
+            "activo": True,
+            "sala": {
+                "A1": True,
+                "B1": True,
+                "C1": True,
+                "D1": True,
+                "E1": True,
+                "F1": True,
+                "G1": True,
+                "H1": True,
+                "A2": True,
+                "B2": True,
+                "C2": True,
+                "D2": True,
+                "E2": True,
+                "F2": True,
+                "G2": True,
+                "H2": True,
+                "A3": True,
+                "B3": True,
+                "C3": True,
+                "D3": True,
+                "E3": True,
+                "F3": True,
+                "G3": True,
+                "H3": True,
+                "A4": True,
+                "B4": True,
+                "C4": True,
+                "D4": True,
+                "E4": True,
+                "F4": True,
+                "G4": True,
+                "H4": True,
+                "A5": True,
+                "B5": True,
+                "C5": True,
+                "D5": True,
+                "E5": True,
+                "F5": True,
+                "G5": True,
+                "H5": True,
+                "A6": True,
+                "B6": True,
+                "C6": True,
+                "D6": True,
+                "E6": True,
+                "F6": True,
+                "G6": True,
+                "H6": True,
+                "A7": True,
+                "B7": True,
+                "C7": True,
+                "D7": True,
+                "E7": True,
+                "F7": True,
+                "G7": True,
+                "H7": True,
+                "A8": True,
+                "B8": True,
+                "C8": True,
+                "D8": True,
+                "E8": True,
+                "F8": True,
+                "G8": True,
+                "H8": True,
+                "A9": True,
+                "B9": True,
+                "C9": True,
+                "D9": True,
+                "E9": True,
+                "F9": True,
+                "G9": True,
+                "H9": True
+            },
+            "complejo": "4"
+        },
+    }
+    entradas = {}
     mostrarMenu("SISTEMA DE GESTIÓN DE CINE", MENU_PRINCIPAL)
     opcion = input("Seleccione una opción: ")
 
@@ -140,8 +426,40 @@ while True:
             if opcionInformes == "0": break
             # Implementación de los informes aquí...
             if opcionInformes == "1": informeVentas()
-            if opcionInformes == "2": informeListadoPeliculasDisponibles()
-            if opcionInformes == "3": informeButacasDisponibles()
+            if opcionInformes == "2": 
+                disponibles = informeListadoPeliculasDisponibles(peliculas, cines)
+                idiomas = set(pelicula[2] for pelicula in disponibles)
+                formatos = set(pelicula[3] for pelicula in disponibles)
+
+                print("\n--- LISTADO DE PELÍCULAS DISPONIBLES ---")
+                for peliculaId, titulo, idioma, formato, cineId in disponibles:
+                    print(f"ID: {peliculaId} | Título: {titulo} | Idioma: {idioma} | Formato: {formato} | Cine: {cineId}")
+
+                print("\nIdiomas disponibles:", ", ".join(sorted(idiomas)))
+                print("Formatos disponibles:", ", ".join(sorted(formatos)))
+
+            if opcionInformes == "3": 
+                for peliculaId, dataPelicula in peliculas.items():
+                    if dataPelicula['activo']:  # Solo películas activas
+                        sala = dataPelicula.get('sala')
+
+                        if not sala:  # Si no tiene sala asignada, asignamos una sala vacía por defecto
+                            sala = {}
+
+                        print(f"ID de la película: {peliculaId}")
+                        print(
+                            f"\nPelícula: {dataPelicula['title']} ({dataPelicula['format']} - {dataPelicula['language']})")
+                        print("Butacas disponibles:")
+                        # Mostrar butacas disponibles
+                        butacasDisponibles = informeButacasDisponibles(sala)
+                        if butacasDisponibles:
+                            # esto agrupa las butacas disponibles en una cadena separada por coma.
+                            print(", ".join(butacasDisponibles))
+                        else:
+                            print("No hay butacas disponibles.")
+                    else:
+                        print(
+                            f"\nPelícula inactiva: {dataPelicula['title']} no se muestra en el informe.")
 
             input("\nPresione ENTER para volver al menú.")
             print("\n\n")
@@ -155,15 +473,29 @@ while True:
 
             if opcionCines == "0": break
             if opcionCines == "1": 
-                cines = listarCines()
                 print("Lista de todos los cines:")
-                for i in cines:
-                    print(
-                        f"ID: {i}, Nombre: {cines[i]['nombre']}, Dirección: {cines[i]['direccion']}")
-            if opcionCines == "2": nuevoCine()
-            if opcionCines == "3": eliminarCine()
+                listado = [(cineId, data["nombre"].strip(), data["direccion"].strip()) for cineId, data in cines.items()]
+
+                # Mostramos como tabla formateada usando cadenas
+                print("\n--- LISTADO DE CINES ---")
+                for cineId, nombre, direccion in listado:
+                    print(f"ID: {cineId:<3} | Nombre: {nombre:<25} | Dirección: {direccion}")
+
+            if opcionCines == "2": 
+                nombre = input("Ingrese el nombre del cine: ").strip()
+                direccion = input("Ingrese la dirección del cine: ").strip()
+                cine_data = (nombre, direccion)
+                cines = nuevoCine(cine_data, cines)
+            if opcionCines == "3": 
+                cineId = input("Ingrese el ID del cine que desea eliminar: ")
+                if cines.get(cineId):
+                    confirmacion = input("¿Está seguro que desea eliminar el cine? (s/n): ").lower()
+                    if confirmacion == "s":
+                        cines = eliminarCine(cineId, cines)
+                else:
+                    print("Error: No se encontró un cine con el ID proporcionado.")
+
             if opcionCines == "4": 
-                cines = listarCines()
                 cineId = input("Ingrese el ID del cine que desea modificar: ")
                 if cines.get(cineId):
                     cineModificado = {}

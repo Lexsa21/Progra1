@@ -351,49 +351,59 @@ def ingresarIdPelicula(comentario):
             print(ex)
 
 # Función que crea un nuevo cine
-def nuevoCine():
-    """- Función que genera un nuevo cine.
-       - Parámetro:
-           path (str): ruta de archivo JSON cines.txt con los cines
-       - Retorno:
-           None
-           """
-    try:
-        with open(ARCHIVO_CINES, mode="r", encoding="utf-8") as f1:
-            cines = json.load(f1)
+def nuevoCine(cineData, cines):
+    """Agrega un nuevo cine usando tupla (nombre, direccion)."""
+    # Creamos el próximo ID automáticamente
+    nuevo_id = str(int(max(cines.keys(), default="0")) + 1)
 
-        # Generar nuevo ID
-        nuevoid = max(int(i) for i in cines.keys()) + 1 if cines else 1
+    # Convertimos tupla en diccionario para guardar
+    cines[nuevo_id] = {"nombre": cineData[0], "direccion": cineData[1]}
 
-        # Solicitar nombre del cine
-        title = input("Ingresa el nombre del nuevo cine: ")
-        while not title:
-            title = input(
-                "Error. El nombre no puede estar vacío. Ingresa el nombre del nuevo cine: ")
+    print(f"\n✅ Cine agregado con éxito: {cineData[0]} (ID: {nuevo_id})")
+    return cines
+# def nuevoCine():
+#     """- Función que genera un nuevo cine.
+#        - Parámetro:
+#            path (str): ruta de archivo JSON cines.txt con los cines
+#        - Retorno:
+#            None
+#            """
+#     try:
+#         with open(ARCHIVO_CINES, mode="r", encoding="utf-8") as f1:
+#             cines = json.load(f1)
 
-        # Solicitar dirección del cine
-        direcc = input("Ingresa la dirección del nuevo cine: ")
-        while not direcc:
-            direcc = input(
-                "Error. La dirección no puede estar vacía. Ingresa la dirección del nuevo cine: ")
+#         # Generar nuevo ID
+#         nuevoid = max(int(i) for i in cines.keys()) + 1 if cines else 1
 
-        # Agregar el nuevo cine al diccionario
-        cines[str(nuevoid)] = {
-            'nombre': title,
-            'direccion': direcc
-        }
+#         # Solicitar nombre del cine
+#         title = input("Ingresa el nombre del nuevo cine: ")
+#         while not title:
+#             title = input(
+#                 "Error. El nombre no puede estar vacío. Ingresa el nombre del nuevo cine: ")
 
-        # Guardar los datos actualizados en el archivo JSON
-        with open(ARCHIVO_CINES, mode="w", encoding="utf-8") as f1:
-            json.dump(cines, f1, ensure_ascii=False, indent=4)
+#         # Solicitar dirección del cine
+#         direcc = input("Ingresa la dirección del nuevo cine: ")
+#         while not direcc:
+#             direcc = input(
+#                 "Error. La dirección no puede estar vacía. Ingresa la dirección del nuevo cine: ")
 
-        print("¡Cine creado con éxito!")
-    except (FileNotFoundError, OSError) as e:
-        print("Error al intentar abrir o guardar archivo:", e)
-    except json.JSONDecodeError as e:
-        print("Error al decodificar JSON:", e)
+#         # Agregar el nuevo cine al diccionario
+#         cines[str(nuevoid)] = {
+#             'nombre': title,
+#             'direccion': direcc
+#         }
 
-    return
+#         # Guardar los datos actualizados en el archivo JSON
+#         with open(ARCHIVO_CINES, mode="w", encoding="utf-8") as f1:
+#             json.dump(cines, f1, ensure_ascii=False, indent=4)
+
+#         print("¡Cine creado con éxito!")
+#     except (FileNotFoundError, OSError) as e:
+#         print("Error al intentar abrir o guardar archivo:", e)
+#     except json.JSONDecodeError as e:
+#         print("Error al decodificar JSON:", e)
+
+#     return
 
 def listarCines():
     """- Función que lista los cines creados.
@@ -650,77 +660,30 @@ def informeVentas():
     except (FileNotFoundError, OSError) as e:
         print(f"-Error- al intentar abrir archivo: {e}")
 
-def informeListadoPeliculasDisponibles():
-    """- Emite un listado de películas disponibles.
-       - Parámetro:
-           pathMovies (str): ruta de archivo JSON movies.txt con las películas
-       - Retorno: 
-           None"""
-    try:
-        # Abrir archivo de películas
-        with open(ARCHIVO_PELICULAS, mode="r", encoding="utf-8") as f:
-            movies = json.load(f)
+def informeListadoPeliculasDisponibles(peliculas, cines):
+    """Muestra todas las películas activas, con idiomas y formatos sin duplicados por cine."""
+    disponibles = [
+                    (peliculaId, data["title"].strip(), data["language"], data["format"], cines.get(str(data.get("complejo")), {}).get("nombre", "Desconocido"))
+                    for peliculaId, data in peliculas.items()
+                    if data.get("activo", True)  # filtramos con comprensión de listas
+                ]
 
-        # Contador de películas activas
-        peliculasActivas = 0
+    if not disponibles:
+        print("No hay películas disponibles actualmente.")
+        return []
 
-        print("\nListado de películas disponibles:")
-        for peliculaId, info in movies.items():
-            if info['activo']:  # Solo mostrar películas activas
-                peliculasActivas += 1
-                print(
-                    f"ID: {peliculaId}, Título: {info['title']}, Formato: {info['format']}, Idioma: {info['language']}")
-                if info['schedule']:
-                    print("  Horarios:")
-                    for entry in info['schedule']:
-                        print(f"    - {entry}")
-                else:
-                    print("  No hay horarios asignados.")
+    # Conjuntos para eliminar duplicados de idiomas y formatos
+    return disponibles
 
-        # Mensaje de si no hay películas activas
-        if peliculasActivas == 0:
-            print("No hay películas activas disponibles.")
-        else:
-            print(f"\nTotal de películas activas: {peliculasActivas}")
-
-    except (FileNotFoundError, OSError) as detalle:
-        print("Error al intentar abrir archivo(s):", detalle)
-
-def informeButacasDisponibles():
+def informeButacasDisponibles(sala):
     """- Función que genera un informe de las butacas disponibles para cada película.
        - Parámetro:
            pathMovies (str): ruta de archivo JSON movies.txt con las películas
        - Retorno:
            None"""
-    try:
-        with open(ARCHIVO_PELICULAS, mode="r", encoding="utf-8") as f:
-            peliculas = json.load(f)
-
-        # Usar la función auxiliar para obtener solo películas activas
-        peliculas_activas = obtener_peliculas_activas(peliculas)
-
-        # Recorrer todas las películas activas
-        for peliculaId, informacionPelicula in peliculas_activas.items():
-            sala = informacionPelicula.get('sala')
-
-            if sala is None:  # Si no tiene sala asignada, asignamos una sala vacía por defecto
-                sala = {}
-
-            print(
-                f"\nPelícula: {informacionPelicula['title']} ({informacionPelicula['format']} - {informacionPelicula['language']})")
-            print(f"ID de la película: {peliculaId}")
-            print("Butacas disponibles:")
-
-            # Mostrar butacas disponibles usando list comprehension
-            butacasDisponibles = [butaca for butaca, disponible in sala.items() if disponible]
-            if butacasDisponibles:
-                # esto agrupa las butacas disponibles en una cadena separada por coma.
-                print(", ".join(butacasDisponibles))
-            else:
-                print("No hay butacas disponibles.")
-
-    except (FileNotFoundError, OSError) as detalle:
-        print("Error al intentar abrir el archivo de películas:", detalle)
+            # Mostrar butacas disponibles
+    butacasDisponibles = set([butaca for butaca, disponible in sala.items() if disponible])
+    return butacasDisponibles
 
 def modificarCine(cineId, cineModificado, cines):
     """- Modifica los datos de un cine existente.
@@ -773,32 +736,6 @@ def obtener_estadisticas_sistema():
         print(f"Error al obtener estadísticas: {e}")
         return {}
 
-def eliminarCine():
-    """- Elimina un cine del registro.
-       - Parámetro:
-           pathCines (str): ruta de archivo JSON cines.txt con los cines
-       - Retorno:
-           None"""
-    try:
-        with open(ARCHIVO_CINES, mode="r", encoding="utf-8") as f1:
-            cines = json.load(f1)
-
-        cineId = input("Ingrese el ID del cine que desea eliminar: ")
-        if cineId not in cines:
-            print("Error: No se encontró un cine con el ID proporcionado.")
-            return
-
-        # Confirmar eliminación
-        confirmacion = input(
-            "¿Está seguro que desea eliminar el cine? (s/n): ").lower()
-        if confirmacion == 's':
-            del cines[cineId]
-            with open(ARCHIVO_CINES, mode="w", encoding="utf-8") as f1:
-                json.dump(cines, f1, ensure_ascii=False, indent=4)
-            print("¡Cine eliminado con éxito!")
-        else:
-            print("Operación cancelada.")
-    except (FileNotFoundError, OSError) as e:
-        print(f"Error al intentar abrir o guardar archivo: {e}")
-    except json.JSONDecodeError as e:
-        print(f"Error al decodificar JSON: {e}")
+def eliminarCine(cineId, cines):
+    del cines[cineId]
+    return cines
