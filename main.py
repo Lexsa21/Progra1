@@ -102,103 +102,129 @@ while True:
             }
         }
     #ARMAR ENTIDAD SALAS COMO CONJUNTO
-    
+    salas = { 
+            "1": { #salaID
+                "cineId": "1",
+                "numeroSala": "1", #Nombre de la sala
+                "asientos": {
+                    "A1": True,
+                    "B1": True,
+                    "C1": True,
+                    "D1": True,
+                    "E1": True,
+                    "F1": True,
+                    "G1": True,
+                    "H1": True,
+                    "A2": True,
+                    "B2": True,
+                    "C2": True,
+                    "D2": True,
+                    "E2": True,
+                    "F2": True,
+                    "G2": True,
+                    "H2": True,
+                    "A3": True,
+                    "B3": True,
+                    "C3": True,
+                    "D3": True,
+                    "E3": True,
+                    "F3": True,
+                    "G3": True,
+                    "H3": True,
+                    "A4": True,
+                    "B4": True,
+                    "C4": True,
+                    "D4": True,
+                    "E4": True,
+                    "F4": True,
+                    "G4": True,
+                    "H4": True,
+                    "A5": True,
+                    "B5": True,
+                    "C5": True,
+                    "D5": True,
+                    "E5": True,
+                    "F5": True,
+                    "G5": True,
+                    "H5": True,
+                    "A6": True,
+                    "B6": True,
+                    "C6": True,
+                    "D6": True,
+                    "E6": True,
+                    "F6": True,
+                    "G6": True,
+                    "H6": True,
+                    "A7": True,
+                    "B7": True,
+                    "C7": True,
+                    "D7": True,
+                    "E7": True,
+                    "F7": True,
+                    "G7": True,
+                    "H7": True,
+                    "A8": True,
+                    "B8": True,
+                    "C8": True,
+                    "D8": True,
+                    "E8": True,
+                    "F8": True,
+                    "G8": True,
+                    "H8": True,
+                    "A9": True,
+                    "B9": True,
+                    "C9": True,
+                    "D9": True,
+                    "E9": True,
+                    "F9": True,
+                    "G9": True,
+                    "H9": True
+            }
+            }
+        }
+    """
+        La estructura es:
+        {
+            "peliculaID": {
+                "cineID": {
+                    "salaID": [
+                        {
+                            "dia": {
+                                "horas"
+                            }
+                        }
+                    ]
+                }
+            }
+        }
+    """
+    funciones = {
+        1: {  # peliculaID
+            1: {  # cineID
+                1: [  # salaID
+                    {
+                        "martes": {
+                                    "14:00", 
+                                    "18:00"
+                        }
+                    },
+                ]
+            }
+        },
+    }
+
     peliculas = {
         "1": {
             "titulo": "Spiderman",
             "formato": "2D",
             "idioma": "Español",
-            "schedule": {
-                "martes": {
-                    "14:00"
-                }
-            },
             "activo": True,
-            "sala": {
-                "A1": True,
-                "B1": True,
-                "C1": True,
-                "D1": True,
-                "E1": True,
-                "F1": True,
-                "G1": True,
-                "H1": True,
-                "A2": True,
-                "B2": True,
-                "C2": True,
-                "D2": True,
-                "E2": True,
-                "F2": True,
-                "G2": True,
-                "H2": True,
-                "A3": True,
-                "B3": True,
-                "C3": True,
-                "D3": True,
-                "E3": True,
-                "F3": True,
-                "G3": True,
-                "H3": True,
-                "A4": True,
-                "B4": True,
-                "C4": True,
-                "D4": True,
-                "E4": True,
-                "F4": True,
-                "G4": True,
-                "H4": True,
-                "A5": True,
-                "B5": True,
-                "C5": True,
-                "D5": True,
-                "E5": True,
-                "F5": True,
-                "G5": True,
-                "H5": True,
-                "A6": True,
-                "B6": True,
-                "C6": True,
-                "D6": True,
-                "E6": True,
-                "F6": True,
-                "G6": True,
-                "H6": True,
-                "A7": True,
-                "B7": True,
-                "C7": True,
-                "D7": True,
-                "E7": True,
-                "F7": True,
-                "G7": True,
-                "H7": True,
-                "A8": True,
-                "B8": True,
-                "C8": True,
-                "D8": True,
-                "E8": True,
-                "F8": True,
-                "G8": True,
-                "H8": True,
-                "A9": True,
-                "B9": True,
-                "C9": True,
-                "D9": True,
-                "E9": True,
-                "F9": True,
-                "G9": True,
-                "H9": True
-            },
-            "complejo": "1"
+            "complejos": ["1"]
         },
         "2": {
             "titulo": "Avengers: Endgame",
             "formato": "3D",
             "idioma": "Subtitulado",
-            "schedule": {
-                "miercoles": {
-                    "18:00"
-                }
-            } ,
             "activo": True,
             "sala": {
                 "A1": True,
@@ -274,18 +300,12 @@ while True:
                 "G9": True,
                 "H9": True
             },
-            "complejo": "2"
+            "complejos": ["2"]
         },
         "3": {
             "titulo": "Coco",
             "formato": "2D",
             "idioma": "Español",
-            "schedule": {
-                "jueves": {
-                    "16:00"
-                }
-            }
-            ,
             "activo": True,
             "sala": {
                 "A1": True,
@@ -361,7 +381,7 @@ while True:
                 "G9": True,
                 "H9": True
             },
-            "complejo": "4"
+            "complejos": ["4"]
         },
     }
     entradas = {}
@@ -456,6 +476,9 @@ while True:
                     peliculas = modificarPelicula(peliculaId, peliculaEditada, peliculas)
 
                 modificarPelicula(peliculaId)
+
+                print(f"¡Película '{peliculaId}' modificada con éxito!")
+
             elif opcionPeliculas == "3": 
                 peliculaId = input("Ingresa el número de la película a eliminar: ")
                 inactivarPelicula(peliculaId)
