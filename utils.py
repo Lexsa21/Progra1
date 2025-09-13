@@ -8,14 +8,7 @@ CONFIGURACION_SALA = (9, 8)  # (filas, columnas)
 def imprimirPeliculas(peliculas):
     print("\n--- LISTADO DE PELÍCULAS ---")
     for peliculaId, pelicula in peliculas.items():
-        print(f"ID: {peliculaId} | Título: {pelicula['titulo']} | Idioma: {pelicula['idioma']} | Formato: {pelicula['formato']} | ID Cine: {pelicula['complejo']}")
-        if pelicula['schedule']:
-            print("  Funciones:")
-            for dia, horarios in pelicula['schedule'].items():
-                for horario in horarios:
-                    print(f"    - {dia.capitalize()} a las {horario}")
-        else:
-            print("  No hay horarios asignados.")
+        print(f"ID: {peliculaId} | Título: {pelicula['titulo']} | Idioma: {pelicula['idioma']} | Formato: {pelicula['formato']} | ID Cines: {', '.join(pelicula['complejos'])}")
     print("\n")
 
 def agregarPelicula(peliculaData, peliculas):
@@ -28,14 +21,12 @@ def agregarPelicula(peliculaData, peliculas):
 
     peliculas[peliculaId] = peliculaData.copy()
 
-    return peliculas
+    return peliculas, peliculaId
 
 def modificarPelicula(peliculaId, peliculaData, peliculas):
     peliculas[peliculaId] = peliculaData.copy()
 
     return peliculas
-
-    print(f"¡Película '{peliculaId}' modificada con éxito!")
 
 def inactivarPelicula(peliculaId):
     """- Función que inactiva una película del archivo movies.txt
@@ -72,6 +63,13 @@ def generarId(peliculas):
 
     return peliculaId
 
+def imprimirSalasPorCine(cineId, salas):
+    print(f"\n--- SALAS DEL CINE ID: {cineId} ---")
+    for salaId, sala in salas.items():
+        if sala['cineId'] == cineId:
+            print(f"ID: {salaId} | Número de Sala: {sala['numeroSala']}")
+    print("\n")
+
 def crearSala():
     sala = {}
     filas, columnas = CONFIGURACION_SALA
@@ -82,21 +80,49 @@ def crearSala():
             sala[asiento] = True
     return sala
 
-def agregarSchedule():
+def generarFuncion(cineId, salaId):
     dia = input(
         "Ingresa el día de la semana para la proyección (o 'ENTER' para terminar): ")
     if not dia:
         return {}
     if dia.lower() not in DIAS_SEMANA:
         print("Error. Día no válido. Ingresar un día correcto.")
-        return agregarSchedule()
+        return generarFuncion(cineId, salaId)
 
     horario = input("Ingresa la hora (ej. 14:00): ")
     while not esHorario(horario):
         horario = input("Error. Ingresa la hora (ej. 14:00): ")
+    return {cineId: {salaId: {dia.lower(): {horario}}}}
 
-    # Retornar un diccionario con el día como clave y un set con el horario
-    return {dia.lower(): {horario}}
+def agregarFunciones(peliculaId, funcionesPelicula, funciones):
+    if peliculaId not in funciones:
+        funciones[peliculaId] = {}
+    funciones[peliculaId].update(funcionesPelicula)
+    return funciones
+
+def imprimirFunciones(funciones, peliculas, cines, salas):
+    print("\n--- FUNCIONES DE LA PELÍCULA ---")
+    for peliculaId, cineIDs in funciones.items():
+        print(f"Película ID: {peliculaId} - Título: {peliculas.get(peliculaId, {}).get('titulo', 'Desconocido')}")
+        for cineId, salaIDs in cineIDs.items():
+            print(f"  Cine ID: {cineId} - Nombre: {cines.get(cineId, {}).get('nombre', 'Desconocido')}")
+            for salaId, dias in salaIDs.items():
+                print(f"    Sala ID: {salaId} - Número de Sala: {salas.get(salaId, {}).get('numeroSala', 'Desconocido')}")
+                for dia, horarios in dias.items():
+                    horarios_str = ', '.join(sorted(horarios))
+                print(f"    {dia.capitalize()}: {horarios_str}")
+
+def eliminarFuncionesPorPeliculaCine(peliculaId, cineId, funciones):
+    """Elimina todas las funciones de una película en un cine específico."""
+    if peliculaId in funciones:
+        if cineId in funciones[peliculaId]:
+            del funciones[peliculaId][cineId]
+            print(f"Se han eliminado todas las funciones de la película ID {peliculaId} en el cine ID {cineId}.")
+        else:
+            print(f"No se encontraron funciones para la película ID {peliculaId} en el cine ID {cineId}.")
+    else:
+        print(f"No se encontraron funciones para la película ID {peliculaId}.")
+    return funciones
 
 def esHorario(horario):
     if len(horario) != 5 or horario[2] != ":":
@@ -155,7 +181,7 @@ def filtrar_peliculas_por_cine(peliculas, cine_id):
     return {
         int(pelicula_id): info 
         for pelicula_id, info in peliculas.items() 
-        if info.get('complejo') == cine_id and info.get('activo', False)
+        if info.get('complejos') == cine_id and info.get('activo', False)
     }
 
 def obtener_peliculas_activas(peliculas):
@@ -291,7 +317,7 @@ def eliminarEntrada():
 
         # Filtrar las películas por cine
         peliculasEnCine = {int(peliculaId): info for peliculaId, info in peliculas.items(
-        ) if info.get('complejo') == int(idCine)}
+        ) if info.get('complejos') == int(idCine)}
 
         if not peliculasEnCine:
             print("No hay películas disponibles en este cine.")
@@ -435,7 +461,7 @@ def informeVentas():
 def informeListadoPeliculasDisponibles(peliculas, cines):
     """Muestra todas las películas activas, con idiomas y formatos sin duplicados por cine."""
     disponibles = [
-                    (peliculaId, data["titulo"].strip(), data["idioma"], data["formato"], cines.get(str(data.get("complejo")), {}).get("nombre", "Desconocido"))
+                    (peliculaId, data["titulo"].strip(), data["idioma"], data["formato"], cines.get(str(data.get("complejos")), {}).get("nombre", "Desconocido"))
                     for peliculaId, data in peliculas.items()
                     if data.get("activo", True)  # filtramos con comprensión de listas
                 ]

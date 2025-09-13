@@ -36,6 +36,7 @@ MENU_PELICULAS = (
     "[3] Eliminar Película", 
     "[4] Modificar valor de la entrada",
     "[5] Listar todas las películas",
+    "[6] Listar todas las funciones",
     "[0] Volver al menú"
 )
 
@@ -58,6 +59,13 @@ MENU_CINES = (
     "[3] Eliminar Cine",
     "[4] Modificar Cine",
     "[0] Volver al menú"
+)
+
+MENU_PELICULAS_CINES = (
+    "[1] Listar Cines",
+    "[2] Agregar Cine",
+    "[3] Eliminar Cine",
+    "[0] Continuar"
 )
 
 def mostrarMenu(titulo, opciones):
@@ -199,16 +207,14 @@ while True:
         }
     """
     funciones = {
-        1: {  # peliculaID
-            1: {  # cineID
-                1: [  # salaID
-                    {
-                        "martes": {
-                                    "14:00", 
-                                    "18:00"
-                        }
-                    },
-                ]
+        "1": {  # peliculaID
+            "1": {  # cineID
+                "1": {  # salaID
+                    "martes": {
+                        "14:00", 
+                        "18:00"
+                    }
+                }
             }
         },
     }
@@ -219,169 +225,21 @@ while True:
             "formato": "2D",
             "idioma": "Español",
             "activo": True,
-            "complejos": ["1"]
+            "complejos": {"1"}
         },
         "2": {
             "titulo": "Avengers: Endgame",
             "formato": "3D",
             "idioma": "Subtitulado",
             "activo": True,
-            "sala": {
-                "A1": True,
-                "B1": True,
-                "C1": True,
-                "D1": True,
-                "E1": True,
-                "F1": True,
-                "G1": True,
-                "H1": True,
-                "A2": True,
-                "B2": True,
-                "C2": True,
-                "D2": True,
-                "E2": True,
-                "F2": True,
-                "G2": True,
-                "H2": True,
-                "A3": True,
-                "B3": True,
-                "C3": True,
-                "D3": True,
-                "E3": True,
-                "F3": True,
-                "G3": True,
-                "H3": True,
-                "A4": True,
-                "B4": True,
-                "C4": True,
-                "D4": True,
-                "E4": True,
-                "F4": True,
-                "G4": True,
-                "H4": True,
-                "A5": True,
-                "B5": True,
-                "C5": True,
-                "D5": True,
-                "E5": True,
-                "F5": True,
-                "G5": True,
-                "H5": True,
-                "A6": True,
-                "B6": True,
-                "C6": True,
-                "D6": True,
-                "E6": True,
-                "F6": True,
-                "G6": True,
-                "H6": True,
-                "A7": True,
-                "B7": True,
-                "C7": True,
-                "D7": True,
-                "E7": True,
-                "F7": True,
-                "G7": True,
-                "H7": True,
-                "A8": True,
-                "B8": True,
-                "C8": True,
-                "D8": True,
-                "E8": True,
-                "F8": True,
-                "G8": True,
-                "H8": True,
-                "A9": True,
-                "B9": True,
-                "C9": True,
-                "D9": True,
-                "E9": True,
-                "F9": True,
-                "G9": True,
-                "H9": True
-            },
-            "complejos": ["2"]
+            "complejos": {"2"}
         },
         "3": {
             "titulo": "Coco",
             "formato": "2D",
             "idioma": "Español",
             "activo": True,
-            "sala": {
-                "A1": True,
-                "B1": True,
-                "C1": True,
-                "D1": True,
-                "E1": True,
-                "F1": True,
-                "G1": True,
-                "H1": True,
-                "A2": True,
-                "B2": True,
-                "C2": True,
-                "D2": True,
-                "E2": True,
-                "F2": True,
-                "G2": True,
-                "H2": True,
-                "A3": True,
-                "B3": True,
-                "C3": True,
-                "D3": True,
-                "E3": True,
-                "F3": True,
-                "G3": True,
-                "H3": True,
-                "A4": True,
-                "B4": True,
-                "C4": True,
-                "D4": True,
-                "E4": True,
-                "F4": True,
-                "G4": True,
-                "H4": True,
-                "A5": True,
-                "B5": True,
-                "C5": True,
-                "D5": True,
-                "E5": True,
-                "F5": True,
-                "G5": True,
-                "H5": True,
-                "A6": True,
-                "B6": True,
-                "C6": True,
-                "D6": True,
-                "E6": True,
-                "F6": True,
-                "G6": True,
-                "H6": True,
-                "A7": True,
-                "B7": True,
-                "C7": True,
-                "D7": True,
-                "E7": True,
-                "F7": True,
-                "G7": True,
-                "H7": True,
-                "A8": True,
-                "B8": True,
-                "C8": True,
-                "D8": True,
-                "E8": True,
-                "F8": True,
-                "G8": True,
-                "H8": True,
-                "A9": True,
-                "B9": True,
-                "C9": True,
-                "D9": True,
-                "E9": True,
-                "F9": True,
-                "G9": True,
-                "H9": True
-            },
-            "complejos": ["4"]
+            "complejos": {"4"}
         },
     }
     entradas = {}
@@ -419,63 +277,117 @@ while True:
 
                 print("Elija el cine en el que se proyectará.")
                 imprimirCines(cines)
-
-                peliculaData['complejo'] = int(input("Ingresa el numero del cine en el que se proyectará:"))
-                while not peliculaData['complejo'] and not cines.get(peliculaData['complejo']):
-                    peliculaData['complejo'] = input("Error. Ingresa el cine: ")
-
-                schedules = {}
+                peliculaData['complejos'] = set()
                 while True:
-                    nuevo = agregarSchedule()
-                    for dia, horas in nuevo.items():
-                        if dia in schedules:
-                            schedules[dia].update(horas)
-                        else:
-                            schedules[dia] = set(horas)
-                    continuar = input("¿Desea agregar otro horario? (s/n): ").lower()
+                    cineId = input("Ingresa el ID del cine en el que se proyectará:")
+                    while not cines.get(cineId):
+                        cineId = input("Error. Ingresa el cine: ")
+                    peliculaData['complejos'].add(cineId)
+                    continuar = input("¿Desea agregar otro cine? (s/n): ").lower()
                     if continuar != 's':
                         break
-                peliculaData['schedule'] = schedules
-                agregarPelicula(peliculaData, peliculas)
+
+                funcionesPelicula = {}
+                print("Elija el cine de la función.")
+                listado = [(cineId, data["nombre"].strip(), data["direccion"].strip()) for cineId, data in cines.items()]
+                print("\n--- LISTADO DE CINES ---")
+                for cineId, nombre, direccion in listado:
+                    print(f"ID: {cineId:<3} | Nombre: {nombre:<25} | Dirección: {direccion}")
+                while True:
+                    cineId = input("Ingresa el ID del cine en el que se proyectará:")
+                    while not cines.get(cineId):
+                        cineId = input("Error. Ingresa el cine: ")
+                    print("Elija la sala del cine.")
+                    imprimirSalasPorCine(cineId, salas)
+                    salaId = input("Ingresa el ID de la sala en la que se proyectará:")
+                    while not salas.get(salaId) or salas[salaId]['cineId'] != cineId:
+                        salaId = input("Error. Ingresa la sala: ")
+                    nuevaFuncion = generarFuncion(cineId, salaId)
+
+                    for dia, horas in nuevaFuncion[cineId][salaId].items():
+                        if not funcionesPelicula.get(cineId):
+                            funcionesPelicula[cineId] = {}
+                        if not funcionesPelicula[cineId].get(salaId):
+                            funcionesPelicula[cineId][salaId] = {}
+                        if dia in funcionesPelicula[cineId][salaId]:
+                            funcionesPelicula[cineId][salaId][dia].update(horas)
+                        else:
+                            funcionesPelicula[cineId][salaId][dia] = set(horas)
+                    continuar = input("¿Desea agregar otra función? (s/n): ").lower()
+                    if continuar != 's':
+                        break
+                peliculas, peliculaId = agregarPelicula(peliculaData, peliculas)
+                funciones = agregarFunciones(peliculaId, funcionesPelicula, funciones)
                 print(f"¡Película '{peliculaData['titulo']}' agregada con éxito!")
 
             elif opcionPeliculas == "2": 
                 peliculaId = input("Ingresa el número de la película a modificar: ")
-                peliculaExistente = peliculas.get(peliculaId)
+                peliculaExistente = peliculas.get(peliculaId).copy()
+                peliculaEditada = {}
                 if not peliculaExistente:
                     print("Error: No se encontró una película con el ID proporcionado.")
                     break
 
                 nuevoTitulo = input(
                     "Ingrese el nuevo título de la película (deje en blanco para no modificar): ").strip()
+
                 nuevoFormato = input(
                     "Ingrese el nuevo formato de la película (deje en blanco para no modificar): ").strip()
+                while (nuevoFormato and nuevoFormato.lower() not in FORMATOS_VALIDOS) or not nuevoFormato:
+                    print("Error. Formato no válido.")
+                    nuevoFormato = input("Ingrese el nuevo formato de la película (deje en blanco para no modificar): ")
+
                 nuevoIdioma = input(
                     "Ingrese el nuevo idioma de la película (deje en blanco para no modificar): ").strip()
+                while (nuevoIdioma and nuevoIdioma.lower() not in IDIOMAS_VALIDOS) or not nuevoIdioma:
+                    print("Error. Ingresa el idioma (Español/Subtitulado): ")
+                    nuevoIdioma = input("Ingrese el nuevo idioma de la película (deje en blanco para no modificar): ").strip()
 
-                modificarComplejo = input(
-                    "¿Desea modificar el complejo? (s/n): ").strip().lower()
-                if modificarComplejo == 's':
-                    print("Elija el cine en el que se proyectará.")
-                    imprimirCines(cines)
-                    nuevoComplejo = input(
-                        "Ingrese el número del nuevo complejo (deje en blanco para no modificar): ").strip()
-                    if nuevoComplejo and not cines.get(nuevoComplejo):
-                        print("Error: No se encontró un cine con el ID proporcionado.")
-                        nuevoComplejo = ""
+                peliculaEditada["complejos"] = peliculaExistente['complejos'].copy()
+                modificarComplejos = input(
+                    "¿Desea modificar los complejos? (s/n): ").strip().lower()
+                if modificarComplejos == 's':
+                    while True:
+                        mostrarMenu("GESTIÓN COMPLEJOS", MENU_PELICULAS_CINES)
+                        opcionComplejo = input("Seleccione una opción: ")
+
+                        if opcionComplejo == "1":
+                            for cineId in peliculaEditada["complejos"]:
+                                data = cines.get(cineId, {})
+                                nombre = data.get("nombre", "").strip()
+                                direccion = data.get("direccion", "").strip()
+                                print(f"ID: {cineId:<3} | Nombre: {nombre:<25} | Dirección: {direccion}")
+                        elif opcionComplejo == "2":
+                            print("Elija el cine en el que se proyectará.")
+                            imprimirCines(cines)
+                            nuevoComplejo = input(
+                                "Ingrese el ID del nuevo complejo: ").strip()
+                            if nuevoComplejo and cines.get(nuevoComplejo):
+                                peliculaEditada['complejos'].add(nuevoComplejo)
+                            else:
+                                print("Error: No se encontró un cine con el ID proporcionado.")
+                        elif opcionComplejo == "3":
+                            print("ADVERTENCIA: Esta acción no solo eliminará el cine de la lista de complejos de la película, " \
+                            "\nsino que también eliminará todas las funciones asociadas a ese cine para esta película.")
+                            complejoId = input(
+                                "Ingrese el ID del complejo a eliminar (vacío para cancelar): ").strip()
+                            if cines.get(complejoId):
+                                peliculaEditada['complejos'].remove(complejoId)
+                                funciones = eliminarFuncionesPorPeliculaCine(peliculaId, complejoId, funciones)
+                            else:
+                                print("Error: No se encontró un cine con el ID proporcionado.")
+                        else:
+                            break
 
                 peliculaEditada = {
                     "titulo": nuevoTitulo if nuevoTitulo else peliculaExistente['titulo'],
                     "formato": nuevoFormato if nuevoFormato else peliculaExistente['formato'],
                     "idioma": nuevoIdioma if nuevoIdioma else peliculaExistente['idioma'],
-                    "complejo": nuevoComplejo if nuevoComplejo else peliculaExistente['complejo'],
-                    "schedule": peliculaExistente['schedule']
+                    "activo": peliculaExistente['activo'],
+                    "complejos": peliculaEditada['complejos'].copy()
                 }
-
                 if (peliculaEditada != peliculaExistente):
                     peliculas = modificarPelicula(peliculaId, peliculaEditada, peliculas)
-
-                modificarPelicula(peliculaId)
 
                 print(f"¡Película '{peliculaId}' modificada con éxito!")
 
@@ -485,7 +397,9 @@ while True:
             elif opcionPeliculas == "4": modificarPrecioEntrada()
             elif opcionPeliculas == "5": 
                 imprimirPeliculas(peliculas)
-            
+            elif opcionPeliculas == "6": 
+                imprimirFunciones(funciones, peliculas, cines, salas)
+
             input("\nPresione ENTER para volver al menú.")
             print("\n\n")
 
