@@ -101,15 +101,18 @@ while True:
                 "direccion": "cine123"
             }
         }
+    #ARMAR ENTIDAD SALAS COMO CONJUNTO
     
     peliculas = {
         "1": {
-            "title": "Spiderman",
-            "format": "2D",
-            "language": "Español",
-            "schedule": [
-                "Martes a las 14:00"
-            ],
+            "titulo": "Spiderman",
+            "formato": "2D",
+            "idioma": "Español",
+            "schedule": {
+                "martes": {
+                    "14:00"
+                }
+            },
             "activo": True,
             "sala": {
                 "A1": True,
@@ -188,12 +191,14 @@ while True:
             "complejo": "1"
         },
         "2": {
-            "title": "Avengers: Endgame",
-            "format": "3D",
-            "language": "Subtitulado",
-            "schedule": [
-                "Miércoles a las 18:00"
-            ],
+            "titulo": "Avengers: Endgame",
+            "formato": "3D",
+            "idioma": "Subtitulado",
+            "schedule": {
+                "miercoles": {
+                    "18:00"
+                }
+            } ,
             "activo": True,
             "sala": {
                 "A1": True,
@@ -272,12 +277,15 @@ while True:
             "complejo": "2"
         },
         "3": {
-            "title": "Coco",
-            "format": "2D",
-            "language": "Español",
-            "schedule": [
-                "Jueves a las 16:00"
-            ],
+            "titulo": "Coco",
+            "formato": "2D",
+            "idioma": "Español",
+            "schedule": {
+                "jueves": {
+                    "16:00"
+                }
+            }
+            ,
             "activo": True,
             "sala": {
                 "A1": True,
@@ -372,9 +380,80 @@ while True:
             opcionPeliculas = input("Seleccione una opción: ")
 
             if opcionPeliculas == "0": break
-            if opcionPeliculas == "1": agregarPelicula()
+            if opcionPeliculas == "1":
+                peliculaData = {} 
+
+                peliculaData['titulo'] = input("Ingresa el título de la película: ")
+                while not peliculaData['titulo']:
+                    peliculaData['titulo'] = input(
+                        "Error. El título no puede estar vacío. Ingresa el título de la película: ")
+
+                peliculaData['formato'] = input("Ingresa el formato (2D/3D): ")
+                while peliculaData['formato'].lower() not in FORMATOS_VALIDOS:
+                    peliculaData['formato'] = input("Error. Ingresa el formato (2D/3D): ")
+
+                peliculaData['idioma'] = input("Ingresa el idioma (Español/Subtitulado): ")
+                while peliculaData['idioma'].lower() not in IDIOMAS_VALIDOS:
+                    peliculaData['idioma'] = input(
+                        "Error. Ingresa el idioma (Español/Subtitulado): ")
+
+                print("Elija el cine en el que se proyectará.")
+                imprimirCines(cines)
+
+                peliculaData['complejo'] = int(input("Ingresa el numero del cine en el que se proyectará:"))
+                while not peliculaData['complejo'] and not cines.get(peliculaData['complejo']):
+                    peliculaData['complejo'] = input("Error. Ingresa el cine: ")
+
+                schedules = {}
+                while True:
+                    nuevo = agregarSchedule()
+                    for dia, horas in nuevo.items():
+                        if dia in schedules:
+                            schedules[dia].update(horas)
+                        else:
+                            schedules[dia] = set(horas)
+                    continuar = input("¿Desea agregar otro horario? (s/n): ").lower()
+                    if continuar != 's':
+                        break
+                peliculaData['schedule'] = schedules
+                agregarPelicula(peliculaData, peliculas)
+                print(f"¡Película '{peliculaData['titulo']}' agregada con éxito!")
+
             elif opcionPeliculas == "2": 
                 peliculaId = input("Ingresa el número de la película a modificar: ")
+                peliculaExistente = peliculas.get(peliculaId)
+                if not peliculaExistente:
+                    print("Error: No se encontró una película con el ID proporcionado.")
+                    break
+
+                nuevoTitulo = input(
+                    "Ingrese el nuevo título de la película (deje en blanco para no modificar): ").strip()
+                nuevoFormato = input(
+                    "Ingrese el nuevo formato de la película (deje en blanco para no modificar): ").strip()
+                nuevoIdioma = input(
+                    "Ingrese el nuevo idioma de la película (deje en blanco para no modificar): ").strip()
+
+                modificarComplejo = input(
+                    "¿Desea modificar el complejo? (s/n): ").strip().lower()
+                if modificarComplejo == 's':
+                    print("Elija el cine en el que se proyectará.")
+                    imprimirCines(cines)
+                    nuevoComplejo = input(
+                        "Ingrese el número del nuevo complejo (deje en blanco para no modificar): ").strip()
+                    if nuevoComplejo and not cines.get(nuevoComplejo):
+                        print("Error: No se encontró un cine con el ID proporcionado.")
+                        nuevoComplejo = ""
+
+                peliculaEditada = {
+                    "titulo": nuevoTitulo if nuevoTitulo else peliculaExistente['titulo'],
+                    "formato": nuevoFormato if nuevoFormato else peliculaExistente['formato'],
+                    "idioma": nuevoIdioma if nuevoIdioma else peliculaExistente['idioma'],
+                    "complejo": nuevoComplejo if nuevoComplejo else peliculaExistente['complejo'],
+                    "schedule": peliculaExistente['schedule']
+                }
+
+                if (peliculaEditada != peliculaExistente):
+                    peliculas = modificarPelicula(peliculaId, peliculaEditada, peliculas)
 
                 modificarPelicula(peliculaId)
             elif opcionPeliculas == "3": 
@@ -382,21 +461,7 @@ while True:
                 inactivarPelicula(peliculaId)
             elif opcionPeliculas == "4": modificarPrecioEntrada()
             elif opcionPeliculas == "5": 
-                peliculas = listarPeliculas()
-                if peliculas:
-                    print("\nLista de todas las películas:")
-                    for indice, (peliculaId, info) in enumerate(peliculas.items(), start=1):
-                        if peliculas[peliculaId]['activo']:
-                            print(
-                                f"Número: {indice}, ID: {peliculaId}, Título: {info['title']}, Formato: {info['format']}, Idioma: {info['language']}")
-                            if info['schedule']:
-                                print("  Horarios:")
-                                for entry in info['schedule']:
-                                    print(f"    - {entry}")
-                            else:
-                                print("  No hay horarios asignados.")
-                else:
-                    print("No hay películas disponibles.")
+                imprimirPeliculas(peliculas)
             
             input("\nPresione ENTER para volver al menú.")
             print("\n\n")
@@ -426,7 +491,7 @@ while True:
             if opcionInformes == "0": break
             # Implementación de los informes aquí...
             if opcionInformes == "1": informeVentas()
-            if opcionInformes == "2": 
+            if opcionInformes == "2":
                 disponibles = informeListadoPeliculasDisponibles(peliculas, cines)
                 idiomas = set(pelicula[2] for pelicula in disponibles)
                 formatos = set(pelicula[3] for pelicula in disponibles)
@@ -438,35 +503,32 @@ while True:
                 print("\nIdiomas disponibles:", ", ".join(sorted(idiomas)))
                 print("Formatos disponibles:", ", ".join(sorted(formatos)))
 
-            if opcionInformes == "3": 
+            if opcionInformes == "3": #INFORME DE BUTACAS 
                 for peliculaId, dataPelicula in peliculas.items():
-                    if dataPelicula['activo']:  # Solo películas activas
+                    if dataPelicula['activo']: 
                         sala = dataPelicula.get('sala')
 
-                        if not sala:  # Si no tiene sala asignada, asignamos una sala vacía por defecto
+                        if not sala: 
                             sala = {}
 
                         print(f"ID de la película: {peliculaId}")
                         print(
-                            f"\nPelícula: {dataPelicula['title']} ({dataPelicula['format']} - {dataPelicula['language']})")
+                            f"\nPelícula: {dataPelicula['titulo']} ({dataPelicula['formato']} - {dataPelicula['idioma']})")
                         print("Butacas disponibles:")
-                        # Mostrar butacas disponibles
                         butacasDisponibles = informeButacasDisponibles(sala)
                         if butacasDisponibles:
-                            # esto agrupa las butacas disponibles en una cadena separada por coma.
                             print(", ".join(butacasDisponibles))
                         else:
                             print("No hay butacas disponibles.")
                     else:
                         print(
-                            f"\nPelícula inactiva: {dataPelicula['title']} no se muestra en el informe.")
+                            f"\nPelícula inactiva: {dataPelicula['titulo']} no se muestra en el informe.")
 
             input("\nPresione ENTER para volver al menú.")
             print("\n\n")
 
     # Opción 4: GESTIÓN DE COMPLEJO DE CINES
     elif opcion == "4":   
-        # Menú de Gestión de Complejo de Cines
         while True:
             mostrarMenu("GESTIÓN DE COMPLEJO DE CINES", MENU_CINES)
             opcionCines = input("Seleccione una opción: ")

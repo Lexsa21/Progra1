@@ -1,164 +1,41 @@
-# ----------------------------------------------------------------------------------------------
-# FUNCIONES
-# ----------------------------------------------------------------------------------------------
-import json
-
-# Constantes de archivos
-ARCHIVO_PELICULAS = "movies.json"
-ARCHIVO_ID_MAPPING = "id_mapping.txt"
-ARCHIVO_CINES = "cines.json"
-ARCHIVO_ENTRADAS = "entradas.json"
-
-# Conjuntos para validaciones (más eficientes que listas para verificar membresía)
 FORMATOS_VALIDOS = {"2d", "3d"}
 IDIOMAS_VALIDOS = {"español", "subtitulado"}
 DIAS_SEMANA = {"lunes", "martes", "miercoles", "jueves", "viernes", "sabado", "domingo"}
 
-# Tuplas para configuración de salas (inmutables, apropiadas para datos constantes)
 NUMERACION_FILAS = ("A", "B", "C", "D", "E", "F", "G", "H", "I")
 CONFIGURACION_SALA = (9, 8)  # (filas, columnas)
 
-def listarPeliculas():
-    """- Función que lista las películas activas del archivo movies.txt
-       - Parámetros: 
-            pathArchivoPeliculas (str): ruta de archivo JSON movies.txt con las películas
-       - Retorno:
-            None """
-    try:
-        archivoPeliculas = open(ARCHIVO_PELICULAS,
-                                mode="r", encoding="utf-8")
-        peliculas = json.load(archivoPeliculas)
-        archivoPeliculas.close()
-        return peliculas
-    except (FileNotFoundError, OSError) as detalle:
-        print("Error al intentar abrir archivo(s):", detalle)
-
-
-def agregarPelicula():
-    """- Función que agrega una película al archivo movies.txt
-       - Parámetros: 
-            pathArchivoPeliculas (str): ruta de archivo JSON movies.txt con las películas
-            pathId (str): ruta de archivo JSON id_mapping.txt con los ID y sus respectivos números
-            pathCine (str): ruta de archivo JSON cines.txt con los cines
-       - Retorno:
-            None """
-
-    try:
-        # Se carga el contenido existente de los archivos JSON
-        peliculas = listarPeliculas()
-        # archivoConIDs = open(pathId, mode="r", encoding="utf-8")
-        # # id_mapping = json.load(archivoConIDs)
-        # archivoConIDs.close()
-
-        archivoCines = open(ARCHIVO_CINES, mode="r", encoding="utf-8")
-        cines = json.load(archivoCines)
-
-        peliculaId = generarId()
-
-        titulo = input("Ingresa el título de la película: ")
-        while not titulo:
-            titulo = input(
-                "Error. El título no puede estar vacío. Ingresa el título de la película: ")
-
-        formatoPelicula = input("Ingresa el formato (2D/3D): ")
-        while formatoPelicula.lower() not in FORMATOS_VALIDOS:
-            formatoPelicula = input("Error. Ingresa el formato (2D/3D): ")
-
-        idioma = input("Ingresa el idioma (Español/Subtitulado): ")
-        while idioma.lower() not in IDIOMAS_VALIDOS:
-            idioma = input(
-                "Error. Ingresa el idioma (Español/Subtitulado): ")
-
-        sala = crearSala()
-
-        print("Elija el cine en el que se proyectará.")
-        limitec = 0
-        for i, cine in cines.items():
-            print(f"{i} : {cine['nombre']}")
-            limitec += 1
-        cine = int(input("Ingresa el numero del cine en el que se proyectará:"))
-        while not cine or cine > limitec:
-            cine = input("Error. Ingresa el cine: ")
-
-        # Se agrega la película
-        peliculas[peliculaId] = {
-            'title': titulo,
-            'format': formatoPelicula,
-            'language': idioma,
-            'schedule': [],
-            'activo': True,
-            # Permite una sala simbolica que guarde el estado (reservado o disponible) de los asientos de la sala.
-            'sala': sala,
-            # Hace falta que en las peliculas figure en que cine se proyectan.
-            'complejo': cine
-        }
-
-        # Se agrega el id a id_mapping
-        # id_mapping[number_id] = peliculaId
-
-        agregarSchedule(peliculas, peliculaId)
-
-        # Se sobreescriben los archivos con los datos actualizados
-        archivoPeliculas = open(ARCHIVO_PELICULAS,
-                                mode="w", encoding="utf-8")
-        json.dump(peliculas, archivoPeliculas, ensure_ascii=False, indent=4)
-        archivoPeliculas.close()
-
-        # archivoConIDs = open(pathId, mode="w", encoding="utf-8")
-        # json.dump(id_mapping, archivoConIDs, ensure_ascii=False, indent=4)
-        # archivoConIDs.close()
-
-        print(f"¡Película '{titulo}' agregada con éxito con ID: {peliculaId}!")
-
-    except (FileNotFoundError, OSError) as detalle:
-        print("Error al intentar abrir archivo(s):", detalle)
-
-    return
-
-def modificarPelicula(peliculaId):
-    """- Función que modifica una película del archivo movies.txt
-       - Parámetros: 
-            pathArchivoPeliculas (str): ruta de archivo JSON movies.txt con las películas
-            pathId (str): ruta de archivo JSON id_mapping.txt con los ID y sus respectivos números
-       - Retorno:
-            None """
-
-    try:
-        peliculas = listarPeliculas()
-
-        if peliculaId in peliculas.keys():
-            pelicula = peliculas[peliculaId]
-
-            titulo = input(
-                f"Ingresa el nuevo título de la película ({pelicula['title']}): ")
-            if titulo:  # Si el usuario no ingresa nada, conserva el valor original
-                pelicula['title'] = titulo
-
-            formato = input(
-                f"Ingresa el nuevo formato (2D/3D) ({pelicula['format']}): ")
-            while formato and formato.lower() not in ["2d", "3d"]:
-                formato = input("Error. Ingresa el formato (2D/3D): ")
-            if formato:
-                pelicula['format'] = formato
-
-            idioma = input(
-                f"Ingresa el nuevo idioma (Español/Subtitulado) ({pelicula['language']}): ")
-            while idioma and idioma.lower() not in ["español", "subtitulado"]:
-                idioma = input(
-                    "Error. Ingresa el idioma (Español/Subtitulado): ")
-            if idioma:
-                pelicula['language'] = idioma
-
-            archivoPeliculas = open(ARCHIVO_PELICULAS, mode="w", encoding="utf-8")
-            json.dump(peliculas, archivoPeliculas, ensure_ascii=False, indent=4)
-            archivoPeliculas.close()
-
-            print(f"¡Película '{peliculaId}' modificada con éxito!")
+def imprimirPeliculas(peliculas):
+    print("\n--- LISTADO DE PELÍCULAS ---")
+    for peliculaId, pelicula in peliculas.items():
+        print(f"ID: {peliculaId} | Título: {pelicula['titulo']} | Idioma: {pelicula['idioma']} | Formato: {pelicula['formato']} | ID Cine: {pelicula['complejo']}")
+        if pelicula['schedule']:
+            print("  Funciones:")
+            for dia, horarios in pelicula['schedule'].items():
+                for horario in horarios:
+                    print(f"    - {dia.capitalize()} a las {horario}")
         else:
-            print("Número de película no encontrado.")
+            print("  No hay horarios asignados.")
+    print("\n")
 
-    except (FileNotFoundError, OSError) as detalle:
-        print("Error al intentar abrir archivo(s):", detalle)
+def agregarPelicula(peliculaData, peliculas):
+    peliculaId = generarId(peliculas)
+
+    sala = crearSala()
+
+    peliculaData["activo"] = True
+    peliculaData["sala"] = sala
+
+    peliculas[peliculaId] = peliculaData.copy()
+
+    return peliculas
+
+def modificarPelicula(peliculaId, peliculaData, peliculas):
+    peliculas[peliculaId] = peliculaData.copy()
+
+    return peliculas
+
+    print(f"¡Película '{peliculaId}' modificada con éxito!")
 
 def inactivarPelicula(peliculaId):
     """- Función que inactiva una película del archivo movies.txt
@@ -189,35 +66,13 @@ def inactivarPelicula(peliculaId):
 def modificarPrecioEntrada():
     print("Esta opción no está implementada en este ejemplo.")
 
-def generarId():
-    """- Función que genera un ID único para una película.
-       - Parámetro:
-           pathArchivoPeliculas (str): ruta de archivo JSON movies.txt con las películas
-       - Retorno:
-           movie_id (str): ID generado 
-           number_id (str): número asociado al ID"""
-    try:
-        archivoPeliculas = open(ARCHIVO_PELICULAS,
-                                mode="r", encoding="utf-8")
-        movies = json.load(archivoPeliculas)
-        archivoPeliculas.close()
-
-        nuevoId = max(map(int, movies.keys()), default=0) + 1
-        peliculaId = f"{nuevoId}"
-
-    except (FileNotFoundError, OSError) as detalle:
-        print("Error al intentar abrir archivo(s):", detalle)
+def generarId(peliculas):
+    nuevoId = len(peliculas.keys()) + 1
+    peliculaId = f"{nuevoId}"
 
     return peliculaId
 
-# Funcion que crea una sala nueva con butacas vacias para las funciones
-# Es una sala "simbolica", no tomarselo como que existe una sala diferente por pelicula.
 def crearSala():
-    """- Función que genera una sala para cada pelicula, de iguales dimenciones y cantidad de asientos.
-       - Parámetro:
-           NONE
-       - Retorno:
-           sala (dict): diccionario con disponibilidad de cada asiento"""
     sala = {}
     filas, columnas = CONFIGURACION_SALA
     
@@ -227,40 +82,23 @@ def crearSala():
             sala[asiento] = True
     return sala
 
-def agregarSchedule(peliculas, peliculaId):
-    """- Función que agrega el día y horario de la función a una película a agregar al archivo movies.txt
-       - Parámetros:
-           movies (dicc): contenido cargado del archivo JSON movies.txt
-           movie_id (str): ID generado para la película a agregar
-       - Retorno:
-           movies (dicc): contenido actualizado del diccionario movies"""
+def agregarSchedule():
+    dia = input(
+        "Ingresa el día de la semana para la proyección (o 'ENTER' para terminar): ")
+    if not dia:
+        return {}
+    if dia.lower() not in DIAS_SEMANA:
+        print("Error. Día no válido. Ingresar un día correcto.")
+        return agregarSchedule()
 
-    # Agregar a la función la verificación de que dos peliculas en el mismo complejo no tengan mismo día y horario (ya que solo existe una sala)
-    while True:
-        dia = input(
-            "Ingresa el día de la semana para la proyección (o 'fin' para terminar): ")
-        if dia.lower() == 'fin':
-            break
-        if dia.lower() not in DIAS_SEMANA:
-            print("Error. Día no válido. Ingresar un día correcto.")
-            continue
+    horario = input("Ingresa la hora (ej. 14:00): ")
+    while not esHorario(horario):
+        horario = input("Error. Ingresa la hora (ej. 14:00): ")
 
-        horario = input("Ingresa la hora (ej. 14:00): ")
-        while not esHorario(horario):
-            horario = input("Error. Ingresa la hora (ej. 14:00): ")
-
-        schedule_entry = f"{dia} a las {horario}"
-        peliculas[peliculaId]['schedule'].append(schedule_entry)
-
-    return peliculas
+    # Retornar un diccionario con el día como clave y un set con el horario
+    return {dia.lower(): {horario}}
 
 def esHorario(horario):
-    """- Función que valida que el horario tenga el formato HH:MM y sea un horario válido.
-       - Parámetro:
-           horario (str): horario ingresado
-       - Retorno:
-           (bool): True si es un horario válido, False en caso contrario."""
-
     if len(horario) != 5 or horario[2] != ":":
         return False
 
@@ -350,78 +188,21 @@ def ingresarIdPelicula(comentario):
         except Exception as ex:
             print(ex)
 
-# Función que crea un nuevo cine
 def nuevoCine(cineData, cines):
-    """Agrega un nuevo cine usando tupla (nombre, direccion)."""
-    # Creamos el próximo ID automáticamente
     nuevo_id = str(int(max(cines.keys(), default="0")) + 1)
 
-    # Convertimos tupla en diccionario para guardar
     cines[nuevo_id] = {"nombre": cineData[0], "direccion": cineData[1]}
 
-    print(f"\n✅ Cine agregado con éxito: {cineData[0]} (ID: {nuevo_id})")
+    print(f"\nCine agregado con éxito: {cineData[0]} (ID: {nuevo_id})")
     return cines
-# def nuevoCine():
-#     """- Función que genera un nuevo cine.
-#        - Parámetro:
-#            path (str): ruta de archivo JSON cines.txt con los cines
-#        - Retorno:
-#            None
-#            """
-#     try:
-#         with open(ARCHIVO_CINES, mode="r", encoding="utf-8") as f1:
-#             cines = json.load(f1)
-
-#         # Generar nuevo ID
-#         nuevoid = max(int(i) for i in cines.keys()) + 1 if cines else 1
-
-#         # Solicitar nombre del cine
-#         title = input("Ingresa el nombre del nuevo cine: ")
-#         while not title:
-#             title = input(
-#                 "Error. El nombre no puede estar vacío. Ingresa el nombre del nuevo cine: ")
-
-#         # Solicitar dirección del cine
-#         direcc = input("Ingresa la dirección del nuevo cine: ")
-#         while not direcc:
-#             direcc = input(
-#                 "Error. La dirección no puede estar vacía. Ingresa la dirección del nuevo cine: ")
-
-#         # Agregar el nuevo cine al diccionario
-#         cines[str(nuevoid)] = {
-#             'nombre': title,
-#             'direccion': direcc
-#         }
-
-#         # Guardar los datos actualizados en el archivo JSON
-#         with open(ARCHIVO_CINES, mode="w", encoding="utf-8") as f1:
-#             json.dump(cines, f1, ensure_ascii=False, indent=4)
-
-#         print("¡Cine creado con éxito!")
-#     except (FileNotFoundError, OSError) as e:
-#         print("Error al intentar abrir o guardar archivo:", e)
-#     except json.JSONDecodeError as e:
-#         print("Error al decodificar JSON:", e)
-
-#     return
 
 def imprimirCines(cines):
     listado = [(cineId, data["nombre"].strip(), data["direccion"].strip()) for cineId, data in cines.items()]
-    # Mostramos como tabla formateada usando cadenas
     print("\n--- LISTADO DE CINES ---")
     for cineId, nombre, direccion in listado:
         print(f"ID: {cineId:<3} | Nombre: {nombre:<25} | Dirección: {direccion}")
 
-# Reserva un asiento para una pelicula. listapelis = archivo / estructura de datos con las peliculas, listaentradas = archivo/estructura de datos que gusrde las entradas a las peliculas.
 def generarEntrada():
-    """- Función que genera una entrada para un cliente para asistir a una pelicula
-       - Parámetro:
-           pathMovies (str): ruta de archivo JSON movies.txt con las películas
-           pathCines (str): ruta de archivo JSON cines.txt con los cines
-           pathEntradas (str): ruta de archivo JSON entradas.txt con las entradas
-       - Retorno:
-           None
-           """
     try:
         nombreCliente = input("Ingrese el nombre del cliente: ")
         # Asumimos que esta función imprime los cines y sus IDs
@@ -438,7 +219,7 @@ def generarEntrada():
             print("\nLista de todas las películas en este cine:")
             for peliculaId, info in peliculasEnCine.items():
                 print(
-                    f"ID: {peliculaId}, Título: {info['title']}, Formato: {info['format']}, Idioma: {info['language']}")
+                    f"ID: {peliculaId}, Título: {info['titulo']}, Formato: {info['formato']}, Idioma: {info['idioma']}")
                 if info['schedule']:
                     print("  Horarios:")
                     for entry in info['schedule']:
@@ -519,7 +300,7 @@ def eliminarEntrada():
         print("\nLista de todas las películas en este cine:")
         for movie_id, info in peliculasEnCine.items():
             print(
-                f"ID: {movie_id}, Título: {info['title']}, Formato: {info['format']}, Idioma: {info['language']}")
+                f"ID: {movie_id}, Título: {info['titulo']}, Formato: {info['formato']}, Idioma: {info['idioma']}")
 
         # Bucle para validar el ID de película en el cine seleccionado
         while True:
@@ -607,7 +388,7 @@ def crear_estadisticas_ventas(entradas, peliculas, cines):
         # Inicializar la entrada de la película si no existe
         if peliculaId not in informe[cineId]["entradas"]:
             informe[cineId]["entradas"][peliculaId] = {
-                "titulo": peliculas[peliculaId]["title"],
+                "titulo": peliculas[peliculaId]["titulo"],
                 "cantidad": 0
             }
         
@@ -654,7 +435,7 @@ def informeVentas():
 def informeListadoPeliculasDisponibles(peliculas, cines):
     """Muestra todas las películas activas, con idiomas y formatos sin duplicados por cine."""
     disponibles = [
-                    (peliculaId, data["title"].strip(), data["language"], data["format"], cines.get(str(data.get("complejo")), {}).get("nombre", "Desconocido"))
+                    (peliculaId, data["titulo"].strip(), data["idioma"], data["formato"], cines.get(str(data.get("complejo")), {}).get("nombre", "Desconocido"))
                     for peliculaId, data in peliculas.items()
                     if data.get("activo", True)  # filtramos con comprensión de listas
                 ]
@@ -699,8 +480,8 @@ def obtener_estadisticas_sistema():
             entradas = json.load(f)
         
         # Usar conjuntos para obtener elementos únicos eficientemente
-        formatos_usados = {pelicula['format'] for pelicula in peliculas.values()}
-        idiomas_usados = {pelicula['language'] for pelicula in peliculas.values()}
+        formatos_usados = {pelicula['formato'] for pelicula in peliculas.values()}
+        idiomas_usados = {pelicula['idioma'] for pelicula in peliculas.values()}
         clientes_unicos = {entrada['cliente'] for entrada in entradas.values()}
         
         estadisticas = {

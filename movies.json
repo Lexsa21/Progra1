@@ -1,8 +1,8 @@
 {
     "1": {
-        "title": "Spiderman",
-        "format": "2D",
-        "language": "Español",
+        "titulo": "Spiderman",
+        "formato": "2D",
+        "idioma": "Español",
         "schedule": [
             "Martes a las 14:00"
         ],
@@ -84,9 +84,9 @@
         "complejo": 1
     },
     "2": {
-        "title": "Avengers: Endgame",
-        "format": "3D",
-        "language": "Subtitulado",
+        "titulo": "Avengers: Endgame",
+        "formato": "3D",
+        "idioma": "Subtitulado",
         "schedule": [
             "Miércoles a las 18:00"
         ],
@@ -168,9 +168,9 @@
         "complejo": 2
     },
     "3": {
-        "title": "Coco",
-        "format": "2D",
-        "language": "Español",
+        "titulo": "Coco",
+        "formato": "2D",
+        "idioma": "Español",
         "schedule": [
             "Jueves a las 16:00"
         ],
@@ -252,9 +252,9 @@
         "complejo": 3
     },
     "4": {
-        "title": "Toy Story 4",
-        "format": "3D",
-        "language": "Subtitulado",
+        "titulo": "Toy Story 4",
+        "formato": "3D",
+        "idioma": "Subtitulado",
         "schedule": [
             "Viernes a las 17:00"
         ],
@@ -336,9 +336,9 @@
         "complejo": 2
     },
     "5": {
-        "title": "El Rey León",
-        "format": "2D",
-        "language": "Español",
+        "titulo": "El Rey León",
+        "formato": "2D",
+        "idioma": "Español",
         "schedule": [
             "Sábado a las 15:00"
         ],
@@ -420,9 +420,9 @@
         "complejo": 1
     },
     "6": {
-        "title": "Jurassic World",
-        "format": "3D",
-        "language": "Subtitulado",
+        "titulo": "Jurassic World",
+        "formato": "3D",
+        "idioma": "Subtitulado",
         "schedule": [
             "Domingo a las 19:00"
         ],
@@ -504,9 +504,9 @@
         "complejo": 4
     },
     "7": {
-        "title": "Frozen II",
-        "format": "2D",
-        "language": "Español",
+        "titulo": "Frozen II",
+        "formato": "2D",
+        "idioma": "Español",
         "schedule": [
             "Lunes a las 13:00"
         ],
@@ -588,9 +588,9 @@
         "complejo": 2
     },
     "8": {
-        "title": "Dumbo",
-        "format": "3D",
-        "language": "Subtitulado",
+        "titulo": "Dumbo",
+        "formato": "3D",
+        "idioma": "Subtitulado",
         "schedule": [
             "Martes a las 16:00"
         ],
@@ -672,9 +672,9 @@
         "complejo": 1
     },
     "9": {
-        "title": "Aquaman",
-        "format": "2D",
-        "language": "Español",
+        "titulo": "Aquaman",
+        "formato": "2D",
+        "idioma": "Español",
         "schedule": [
             "Miércoles a las 14:00"
         ],
@@ -756,9 +756,9 @@
         "complejo": 3
     },
     "10": {
-        "title": "Parasite",
-        "format": "3D",
-        "language": "Subtitulado",
+        "titulo": "Parasite",
+        "formato": "3D",
+        "idioma": "Subtitulado",
         "schedule": [
             "Jueves a las 20:00"
         ],
@@ -840,9 +840,9 @@
         "complejo": 4
     },
     "11": {
-        "title": "El Exorcista",
-        "format": "2D",
-        "language": "Español",
+        "titulo": "El Exorcista",
+        "formato": "2D",
+        "idioma": "Español",
         "schedule": [
             "Viernes a las 21:00"
         ],
@@ -924,9 +924,9 @@
         "complejo": 1
     },
     "12": {
-        "title": "The Shining",
-        "format": "3D",
-        "language": "Subtitulado",
+        "titulo": "The Shining",
+        "formato": "3D",
+        "idioma": "Subtitulado",
         "schedule": [
             "Sábado a las 22:00"
         ],
@@ -1008,9 +1008,9 @@
         "complejo": 3
     },
     "13": {
-        "title": "Inception",
-        "format": "2D",
-        "language": "Español",
+        "titulo": "Inception",
+        "formato": "2D",
+        "idioma": "Español",
         "schedule": [
             "Domingo a las 12:00"
         ],
@@ -1092,9 +1092,9 @@
         "complejo": 1
     },
     "14": {
-        "title": "Avatar",
-        "format": "3D",
-        "language": "Subtitulado",
+        "titulo": "Avatar",
+        "formato": "3D",
+        "idioma": "Subtitulado",
         "schedule": [
             "Lunes a las 15:00"
         ],
@@ -1176,9 +1176,9 @@
         "complejo": 4
     },
     "15": {
-        "title": "Titanic",
-        "format": "2D",
-        "language": "Español",
+        "titulo": "Titanic",
+        "formato": "2D",
+        "idioma": "Español",
         "schedule": [
             "Martes a las 18:00"
         ],
@@ -1260,9 +1260,9 @@
         "complejo": 2
     },
     "16": {
-        "title": "The Matrix",
-        "format": "3D",
-        "language": "Subtitulado",
+        "titulo": "The Matrix",
+        "formato": "3D",
+        "idioma": "Subtitulado",
         "schedule": [
             "Miércoles a las 19:00"
         ],
@@ -1344,9 +1344,9 @@
         "complejo": 1
     },
     "17": {
-        "title": "Interstellar",
-        "format": "2D",
-        "language": "Español",
+        "titulo": "Interstellar",
+        "formato": "2D",
+        "idioma": "Español",
         "schedule": [
             "Jueves a las 17:00"
         ],
@@ -1428,9 +1428,9 @@
         "complejo": 3
     },
     "18": {
-        "title": "Gladiator",
-        "format": "3D",
-        "language": "Subtitulado",
+        "titulo": "Gladiator",
+        "formato": "3D",
+        "idioma": "Subtitulado",
         "schedule": [
             "Viernes a las 20:00"
         ],
@@ -1512,9 +1512,9 @@
         "complejo": 4
     },
     "19": {
-        "title": "The Godfather",
-        "format": "2D",
-        "language": "Español",
+        "titulo": "The Godfather",
+        "formato": "2D",
+        "idioma": "Español",
         "schedule": [
             "Sábado a las 18:00"
         ],
@@ -1596,9 +1596,9 @@
         "complejo": 1
     },
     "20": {
-        "title": "Pulp Fiction",
-        "format": "3D",
-        "language": "Subtitulado",
+        "titulo": "Pulp Fiction",
+        "formato": "3D",
+        "idioma": "Subtitulado",
         "schedule": [
             "Domingo a las 21:00"
         ],
@@ -1680,9 +1680,9 @@
         "complejo": 4
     },
     "21": {
-        "title": "Forrest Gump",
-        "format": "2D",
-        "language": "Español",
+        "titulo": "Forrest Gump",
+        "formato": "2D",
+        "idioma": "Español",
         "schedule": [
             "Lunes a las 16:00"
         ],
@@ -1764,9 +1764,9 @@
         "complejo": 3
     },
     "22": {
-        "title": "Fight Club",
-        "format": "3D",
-        "language": "Subtitulado",
+        "titulo": "Fight Club",
+        "formato": "3D",
+        "idioma": "Subtitulado",
         "schedule": [
             "Martes a las 14:00"
         ],
@@ -1848,9 +1848,9 @@
         "complejo": 2
     },
     "23": {
-        "title": "The Dark Knight",
-        "format": "2D",
-        "language": "Español",
+        "titulo": "The Dark Knight",
+        "formato": "2D",
+        "idioma": "Español",
         "schedule": [
             "Miércoles a las 18:00"
         ],
@@ -1932,9 +1932,9 @@
         "complejo": 4
     },
     "24": {
-        "title": "Schindler's List",
-        "format": "3D",
-        "language": "Subtitulado",
+        "titulo": "Schindler's List",
+        "formato": "3D",
+        "idioma": "Subtitulado",
         "schedule": [
             "Jueves a las 16:00"
         ],
@@ -2016,9 +2016,9 @@
         "complejo": 4
     },
     "25": {
-        "title": "Goodfellas",
-        "format": "2D",
-        "language": "Español",
+        "titulo": "Goodfellas",
+        "formato": "2D",
+        "idioma": "Español",
         "schedule": [
             "Viernes a las 17:00"
         ],
@@ -2100,9 +2100,9 @@
         "complejo": 3
     },
     "26": {
-        "title": "The Social Network",
-        "format": "3D",
-        "language": "Subtitulado",
+        "titulo": "The Social Network",
+        "formato": "3D",
+        "idioma": "Subtitulado",
         "schedule": [
             "Sábado a las 15:00"
         ],
@@ -2184,9 +2184,9 @@
         "complejo": 3
     },
     "27": {
-        "title": "Braveheart",
-        "format": "2D",
-        "language": "Español",
+        "titulo": "Braveheart",
+        "formato": "2D",
+        "idioma": "Español",
         "schedule": [
             "Domingo a las 19:00"
         ],
@@ -2268,9 +2268,9 @@
         "complejo": 4
     },
     "28": {
-        "title": "The Silence of the Lambs",
-        "format": "3D",
-        "language": "Subtitulado",
+        "titulo": "The Silence of the Lambs",
+        "formato": "3D",
+        "idioma": "Subtitulado",
         "schedule": [
             "Lunes a las 13:00"
         ],
@@ -2352,9 +2352,9 @@
         "complejo": 2
     },
     "29": {
-        "title": "Saving Private Ryan",
-        "format": "2D",
-        "language": "Español",
+        "titulo": "Saving Private Ryan",
+        "formato": "2D",
+        "idioma": "Español",
         "schedule": [
             "Martes a las 16:00"
         ],
@@ -2436,9 +2436,9 @@
         "complejo": 1
     },
     "30": {
-        "title": "The Usual Suspects",
-        "format": "3D",
-        "language": "Subtitulado",
+        "titulo": "The Usual Suspects",
+        "formato": "3D",
+        "idioma": "Subtitulado",
         "schedule": [
             "Miércoles a las 14:00"
         ],
@@ -2520,9 +2520,9 @@
         "complejo": 3
     },
     "31": {
-        "title": "Titanic",
-        "format": "2d",
-        "language": "subtitulado",
+        "titulo": "Titanic",
+        "formato": "2d",
+        "idioma": "subtitulado",
         "schedule": [
             "lunes a las 14:00"
         ],
@@ -2604,9 +2604,9 @@
         "complejo": 3
     },
     "32": {
-        "title": "Titanic",
-        "format": "2d",
-        "language": "subtitulado",
+        "titulo": "Titanic",
+        "formato": "2d",
+        "idioma": "subtitulado",
         "schedule": [
             "lunes a las 14:00"
         ],
@@ -2688,9 +2688,9 @@
         "complejo": 1
     },
     "33": {
-        "title": "Tarzan",
-        "format": "2d",
-        "language": "español",
+        "titulo": "Tarzan",
+        "formato": "2d",
+        "idioma": "español",
         "schedule": [
             "lunes a las 14:00"
         ],
@@ -2772,9 +2772,9 @@
         "complejo": 3
     },
     "34": {
-        "title": "Jurrasic World",
-        "format": "2d",
-        "language": "español",
+        "titulo": "Jurrasic World",
+        "formato": "2d",
+        "idioma": "español",
         "schedule": [
             "lunes a las 13:00"
         ],
@@ -2856,9 +2856,9 @@
         "complejo": 5
     },
     "35": {
-        "title": "Papa a prueba de balas ",
-        "format": "2d",
-        "language": "español",
+        "titulo": "Papa a prueba de balas ",
+        "formato": "2d",
+        "idioma": "español",
         "schedule": [
             "lunes a las 17:00"
         ],
@@ -2940,9 +2940,9 @@
         "complejo": 2
     },
     "36": {
-        "title": "Club Classics ",
-        "format": "2d",
-        "language": "español",
+        "titulo": "Club Classics ",
+        "formato": "2d",
+        "idioma": "español",
         "schedule": [
             "lunes a las 14:00"
         ],
@@ -3024,9 +3024,9 @@
         "complejo": 6
     },
     "37": {
-        "title": "pruebaFinal",
-        "format": "2d",
-        "language": "español",
+        "titulo": "pruebaFinal",
+        "formato": "2d",
+        "idioma": "español",
         "schedule": [
             "viernes a las 20:00",
             "lunes a las 15:00"
