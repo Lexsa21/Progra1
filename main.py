@@ -1,27 +1,5 @@
-"""
------------------------------------------------------------------------------------------------
-Título: TP Cuatrimestral - Sistema de Gestión de Cine 
-Fecha: 14/10/24
-Autor: Equipo 10
-
-Descripción: El sistema de gestión del cine permite administrar las funciones y 
-ventas de un complejo de cines. Permite controlar las películas que se van a proyectar, 
-en qué fecha y horario. Además, se van a poder gestionar ventas, y así ir modificando 
-la disponibilidad de las butacas.  También emite informes generales. Por último, el programa 
-permite gestionar el complejo de cines, modificando los cines existentes. 
-
-Pendientes: 
------------------------------------------------------------------------------------------------
-"""
-
-#----------------------------------------------------------------------------------------------
-# MÓDULOS
-#----------------------------------------------------------------------------------------------
 from utils import *
 
-#----------------------------------------------------------------------------------------------
-# CONFIGURACIÓN DE MENÚS CON TUPLAS (inmutables, apropiadas para datos constantes)
-#----------------------------------------------------------------------------------------------
 MENU_PRINCIPAL = (
     "[1] Gestión de Películas y Entradas",
     "[2] Venta de Entradas", 
@@ -635,29 +613,3 @@ while True:
 
             input("\nPresione ENTER para volver al menú.")
             print("\n\n")
-
-
-"""Se optimizo lineas de codigo del menu principal"""
-"""se cambio la cantidad de 0 al generar un id"""
-"""se cambio editar pelicula para saber que pelicula estamos cambiando"""
-""" se cambio la funcion generar id, En vez de convertir y formatear el ID cada vez, consideramos usar solo el número como clave en el diccionario movies y formatearlo solo para mostrarlo. Así reduces el largo de la clave y simplificas la generación de ID."""
-""" se cambio validacion de horarios, El valor esHorario = True es redundante ya que la función retorna True al final si el horario es válido, así que se elimino y se retorna False directamente en los casos de error."""
-
-
-"""
-La línea de código id_mapping = {i: k for i, k in enumerate(movies.keys(), 1)} crea un diccionario llamado id_mapping que relaciona números secuenciales con los IDs de las películas almacenadas en el diccionario movies. cómo funciona:
-
-movies.keys(): Esto obtiene todas las claves del diccionario movies, que en este contexto son los IDs de las películas. Por ejemplo, si movies tiene IDs como '0000000000001', '0000000000002', etc., movies.keys() devolverá un iterable con esos IDs.
-
-enumerate(movies.keys(), 1): La función enumerate toma un iterable y devuelve pares de índice y valor. En este caso, comienza a contar desde 1 (debido al segundo argumento 1), por lo que generará pares como (1, '0000000000001'), (2, '0000000000002'), etc. Cada número (el índice) se asociará con un ID de película.
-
-{i: k for i, k in ...}: Este es un "diccionario por comprensión". Está construyendo un nuevo diccionario donde i es el número secuencial (el índice de enumerate) y k es el ID de la película. Por lo tanto, por cada par generado por enumerate, se añadirá una entrada en el nuevo diccionario id_mapping.
-
-"""
-
-"""En resumen, esta línea de código crea un diccionario que mapea números secuenciales (comenzando desde 1) a los IDs de las películas, lo que facilita referenciar películas mediante un número en lugar de usar directamente su ID, mejorando así la usabilidad del sistema."""
-
-"""Se modificó el uso de diccionarios a archivos JSON
-   No se utilizaron excepciones para las validaciones, es necesario?? 
-   se modificó para que el título no pueda estar vacío
-   se modularizo la función para agregar el schedule en la funcion de agregar peliculas"""

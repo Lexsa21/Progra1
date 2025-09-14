@@ -134,51 +134,9 @@ def esHorario(horario):
 
     return 0 <= int(horas) < 24 and 0 <= int(minutos) < 60
 
-# # Esta función debuelve la butaca disponible (si la hay) o 0 si no existe para esa función. idp = id de la pelicula, pathMovies = ruta al archivo que contiene las peliculas.
-
-def butacaDisponible(peliculaId):
-    try:
-        # Cargar las películas
-        with open(ARCHIVO_PELICULAS, mode="r", encoding="utf-8") as f:
-            movies = json.load(f)
-
-        peli = movies.get(peliculaId)
-
-        if peli is None or 'sala' not in peli:
-            return None  # La película no existe o no tiene sala asignada
-
-        for butaca, disponible in peli['sala'].items():
-            if disponible:  # Si la butaca está disponible
-                # Marcar la butaca como ocupada
-                peli['sala'][butaca] = False
-                # Guardar los cambios en el archivo
-                with open(ARCHIVO_PELICULAS, mode="w", encoding="utf-8") as f:
-                    json.dump(movies, f, ensure_ascii=False, indent=4)
-                return butaca
-
-        return None  # No hay butacas disponibles
-    except (FileNotFoundError, OSError) as e:
-        print("Error al intentar abrir o guardar archivo:", e)
-    except json.JSONDecodeError as e:
-        print("Error al decodificar JSON:", e)
-
-    return
-
 def peliculasPorCine(peliculas, cineId):
     return {
         peliculaId: pelicula for peliculaId, pelicula in peliculas.items() if cineId in pelicula.get('complejos', set())
-    }
-
-def obtener_peliculas_activas(peliculas):
-    """- Función auxiliar que filtra solo películas activas usando dictionary comprehension
-       - Parámetros:
-           peliculas (dict): diccionario con todas las películas
-       - Retorno:
-           dict: diccionario con solo películas activas"""
-    return {
-        pelicula_id: info 
-        for pelicula_id, info in peliculas.items() 
-        if info.get('activo', False)
     }
 
 def nuevoCine(cineData, cines):
@@ -231,7 +189,6 @@ def informeVentas(entradas, peliculas, cines):
                 "cantidad": 0
             }
         
-        # Incrementar contador de entradas para esta película
         informe[cineId]["entradas"][peliculaId]["cantidad"] += 1
         ventasGenerales += 1
 
