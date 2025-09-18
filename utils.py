@@ -6,12 +6,43 @@ NUMERACION_FILAS = ("A", "B", "C", "D", "E", "F", "G", "H", "I")
 CONFIGURACION_SALA = (9, 8)  # (filas, columnas)
 
 def imprimirPeliculas(peliculas):
+    """
+    Imprime un listado formateado de todas las películas.
+    
+    Parámetros:
+        peliculas (diccionario): Diccionario con las películas donde:
+            - key: ID de la película (string)
+            - value: Diccionario con datos de la película que debe contener:
+                - titulo (string): Título de la película
+                - idioma (string): Idioma de la película
+                - formato (string): Formato de proyección (2D/3D)
+                - complejos (conjunto): Conjunto de IDs de cines donde se proyecta
+    
+    Return:
+        None: Solo imprime en consola 
+    """
     print("\n--- LISTADO DE PELÍCULAS ---")
     for peliculaId, pelicula in peliculas.items():
         print(f"ID: {peliculaId} | Título: {pelicula['titulo']} | Idioma: {pelicula['idioma']} | Formato: {pelicula['formato']} | ID Cines: {', '.join(pelicula['complejos'])}")
     print("\n")
 
 def agregarPelicula(peliculaData, peliculas):
+    """
+    Agrega una nueva película al diccionario de películas.
+    
+    Parámetros:
+        peliculaData (diccionario): Diccionario con los datos de la película que debe contener:
+            - titulo (string): Título de la película
+            - formato (string): Formato de proyección (debe estar en FORMATOS_VALIDOS)
+            - idioma (string): Idioma (debe estar en IDIOMAS_VALIDOS)
+            - complejos (conjunto): Conjunto de IDs de cines
+        peliculas (diccionario): Diccionario existente de películas donde agregar la nueva
+    
+    Return:
+        tupla: (peliculas_actualizado, peliculaId_generado)
+            - peliculas_actualizado (diccionario): Diccionario de películas con la nueva película
+            - peliculaId_generado (string): ID asignado a la nueva película   
+    """
     peliculaId = generarId(peliculas)
 
     sala = crearSala()
@@ -24,46 +55,86 @@ def agregarPelicula(peliculaData, peliculas):
     return peliculas, peliculaId
 
 def modificarPelicula(peliculaId, peliculaData, peliculas):
+    """
+    Modifica los datos de una película existente.
+    
+    Parámetros:
+        peliculaId (string): ID de la película a modificar
+        peliculaData (diccionario): Nuevos datos de la película que debe contener:
+            - titulo (string): Título actualizado
+            - formato (string): Formato actualizado
+            - idioma (string): Idioma actualizado
+            - complejos (conjunto): Conjunto actualizado de IDs de cines
+            - activo (booleano): Estado de activación
+            - sala (diccionario): Configuración de sala
+        peliculas (diccionario): Diccionario de películas a modificar
+
+    Returns:
+        diccionario: Diccionario de películas actualizado con los nuevos datos 
+    """
     peliculas[peliculaId] = peliculaData.copy()
 
     return peliculas
 
-def inactivarPelicula(peliculaId):
-    """- Función que inactiva una película del archivo movies.txt
-       - Parámetros: 
-            pathArchivoPeliculas (str): ruta de archivo JSON movies.txt con las películas
-            pathId (str): ruta de archivo JSON id_mapping.txt con los ID y sus respectivos números
-       - Retorno:
-            None """
+# def inactivarPelicula(peliculaId):
+#     """- Función que inactiva una película del archivo movies.txt
+#        - Parámetros: 
+#             pathArchivoPeliculas (str): ruta de archivo JSON movies.txt con las películas
+#             pathId (str): ruta de archivo JSON id_mapping.txt con los ID y sus respectivos números
+#        - Retorno:
+#             None """
 
-    try:
-        peliculas = listarPeliculas()
+#     try:
+#         peliculas = listarPeliculas()
 
-        if peliculaId in peliculas.keys():
-            peliculas[peliculaId]['activo'] = False
+#         if peliculaId in peliculas.keys():
+#             peliculas[peliculaId]['activo'] = False
 
-            archivoPeliculas = open(
-                ARCHIVO_PELICULAS, mode="w", encoding="utf-8")
-            json.dump(peliculas, archivoPeliculas, ensure_ascii=False, indent=4)
-            archivoPeliculas.close()
+#             archivoPeliculas = open(
+#                 ARCHIVO_PELICULAS, mode="w", encoding="utf-8")
+#             json.dump(peliculas, archivoPeliculas, ensure_ascii=False, indent=4)
+#             archivoPeliculas.close()
 
-            print(f"¡Película '{peliculaId}' inactivada con éxito!")
-        else:
-            print("Número de película no encontrado.")
+#             print(f"¡Película '{peliculaId}' inactivada con éxito!")
+#         else:
+#             print("Número de película no encontrado.")
 
-    except (FileNotFoundError, OSError) as detalle:
-        print("Error al intentar abrir archivo(s):", detalle)
+#     except (FileNotFoundError, OSError) as detalle:
+#         print("Error al intentar abrir archivo(s):", detalle)
 
 def modificarPrecioEntrada():
     print("Esta opción no está implementada en este ejemplo.")
 
 def generarId(peliculas):
+    """
+    Genera un ID único para una nueva película.
+    
+    Parámetros:
+        peliculas (diccionario): Diccionario de películas existentes
+    
+    Return:
+        string: ID único como string (ej: "1", "2", "3")
+    """
     nuevoId = len(peliculas.keys()) + 1
     peliculaId = f"{nuevoId}"
 
     return peliculaId
 
 def imprimirSalasPorCine(cineId, salas):
+    """
+    Imprime las salas pertenecientes a un cine específico.
+    
+    Parámetros:
+        cineId (string): ID del cine del cual mostrar las salas
+        salas (diccionario): Diccionario de salas donde:
+            - key: ID de la sala (string)
+            - value: Diccionario con datos de la sala que debe contener:
+                - cineId (string): ID del cine al que pertenece
+                - numeroSala (string/integer): Número identificador de la sala
+    
+    Return:
+        None: Solo imprime en consola
+    """
     print(f"\n--- SALAS DEL CINE ID: {cineId} ---")
     for salaId, sala in salas.items():
         if sala['cineId'] == cineId:
@@ -71,6 +142,16 @@ def imprimirSalasPorCine(cineId, salas):
     print("\n")
 
 def crearSala():
+    """
+    Crea una nueva sala con configuración de butacas predeterminada.
+    
+    Return:
+        diccionario: Diccionario donde:
+            - key: Identificador de butaca (ej: "A1", "B3") (str)
+            - value: Disponibilidad de la butaca (booleano)
+                - True: Butaca disponible
+                - False: Butaca ocupada
+    """
     sala = {}
     filas, columnas = CONFIGURACION_SALA
     
@@ -140,6 +221,20 @@ def peliculasPorCine(peliculas, cineId):
     }
 
 def nuevoCine(cineData, cines):
+    """
+    Agrega un nuevo cine al diccionario de cines.
+    
+    Parámetros:
+        cineData (tupla/lista): Datos del cine en formato [nombre, dirección]
+            - cineData[0] (string): Nombre del cine
+            - cineData[1] (string): Dirección del cine
+        cines (dccionario): Diccionario de cines existentes donde:
+            - key: ID del cine (string)
+            - value: Diccionario con 'nombre' y 'direccion'
+    
+    Return:
+        dccionario: Diccionario de cines actualizado con el nuevo cine agregado
+    """
     nuevo_id = str(int(max(cines.keys(), default="0")) + 1)
 
     cines[nuevo_id] = {"nombre": cineData[0], "direccion": cineData[1]}
@@ -148,6 +243,19 @@ def nuevoCine(cineData, cines):
     return cines
 
 def imprimirCines(cines):
+    """
+    Imprime un listado formateado de todos los cines.
+    
+    Parámetros:
+        cines (diccionario): Diccionario de cines donde:
+            - key: ID del cine (string)
+            - value: Diccionario con:
+                - nombre (string): Nombre del cine
+                - direccion (string): Dirección del cine
+    
+    Return:
+        None: Solo imprime en consola
+    """
     listado = [(cineId, data["nombre"].strip(), data["direccion"].strip()) for cineId, data in cines.items()]
     print("\n--- LISTADO DE CINES ---")
     for cineId, nombre, direccion in listado:
@@ -160,15 +268,61 @@ def imprimirCines(cines):
         print(f"ID: {cineId:<3} | Nombre: {nombre:<25} | Dirección: {direccion}")
 
 def generarEntrada(datosEntrada, entradas):
+    """
+    Genera una nueva entrada y la agrega al diccionario de entradas.
+    
+    Parámetros:
+        datosEntrada (diccionario): Datos de la entrada que debe contener:
+            - cliente (string): Nombre del cliente
+            - dni (string): DNI del cliente
+            - cineId (string): ID del cine
+            - peliculaId (string): ID de la película
+            - salaId (string): ID de la sala
+            - butaca (string): Identificación de la butaca (ej: "A1")
+        entradas (diccionario): Diccionario de entradas existentes donde:
+            - key: ID de la entrada (string)
+            - value: Diccionario con datos de la entrada
+    
+    Return:
+        diccionario: Diccionario de entradas actualizado con la nueva entrada
+    """
     entradaId = str(len(entradas) + 1)
     entradas[entradaId] = datosEntrada
     return entradas
 
 def eliminarEntrada(entradaId, entradas):
+    """
+    Elimina una entrada específica del diccionario de entradas.
+    
+    Parámetros:
+        entradaId (string): ID de la entrada a eliminar
+        entradas (diccionario): Diccionario de entradas donde:
+            - key: ID de la entrada (string)
+            - value: Diccionario con datos de la entrada
+    
+    Return:
+        diccionario: Diccionario de entradas actualizado sin la entrada eliminada
+    """
     del entradas[entradaId]
     return entradas
 
 def informeVentas(entradas, peliculas, cines):
+    """
+    Genera un informe detallado de ventas por cine y película.
+    
+    Parámetros:
+        entradas (diccionario): Diccionario de entradas vendidas donde:
+            - key: ID de entrada (string)
+            - value: Datos de entrada con cineId, peliculaId, etc.
+        peliculas (diccionario): Diccionario de películas para obtener títulos
+        cines (diccionario): Diccionario de cines para obtener nombres
+    
+    Return:
+        tupla: (informe, ventasGenerales)
+            - informe (diccionario): Estructura jerárquica:
+                {cineId: {"nombre": string, "entradas": {peliculaId: {"titulo": string, "cantidad": integer}}}}
+            - ventasGenerales (integer): Total de entradas vendidas
+    """
     informe = {}
     ventasGenerales = 0
     print(entradas)
@@ -212,6 +366,21 @@ def informeButacasDisponibles(butacas):
     return butacasDisponibles
 
 def modificarCine(cineId, cineData, cines):
+    """
+    Modifica los datos de un cine existente.
+    
+    Parámetros:
+        cineId (string): ID del cine a modificar
+        cineData (tupla/lista): Nuevos datos del cine en formato [nombre, dirección]
+            - cineData[0] (string): Nuevo nombre del cine
+            - cineData[1] (string): Nueva dirección del cine
+        cines (diccionario): Diccionario de cines a modificar donde:
+            - key: ID del cine (string)
+            - value: Diccionario con 'nombre' y 'direccion'
+    
+    Return:
+        diccionario: Diccionario de cines actualizado con los nuevos datos
+    """
     cineModificado = {
         "nombre": cineData[0],
         "direccion": cineData[1]

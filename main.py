@@ -46,7 +46,20 @@ MENU_PELICULAS_CINES = (
 )
 
 def mostrarMenu(titulo, opciones):
-    """Función auxiliar para mostrar menús de manera consistente"""
+    """
+    Muestra un menú formateado en la consola.
+    
+    Esta función auxiliar proporciona una presentación consistente para todos los menús
+    del sistema, incluyendo un título y una lista de opciones numeradas.
+    
+    Parámetros:
+        titulo (string): El título del menú a mostrar
+        opciones (tupla): Tupla de strings con las opciones del menú
+    
+    Returns:
+        None: Solo imprime en consola
+        
+    """
     print("\n---------------------------")
     print(titulo)
     print("\n---------------------------")
@@ -228,6 +241,14 @@ entradas = {
         'butaca': "A1"
     }
 }
+
+"""
+Bucle principal del sistema.
+
+IMPORTANTE: Las estructuras de datos (cines, peliculas, entradas) están definidas 
+dentro del scope del bucle principal. Esto significa que se inicializan/resetean en cada 
+iteración, lo que puede causa pérdida de datos por cada ejecución.
+"""
 while True:
     mostrarMenu("SISTEMA DE GESTIÓN DE CINE", MENU_PRINCIPAL)
     opcion = input("Seleccione una opción: ")
