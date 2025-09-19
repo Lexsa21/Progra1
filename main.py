@@ -11,9 +11,8 @@ MENU_PRINCIPAL = (
 MENU_PELICULAS = (
     "[1] Agregar Película",
     "[2] Modificar Película",
-    "[3] Eliminar Película", 
-    "[4] Listar todas las películas",
-    "[5] Listar todas las funciones",
+    "[3] Listar todas las películas",
+    "[4] Listar todas las funciones",
     "[0] Volver al menú"
 )
 
@@ -399,11 +398,8 @@ while True:
                 print(f"¡Película '{peliculaId}' modificada con éxito!")
 
             elif opcionPeliculas == "3": 
-                peliculaId = input("Ingresa el número de la película a eliminar: ")
-                inactivarPelicula(peliculaId)
-            elif opcionPeliculas == "4": 
                 imprimirPeliculas(peliculas)
-            elif opcionPeliculas == "5": 
+            elif opcionPeliculas == "4": 
                 imprimirFunciones(funciones, peliculas, cines, salas)
 
             input("\nPresione ENTER para volver al menú.")

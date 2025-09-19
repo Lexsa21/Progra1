@@ -76,35 +76,6 @@ def modificarPelicula(peliculaId, peliculaData, peliculas):
 
     return peliculas
 
-# def inactivarPelicula(peliculaId):
-#     """- Función que inactiva una película del archivo movies.txt
-#        - Parámetros: 
-#             pathArchivoPeliculas (str): ruta de archivo JSON movies.txt con las películas
-#             pathId (str): ruta de archivo JSON id_mapping.txt con los ID y sus respectivos números
-#        - Retorno:
-#             None """
-
-#     try:
-#         peliculas = listarPeliculas()
-
-#         if peliculaId in peliculas.keys():
-#             peliculas[peliculaId]['activo'] = False
-
-#             archivoPeliculas = open(
-#                 ARCHIVO_PELICULAS, mode="w", encoding="utf-8")
-#             json.dump(peliculas, archivoPeliculas, ensure_ascii=False, indent=4)
-#             archivoPeliculas.close()
-
-#             print(f"¡Película '{peliculaId}' inactivada con éxito!")
-#         else:
-#             print("Número de película no encontrado.")
-
-#     except (FileNotFoundError, OSError) as detalle:
-#         print("Error al intentar abrir archivo(s):", detalle)
-
-def modificarPrecioEntrada():
-    print("Esta opción no está implementada en este ejemplo.")
-
 def generarId(peliculas):
     """
     Genera un ID único para una nueva película.
