@@ -1,6 +1,7 @@
-FORMATOS_VALIDOS = {"2d", "3d"}
-IDIOMAS_VALIDOS = {"español", "subtitulado"}
-DIAS_SEMANA = {"lunes", "martes", "miercoles", "jueves", "viernes", "sabado", "domingo"}
+FORMATOS_VALIDOS = ("2d", "3d")
+IDIOMAS_VALIDOS = ("español", "subtitulado")
+DIAS_SEMANA = ("lunes", "martes", "miercoles", "jueves", "viernes", "sabado", "domingo")
+TIPOS_BUTACA = ("normal", "extreme")
 
 NUMERACION_FILAS = ("A", "B", "C", "D", "E", "F", "G", "H", "I")
 CONFIGURACION_SALA = (9, 8)  # (filas, columnas)
@@ -119,9 +120,9 @@ def crearSala():
     Return:
         diccionario: Diccionario donde:
             - key: Identificador de butaca (ej: "A1", "B3") (str)
-            - value: Disponibilidad de la butaca (booleano)
-                - True: Butaca disponible
-                - False: Butaca ocupada
+            - value: Diccionario con:
+                - ocupado (booleano): True si está ocupada, False si disponible
+                - tipo (string): "normal" o "extreme"
     """
     sala = {}
     filas, columnas = CONFIGURACION_SALA
@@ -129,7 +130,12 @@ def crearSala():
     for i in range(1, filas + 1):
         for j in range(columnas):
             asiento = f"{NUMERACION_FILAS[j]}{i}"
-            sala[asiento] = True
+            # Las primeras 2 filas son "extreme", el resto "normal"
+            tipoButaca = "extreme" if j < 2 else "normal"
+            sala[asiento] = {
+                "ocupado": False,
+                "tipo": tipoButaca
+            }
     return sala
 
 def generarFuncion(cineId, salaId):
@@ -187,9 +193,288 @@ def esHorario(horario):
     return 0 <= int(horas) < 24 and 0 <= int(minutos) < 60
 
 def peliculasPorCine(peliculas, cineId):
+    """
+    Retorna las películas que se proyectan en un cine específico.
+    Usa operaciones de conjuntos para verificar pertenencia.
+    """
     return {
-        peliculaId: pelicula for peliculaId, pelicula in peliculas.items() if cineId in pelicula.get('complejos', set())
+        peliculaId: pelicula 
+        for peliculaId, pelicula in peliculas.items() 
+        if cineId in pelicula.get('complejos', set())
     }
+
+def cinesEnComun(cinesIdPeli1, cinesIdPeli2):
+    """
+    Retorna conjunto de cines donde se proyectan ambas películas.
+    Usa intersección de conjuntos.
+    
+    Parámetros:
+        cinesIdPeli1 (set): Conjunto de IDs de cines de película 1
+        cinesIdPeli2 (set): Conjunto de IDs de cines de película 2
+
+    Return:
+        set: Conjunto de IDs de cines en común
+    """
+    return cinesIdPeli1.intersection(cinesIdPeli2)
+
+def todosCinesDisponibles(peliculas):
+    """
+    Retorna conjunto de todos los cines que tienen películas.
+    
+    Parámetros:
+        peliculas (diccionario): Diccionario de películas
+    
+    Return:
+        set: Conjunto con todos los IDs de cines disponibles
+    """
+    if not peliculas:
+        return set()
+    result = set()
+    for pelicula in peliculas.values():
+        result.update(pelicula.get('complejos', set()))
+    return result
+
+def cinesSinPeliculas(todosCines, peliculas):
+    """
+    Retorna conjunto de cines que NO tienen películas asignadas.
+    
+    Parámetros:
+        todosCines (set): Conjunto con todos los IDs de cines existentes
+        peliculas (diccionario): Diccionario de películas
+    
+    Return:
+        set: Conjunto de IDs de cines sin películas
+    """
+    cinesConPeliculas = todosCinesDisponibles(peliculas)
+    return todosCines.difference(cinesConPeliculas)
+
+def peliculasEnTodosCines(peliculas, cinesRequeridos):
+    """
+    Retorna películas que se proyectan en TODOS los cines especificados.
+    
+    Parámetros:
+        peliculas (diccionario): Diccionario de películas
+        cinesRequeridos (set): Conjunto de IDs de cines requeridos
+    
+    Return:
+        dict: Diccionario con películas que están en todos los cines requeridos
+    """
+    return {
+        peliculaId: pelicula
+        for peliculaId, pelicula in peliculas.items()
+        if cinesRequeridos.issubset(pelicula.get('complejos', set()))
+    }
+
+def peliculasEnAlgunCine(peliculas, cinesBuscados):
+    """
+    Retorna películas que se proyectan en AL MENOS uno de los cines especificados.
+    
+    Parámetros:
+        peliculas (diccionario): Diccionario de películas
+        cinesBuscados (set): Conjunto de IDs de cines a buscar
+    
+    Return:
+        dict: Diccionario con películas que están en alguno de los cines
+    """
+    return {
+        peliculaId: pelicula
+        for peliculaId, pelicula in peliculas.items()
+        if pelicula.get('complejos', set()).intersection(cinesBuscados)
+    }
+
+def agregarCinesAPelicula(peliculaId, nuevosCines, peliculas):
+    """
+    Agrega cines a una película usando unión de conjuntos.
+    
+    Parámetros:
+        peliculaId (string): ID de la película
+        nuevosCines (set): Conjunto de IDs de cines a agregar
+        peliculas (diccionario): Diccionario de películas
+    
+    Return:
+        diccionario: Diccionario de películas actualizado
+    """
+    if peliculaId in peliculas:
+        peliculas[peliculaId]['complejos'] = peliculas[peliculaId].get('complejos', set()).union(nuevosCines)
+    return peliculas
+
+def eliminarCinesDePelicula(peliculaId, cinesAEliminar, peliculas):
+    """
+    Elimina cines de una película usando diferencia de conjuntos.
+    
+    Parámetros:
+        peliculaId (string): ID de la película
+        cinesAEliminar (set): Conjunto de IDs de cines a eliminar
+        peliculas (diccionario): Diccionario de películas
+    
+    Return:
+        diccionario: Diccionario de películas actualizado
+    """
+    if peliculaId in peliculas:
+        peliculas[peliculaId]['complejos'] = peliculas[peliculaId].get('complejos', set()).difference(cinesAEliminar)
+    return peliculas
+
+def butacasPorTipo(sala, tipo):
+    """
+    Retorna conjunto de butacas de un tipo específico.
+    
+    Parámetros:
+        sala (diccionario): Diccionario de butacas
+        tipo (string): Tipo de butaca ("normal" o "extreme")
+    
+    Return:
+        set: Conjunto de IDs de butacas del tipo especificado
+    """
+    return {butaca for butaca, info in sala.items() if info["tipo"] == tipo}
+
+def butacasDisponiblesPorTipo(sala, tipo):
+    """
+    Retorna conjunto de butacas disponibles de un tipo específico.
+    
+    Parámetros:
+        sala (diccionario): Diccionario de butacas
+        tipo (string): Tipo de butaca ("normal" o "extreme")
+    
+    Return:
+        set: Conjunto de IDs de butacas disponibles del tipo especificado
+    """
+    butacasTipo = butacasPorTipo(sala, tipo)
+    butacasDisponibles = informeButacasDisponibles(sala)
+    return butacasTipo.intersection(butacasDisponibles)
+
+def butacasOcupadasPorTipo(sala, tipo):
+    """
+    Retorna conjunto de butacas ocupadas de un tipo específico.
+    
+    Parámetros:
+        sala (diccionario): Diccionario de butacas
+        tipo (string): Tipo de butaca ("normal" o "extreme")
+    
+    Return:
+        set: Conjunto de IDs de butacas ocupadas del tipo especificado
+    """
+    butacasTipo = butacasPorTipo(sala, tipo)
+    butacasDisponibles = informeButacasDisponibles(sala)
+    return butacasTipo.difference(butacasDisponibles)
+
+def obtenerIdiomasDisponibles(peliculas):
+    """
+    Retorna conjunto de todos los idiomas disponibles en las películas.
+    
+    Parámetros:
+        peliculas (diccionario): Diccionario de películas
+    
+    Return:
+        set: Conjunto de idiomas disponibles
+    """
+    return {pelicula['idioma'] for pelicula in peliculas.values() if pelicula.get('activo', True)}
+
+def obtenerFormatosDisponibles(peliculas):
+    """
+    Retorna conjunto de todos los formatos disponibles en las películas.
+    
+    Parámetros:
+        peliculas (diccionario): Diccionario de películas
+    
+    Return:
+        set: Conjunto de formatos disponibles
+    """
+    return {pelicula['formato'] for pelicula in peliculas.values() if pelicula.get('activo', True)}
+
+def peliculasPorIdiomaYFormato(peliculas, idioma, formato):
+    """
+    Filtra películas por idioma Y formato usando operaciones de conjuntos.
+    
+    Parámetros:
+        peliculas (diccionario): Diccionario de películas
+        idioma (string): Idioma a filtrar
+        formato (string): Formato a filtrar
+    
+    Return:
+        set: Conjunto de IDs de películas que coinciden
+    """
+    peliculasPorIdioma = {peliculaId for peliculaId, pelicula in peliculas.items() if pelicula.get('idioma') == idioma}
+    peliculasPorFormato = {peliculaId for peliculaId, pelicula in peliculas.items() if pelicula.get('formato') == formato}
+    return peliculasPorIdioma.intersection(peliculasPorFormato)
+
+def peliculasActivasIds(peliculas):
+    """
+    Retorna conjunto de IDs de películas activas.
+    
+    Parámetros:
+        peliculas (diccionario): Diccionario de películas
+    
+    Return:
+        set: Conjunto de IDs de películas activas
+    """
+    return {peliculaId for peliculaId, pelicula in peliculas.items() if pelicula.get('activo', True)}
+
+def peliculasInactivasIds(peliculas):
+    """
+    Retorna conjunto de IDs de películas inactivas usando diferencia.
+    
+    Parámetros:
+        peliculas (diccionario): Diccionario de películas
+    
+    Return:
+        set: Conjunto de IDs de películas inactivas
+    """
+    todasPeliculas = set(peliculas.keys())
+    activas = peliculasActivasIds(peliculas)
+    return todasPeliculas.difference(activas)
+
+def cinesConFunciones(funciones):
+    """
+    Retorna conjunto de todos los cines que tienen funciones programadas.
+    
+    Parámetros:
+        funciones (diccionario): Diccionario de funciones
+    
+    Return:
+        set: Conjunto de IDs de cines con funciones
+    """
+    cinesSet = set()
+    for cines in funciones.values():
+        cinesSet = cinesSet.union(set(cines.keys()))
+    return cinesSet
+
+def diasConFunciones(funciones, peliculaId, cineId):
+    """
+    Retorna conjunto de días con funciones para una película en un cine.
+    
+    Parámetros:
+        funciones (diccionario): Diccionario de funciones
+        peliculaId (string): ID de la película
+        cineId (string): ID del cine
+    
+    Return:
+        set: Conjunto de días con funciones
+    """
+    dias = set()
+    if peliculaId in funciones and cineId in funciones[peliculaId]:
+        for diasData in funciones[peliculaId][cineId].values():
+            dias = dias.union(set(diasData.keys()))
+    return dias
+
+def horariosEnDia(funciones, peliculaId, cineId, dia):
+    """
+    Retorna conjunto de todos los horarios en un día específico (todas las salas).
+    
+    Parámetros:
+        funciones (diccionario): Diccionario de funciones
+        peliculaId (string): ID de la película
+        cineId (string): ID del cine
+        dia (string): Día de la semana
+    
+    Return:
+        set: Conjunto de horarios disponibles ese día
+    """
+    horarios = set()
+    if peliculaId in funciones and cineId in funciones[peliculaId]:
+        for diasData in funciones[peliculaId][cineId].values():
+            if dia in diasData:
+                horarios = horarios.union(diasData[dia])
+    return horarios
 
 def nuevoCine(cineData, cines):
     """
@@ -227,12 +512,6 @@ def imprimirCines(cines):
     Return:
         None: Solo imprime en consola
     """
-    listado = [(cineId, data["nombre"].strip(), data["direccion"].strip()) for cineId, data in cines.items()]
-    print("\n--- LISTADO DE CINES ---")
-    for cineId, nombre, direccion in listado:
-        print(f"ID: {cineId:<3} | Nombre: {nombre:<25} | Dirección: {direccion}")
-
-def imprimirCines(cines):
     listado = [(cineId, data["nombre"].strip(), data["direccion"].strip()) for cineId, data in cines.items()]
     print("\n--- LISTADO DE CINES ---")
     for cineId, nombre, direccion in listado:
@@ -333,8 +612,19 @@ def informeListadoPeliculasDisponibles(peliculas, cines):
     return disponibles
 
 def informeButacasDisponibles(butacas):
-    butacasDisponibles = set([butaca for butaca, disponible in butacas.items() if disponible])
-    return butacasDisponibles
+    """
+    Retorna conjunto de butacas disponibles.
+    Usa conjuntos para optimizar la búsqueda.
+    
+    Parámetros:
+        butacas (diccionario): Diccionario de butacas donde:
+            - key: ID de butaca (string)
+            - value: Diccionario con 'ocupado' y 'tipo'
+    
+    Return:
+        set: Conjunto de IDs de butacas disponibles
+    """
+    return {butaca for butaca, info in butacas.items() if not info["ocupado"]}
 
 def modificarCine(cineId, cineData, cines):
     """

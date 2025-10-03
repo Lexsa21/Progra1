@@ -5,6 +5,7 @@ MENU_PRINCIPAL = (
     "[2] Venta de Entradas", 
     "[3] Informes Generales",
     "[4] Gestión de Complejo de Cines",
+    "[5] Análisis con Operaciones de Conjuntos",
     "[0] Salir"
 )
 
@@ -13,6 +14,7 @@ MENU_PELICULAS = (
     "[2] Modificar Película",
     "[3] Listar todas las películas",
     "[4] Listar todas las funciones",
+    "[5] Películas por idioma Y formato",
     "[0] Volver al menú"
 )
 
@@ -26,6 +28,7 @@ MENU_INFORMES = (
     "[1] Emitir Informe de Ventas",
     "[2] Emitir Listado de Películas Disponibles",
     "[3] Emitir Informe de Butacas Disponibles",
+    "[4] Emitir Informe de Butacas por Tipo",
     "[0] Volver al menú"
 )
 
@@ -34,6 +37,12 @@ MENU_CINES = (
     "[2] Agregar Nuevo Cine",
     "[3] Eliminar Cine",
     "[4] Modificar Cine",
+    "[5] Películas en común entre dos cines",
+    "[6] Cines sin películas asignadas",
+    "[7] Películas disponibles en todos los cines seleccionados",
+    "[8] Comparar butacas disponibles por tipo",
+    "[9] Análisis de funciones por día",
+    "[10] Cines con y sin funciones",
     "[0] Volver al menú"
 )
 
@@ -103,78 +112,78 @@ salas = {
             "cineId": "1",
             "numeroSala": "1", #Nombre de la sala
             "asientos": {
-                "A1": False,
-                "B1": True,
-                "C1": True,
-                "D1": True,
-                "E1": True,
-                "F1": True,
-                "G1": True,
-                "H1": True,
-                "A2": True,
-                "B2": True,
-                "C2": True,
-                "D2": True,
-                "E2": True,
-                "F2": True,
-                "G2": True,
-                "H2": True,
-                "A3": True,
-                "B3": True,
-                "C3": True,
-                "D3": True,
-                "E3": True,
-                "F3": True,
-                "G3": True,
-                "H3": True,
-                "A4": True,
-                "B4": True,
-                "C4": True,
-                "D4": True,
-                "E4": True,
-                "F4": True,
-                "G4": True,
-                "H4": True,
-                "A5": True,
-                "B5": True,
-                "C5": True,
-                "D5": True,
-                "E5": True,
-                "F5": True,
-                "G5": True,
-                "H5": True,
-                "A6": True,
-                "B6": True,
-                "C6": True,
-                "D6": True,
-                "E6": True,
-                "F6": True,
-                "G6": True,
-                "H6": True,
-                "A7": True,
-                "B7": True,
-                "C7": True,
-                "D7": True,
-                "E7": True,
-                "F7": True,
-                "G7": True,
-                "H7": True,
-                "A8": True,
-                "B8": True,
-                "C8": True,
-                "D8": True,
-                "E8": True,
-                "F8": True,
-                "G8": True,
-                "H8": True,
-                "A9": True,
-                "B9": True,
-                "C9": True,
-                "D9": True,
-                "E9": True,
-                "F9": True,
-                "G9": True,
-                "H9": True
+                "A1": {"ocupado": True, "tipo": "extreme"},
+                "B1": {"ocupado": False, "tipo": "extreme"},
+                "C1": {"ocupado": False, "tipo": "normal"},
+                "D1": {"ocupado": False, "tipo": "normal"},
+                "E1": {"ocupado": False, "tipo": "normal"},
+                "F1": {"ocupado": False, "tipo": "normal"},
+                "G1": {"ocupado": False, "tipo": "normal"},
+                "H1": {"ocupado": False, "tipo": "normal"},
+                "A2": {"ocupado": False, "tipo": "extreme"},
+                "B2": {"ocupado": False, "tipo": "extreme"},
+                "C2": {"ocupado": False, "tipo": "normal"},
+                "D2": {"ocupado": False, "tipo": "normal"},
+                "E2": {"ocupado": False, "tipo": "normal"},
+                "F2": {"ocupado": False, "tipo": "normal"},
+                "G2": {"ocupado": False, "tipo": "normal"},
+                "H2": {"ocupado": False, "tipo": "normal"},
+                "A3": {"ocupado": False, "tipo": "extreme"},
+                "B3": {"ocupado": False, "tipo": "extreme"},
+                "C3": {"ocupado": False, "tipo": "normal"},
+                "D3": {"ocupado": False, "tipo": "normal"},
+                "E3": {"ocupado": False, "tipo": "normal"},
+                "F3": {"ocupado": False, "tipo": "normal"},
+                "G3": {"ocupado": False, "tipo": "normal"},
+                "H3": {"ocupado": False, "tipo": "normal"},
+                "A4": {"ocupado": False, "tipo": "extreme"},
+                "B4": {"ocupado": False, "tipo": "extreme"},
+                "C4": {"ocupado": False, "tipo": "normal"},
+                "D4": {"ocupado": False, "tipo": "normal"},
+                "E4": {"ocupado": False, "tipo": "normal"},
+                "F4": {"ocupado": False, "tipo": "normal"},
+                "G4": {"ocupado": False, "tipo": "normal"},
+                "H4": {"ocupado": False, "tipo": "normal"},
+                "A5": {"ocupado": False, "tipo": "extreme"},
+                "B5": {"ocupado": False, "tipo": "extreme"},
+                "C5": {"ocupado": False, "tipo": "normal"},
+                "D5": {"ocupado": False, "tipo": "normal"},
+                "E5": {"ocupado": False, "tipo": "normal"},
+                "F5": {"ocupado": False, "tipo": "normal"},
+                "G5": {"ocupado": False, "tipo": "normal"},
+                "H5": {"ocupado": False, "tipo": "normal"},
+                "A6": {"ocupado": False, "tipo": "extreme"},
+                "B6": {"ocupado": False, "tipo": "extreme"},
+                "C6": {"ocupado": False, "tipo": "normal"},
+                "D6": {"ocupado": False, "tipo": "normal"},
+                "E6": {"ocupado": False, "tipo": "normal"},
+                "F6": {"ocupado": False, "tipo": "normal"},
+                "G6": {"ocupado": False, "tipo": "normal"},
+                "H6": {"ocupado": False, "tipo": "normal"},
+                "A7": {"ocupado": False, "tipo": "extreme"},
+                "B7": {"ocupado": False, "tipo": "extreme"},
+                "C7": {"ocupado": False, "tipo": "normal"},
+                "D7": {"ocupado": False, "tipo": "normal"},
+                "E7": {"ocupado": False, "tipo": "normal"},
+                "F7": {"ocupado": False, "tipo": "normal"},
+                "G7": {"ocupado": False, "tipo": "normal"},
+                "H7": {"ocupado": False, "tipo": "normal"},
+                "A8": {"ocupado": False, "tipo": "extreme"},
+                "B8": {"ocupado": False, "tipo": "extreme"},
+                "C8": {"ocupado": False, "tipo": "normal"},
+                "D8": {"ocupado": False, "tipo": "normal"},
+                "E8": {"ocupado": False, "tipo": "normal"},
+                "F8": {"ocupado": False, "tipo": "normal"},
+                "G8": {"ocupado": False, "tipo": "normal"},
+                "H8": {"ocupado": False, "tipo": "normal"},
+                "A9": {"ocupado": False, "tipo": "extreme"},
+                "B9": {"ocupado": False, "tipo": "extreme"},
+                "C9": {"ocupado": False, "tipo": "normal"},
+                "D9": {"ocupado": False, "tipo": "normal"},
+                "E9": {"ocupado": False, "tipo": "normal"},
+                "F9": {"ocupado": False, "tipo": "normal"},
+                "G9": {"ocupado": False, "tipo": "normal"},
+                "H9": {"ocupado": False, "tipo": "normal"}
         }
         }
     }
@@ -294,8 +303,9 @@ while True:
                         break
 
                 funcionesPelicula = {}
+                cinesElegidos = {cineId: cines[cineId] for cineId in peliculaData['complejos']}
                 print("Elija el cine de la función.")
-                listado = [(cineId, data["nombre"].strip(), data["direccion"].strip()) for cineId, data in cines.items()]
+                listado = [(cineId, data["nombre"].strip(), data["direccion"].strip()) for cineId, data in cinesElegidos.items()]
                 print("\n--- LISTADO DE CINES ---")
                 for cineId, nombre, direccion in listado:
                     print(f"ID: {cineId:<3} | Nombre: {nombre:<25} | Dirección: {direccion}")
@@ -304,6 +314,9 @@ while True:
                     while not cines.get(cineId):
                         cineId = input("Error. Ingresa el cine: ")
                     print("Elija la sala del cine.")
+                    if (not salas) or (not any(sala['cineId'] == cineId for sala in salas.values())):
+                        print("No hay salas disponibles para este cine. Debe crear una sala primero.")
+                        break
                     imprimirSalasPorCine(cineId, salas)
                     salaId = input("Ingresa el ID de la sala en la que se proyectará:")
                     while not salas.get(salaId) or salas[salaId]['cineId'] != cineId:
@@ -401,6 +414,25 @@ while True:
                 imprimirPeliculas(peliculas)
             elif opcionPeliculas == "4": 
                 imprimirFunciones(funciones, peliculas, cines, salas)
+            elif opcionPeliculas == "5":  # Películas por idioma Y formato
+                print("\n--- PELÍCULAS POR IDIOMA Y FORMATO ---")
+                idiomas = obtenerIdiomasDisponibles(peliculas)
+                formatos = obtenerFormatosDisponibles(peliculas)
+                
+                print(f"Idiomas disponibles: {', '.join(sorted(idiomas))}")
+                print(f"Formatos disponibles: {', '.join(sorted(formatos))}")
+                
+                idioma = input("\nIngrese el idioma: ").strip()
+                formato = input("Ingrese el formato: ").strip()
+                
+                pelisResultado = peliculasPorIdiomaYFormato(peliculas, idioma, formato)
+                
+                if pelisResultado:
+                    print(f"\nPelículas en {idioma} Y {formato}:")
+                    for peliculaId in pelisResultado:
+                        print(f"  - {peliculas[peliculaId]['titulo']} (ID: {peliculaId})")
+                else:
+                    print(f"\nNo hay películas con idioma {idioma} y formato {formato}.")
 
             input("\nPresione ENTER para volver al menú.")
             print("\n\n")
@@ -418,7 +450,7 @@ while True:
                 idCine = input("Ingrese el ID del cine donde desea reservar:")
                 if not cines.get(idCine):
                     print("Error: No se encontró un cine con el ID proporcionado.")
-                    break
+                    continue
                 peliculasEnCine = peliculasPorCine(peliculas, idCine)
 
                 if peliculasEnCine:
@@ -435,10 +467,10 @@ while True:
                         else:
                             print("No hay horarios asignados.")
                     peliculaId = input(
-                        "Ingresa el ID de la película que desee ver")
-                    while not peliculas.get(peliculaId) and not peliculaId in peliculasEnCine.keys():
+                        "Ingresa el ID de la película que desee ver: ")
+                    while not peliculas.get(peliculaId) or peliculaId not in peliculasEnCine.keys():
                         peliculaId = input(
-                            "Ingresa el ID de la película que desee ver")
+                            "Ingresa el ID de la película que desee ver: ")
                         print("El ID de la película no corresponde a ninguna película en este cine. Intente nuevamente.")
 
                     salaId = input("Ingresa el ID de la sala en la que se proyectará:")
@@ -449,47 +481,54 @@ while True:
                     horaPelicula = input("Ingrese la hora de la función (por ejemplo, '14:00'): ").strip()
                     if not funciones.get(peliculaId, {}).get(idCine, {}).get(salaId, {}).get(diaPelicula, {}) or horaPelicula not in funciones.get(peliculaId, {}).get(idCine, {}).get(salaId, {}).get(diaPelicula, {}):
                         print(f"No existe función para la película {peliculaId} en el cine {idCine}, sala {salaId}, día {diaPelicula} a las {horaPelicula}")
-                        break
+                        continue
 
                     salaData = salas.get(salaId)
                     if not salaData or salaData["cineId"] != idCine:
                         print(f"No se encontró la sala {salaId} en el cine {idCine}")
-                        break
+                        continue
 
-                    asientosDisponibles = [asiento for asiento, disponible in salaData["asientos"].items() if disponible]
-                    if not asientosDisponibles:
+                    asientosDisponiblesSet = informeButacasDisponibles(salaData["asientos"])
+                    if not asientosDisponiblesSet:
                         print("No hay butacas disponibles en esta sala.")
-                        break
+                        continue
 
-                    print("Butacas disponibles:", ", ".join(asientosDisponibles))
-                    butaca = input("Seleccione una butaca disponible: ").strip().upper()
-                    while butaca not in asientosDisponibles:
+                    extremeDisponibles = butacasDisponiblesPorTipo(salaData["asientos"], "extreme")
+                    normalDisponibles = butacasDisponiblesPorTipo(salaData["asientos"], "normal")
+                    
+                    print(f"\nButacas EXTREME disponibles ({len(extremeDisponibles)}): {', '.join(sorted(extremeDisponibles))}")
+                    print(f"Butacas NORMAL disponibles ({len(normalDisponibles)}): {', '.join(sorted(normalDisponibles))}")
+                    
+                    butaca = input("\nSeleccione una butaca disponible: ").strip().upper()
+                    while butaca not in asientosDisponiblesSet:
                         butaca = input("Butaca no válida o no disponible. Seleccione una butaca disponible: ").strip().upper()
 
-                    salas[salaId]["asientos"][butaca] = False
+                    salas[salaId]["asientos"][butaca]["ocupado"] = True
 
                     nuevaEntrada = {
                         'cliente': nombreCliente,
                         'dni': dniCliente,
                         'cineId': idCine,
                         'peliculaId': peliculaId,
+                        'salaId': salaId,
                         'butaca': butaca
                     }
 
                     entradas = generarEntrada(nuevaEntrada, entradas)
+                    tipoButaca = salas[salaId]["asientos"][butaca]["tipo"]
                     print(
-                        f"Felicidades, el cliente {nombreCliente} - {dniCliente} tiene reservado el asiento {butaca} para la función.")
+                        f"Felicidades, el cliente {nombreCliente} - {dniCliente} tiene reservado el asiento {butaca} (Tipo: {tipoButaca.upper()}) para la función.")
             elif opcionEntradas == "2": 
                 idCine = input("Ingrese el ID del cine de la reserva a eliminar:")
                 if not cines.get(idCine):
                     print("Error: No se encontró un cine con el ID proporcionado.")
-                    break
+                    continue
                     
                 peliculasEnCine = peliculasPorCine(peliculas, idCine)
 
                 if not peliculasEnCine:
                     print("No hay películas disponibles en este cine.")
-                    break
+                    continue
 
                 print("\nLista de todas las películas en este cine:")
                 for peliculaId, info in peliculasEnCine.items():
@@ -508,9 +547,9 @@ while True:
                 dniCliente = input("Ingrese el DNI del cliente: ")
                 butaca = input("Ingrese el asiento reservado a eliminar: ").upper()
 
-                if butaca not in salas[salaId]['asientos'] or salas[salaId]['asientos'][butaca] == True:
+                if butaca not in salas[salaId]['asientos'] or not salas[salaId]['asientos'][butaca]["ocupado"]:
                     print("La reserva de ese asiento no existe o ya está disponible.")
-                    break
+                    continue
 
                 entradaEliminarId = None
                 for entradaId, entrada in entradas.items():
@@ -524,9 +563,9 @@ while True:
 
                 if not entradaEliminarId:
                     print("No se encontró una reserva que coincida con los datos proporcionados.")
-                    break
+                    continue
                 
-                salas[salaId]['asientos'][butaca] = True
+                salas[salaId]['asientos'][butaca]["ocupado"] = False
                 entradas = eliminarEntrada(entradaEliminarId, entradas)
 
                 print(f"La reserva para el cliente {nombreCliente} - {dniCliente} en el asiento {butaca} ha sido eliminada exitosamente.")
@@ -556,12 +595,13 @@ while True:
 
             if opcionInformes == "2":
                 disponibles = informeListadoPeliculasDisponibles(peliculas, cines)
-                idiomas = set(pelicula[2] for pelicula in disponibles)
-                formatos = set(pelicula[3] for pelicula in disponibles)
+                # Usando operaciones de conjuntos para obtener idiomas y formatos
+                idiomas = obtenerIdiomasDisponibles(peliculas)
+                formatos = obtenerFormatosDisponibles(peliculas)
 
                 print("\n--- LISTADO DE PELÍCULAS DISPONIBLES ---")
-                for peliculaId, titulo, idioma, formato, cines in disponibles:
-                    print(f"ID: {peliculaId} | Título: {titulo} | Idioma: {idioma} | Formato: {formato} | Cines: {cines}")
+                for peliculaId, titulo, idioma, formato, cines_str in disponibles:
+                    print(f"ID: {peliculaId} | Título: {titulo} | Idioma: {idioma} | Formato: {formato} | Cines: {cines_str}")
 
                 print("\nIdiomas disponibles:", ", ".join(sorted(idiomas)))
                 print("Formatos disponibles:", ", ".join(sorted(formatos)))
@@ -575,9 +615,29 @@ while True:
                     print("Butacas disponibles:")
                     butacasDisponibles = informeButacasDisponibles(sala['asientos'])
                     if butacasDisponibles:
-                        print(", ".join(butacasDisponibles))
+                        print(", ".join(sorted(butacasDisponibles)))
                     else:
                         print("No hay butacas disponibles.")
+
+            if opcionInformes == "4": #INFORME DE BUTACAS POR TIPO
+                print("\n--- INFORME DE BUTACAS POR TIPO ---")
+                for salaId, sala in salas.items():
+                    print(f"\nCine ID: {sala['cineId']} - Sala ID: {salaId} - Número: {sala['numeroSala']}")
+                    
+                    # Usando operaciones de conjuntos para análisis por tipo
+                    extremeTotal = butacasPorTipo(sala['asientos'], "extreme")
+                    normalTotal = butacasPorTipo(sala['asientos'], "normal")
+                    
+                    extremeDisponibles = butacasDisponiblesPorTipo(sala['asientos'], "extreme")
+                    normalDisponibles = butacasDisponiblesPorTipo(sala['asientos'], "normal")
+                    
+                    extremeOcupadas = butacasOcupadasPorTipo(sala['asientos'], "extreme")
+                    normalOcupadas = butacasOcupadasPorTipo(sala['asientos'], "normal")
+                    
+                    print(f"  EXTREME: {len(extremeTotal)} totales | {len(extremeDisponibles)} disponibles | {len(extremeOcupadas)} ocupadas")
+                    print(f"    Disponibles: {', '.join(sorted(extremeDisponibles)) if extremeDisponibles else 'Ninguna'}")
+                    print(f"  NORMAL: {len(normalTotal)} totales | {len(normalDisponibles)} disponibles | {len(normalOcupadas)} ocupadas")
+                    print(f"    Disponibles: {', '.join(sorted(normalDisponibles)) if normalDisponibles else 'Ninguna'}")
 
             input("\nPresione ENTER para volver al menú.")
             print("\n\n")
@@ -604,7 +664,7 @@ while True:
                 cineId = input("Ingrese el ID del cine que desea eliminar: ")
                 if not cines.get(cineId):
                     print("Error: No se encontró un cine con el ID proporcionado.")
-                    break
+                    continue
                 confirmacion = input("¿Está seguro que desea eliminar el cine? (s/n): ").lower()
                 if confirmacion == "s":
                     cines = eliminarCine(cineId, cines)
@@ -615,7 +675,7 @@ while True:
                 cineExistente = cines.get(cineId)
                 if not cineExistente:
                     print("Error: No se encontró un cine con el ID proporcionado.")
-                    break
+                    continue
 
                 nuevoNombre = input(
                     "Ingrese el nuevo nombre del cine (deje en blanco para no modificar): ").strip()
@@ -627,6 +687,147 @@ while True:
                 if (cineEditado != tuple(cineExistente.values())):
                     cines = modificarCine(cineId, cineEditado, cines)
                     print("¡Cine modificado con éxito!")
+            elif opcionCines == "5":  # Películas en común entre dos cines
+                print("\n--- PELÍCULAS EN COMÚN ENTRE DOS CINES ---")
+                imprimirCines(cines)
+                cine1 = input("Ingrese el ID del primer cine: ")
+                cine2 = input("Ingrese el ID del segundo cine: ")
+                
+                if not cines.get(cine1) or not cines.get(cine2):
+                    print("Error: Uno o ambos cines no existen.")
+                    continue
+                
+                peliculas1 = peliculasPorCine(peliculas, cine1)
+                peliculas2 = peliculasPorCine(peliculas, cine2)
+                
+                # Intersección de conjuntos de IDs de películas
+                idsComunes = set(peliculas1.keys()) & set(peliculas2.keys())
+                
+                if idsComunes:
+                    print(f"\nPelículas en común entre {cines[cine1]['nombre']} y {cines[cine2]['nombre']}:")
+                    for pid in idsComunes:
+                        print(f"  - {peliculas[pid]['titulo']} (ID: {pid})")
+                else:
+                    print(f"\nNo hay películas en común entre estos cines.")
+
+            elif opcionCines == "6":  # Cines sin películas
+                print("\n--- CINES SIN PELÍCULAS ASIGNADAS ---")
+                todosCinesSet = set(cines.keys())
+                cinesSinPelis = cinesSinPeliculas(todosCinesSet, peliculas)
+                
+                if cinesSinPelis:
+                    print("Los siguientes cines NO tienen películas asignadas:")
+                    for cineId in cinesSinPelis:
+                        print(f"  - {cines[cineId]['nombre']} (ID: {cineId})")
+                else:
+                    print("Todos los cines tienen al menos una película asignada.")
+
+            elif opcionCines == "7":  # Películas en todos los cines seleccionados
+                print("\n--- PELÍCULAS EN TODOS LOS CINES SELECCIONADOS ---")
+                imprimirCines(cines)
+                cinesSeleccionados = set()
+                while True:
+                    cineId = input("Ingrese ID de cine (ENTER para terminar): ")
+                    if not cineId:
+                        break
+                    if cines.get(cineId):
+                        cinesSeleccionados.add(cineId)
+                    else:
+                        print("Cine no encontrado.")
+                
+                if not cinesSeleccionados:
+                    print("No se seleccionaron cines.")
+                    continue
+                
+                pelisEnTodos = peliculasEnTodosCines(peliculas, cinesSeleccionados)
+                
+                if pelisEnTodos:
+                    print(f"\nPelículas disponibles en TODOS los cines seleccionados:")
+                    for pid, peli in pelisEnTodos.items():
+                        print(f"  - {peli['titulo']} (ID: {pid})")
+                else:
+                    print("\nNo hay películas disponibles en todos los cines seleccionados.")
+
+            elif opcionCines == "8":  # Comparar butacas por tipo
+                print("\n--- ANÁLISIS DE BUTACAS POR TIPO (TODAS LAS SALAS) ---")
+                
+                # Usando operaciones de conjuntos para agregar datos de todas las salas
+                todasExtremeDisp = set()
+                todasNormalDisp = set()
+                todasExtremeOcup = set()
+                todasNormalOcup = set()
+                
+                for salaId, sala in salas.items():
+                    extremeDisp = butacasDisponiblesPorTipo(sala['asientos'], "extreme")
+                    normalDisp = butacasDisponiblesPorTipo(sala['asientos'], "normal")
+                    extremeOcup = butacasOcupadasPorTipo(sala['asientos'], "extreme")
+                    normalOcup = butacasOcupadasPorTipo(sala['asientos'], "normal")
+                    
+                    # Unión de conjuntos
+                    todasExtremeDisp = todasExtremeDisp | extremeDisp
+                    todasNormalDisp = todasNormalDisp | normalDisp
+                    todasExtremeOcup = todasExtremeOcup | extremeOcup
+                    todasNormalOcup = todasNormalOcup | normalOcup
+                
+                print(f"RESUMEN GLOBAL:")
+                print(f"  Butacas EXTREME disponibles: {len(todasExtremeDisp)}")
+                print(f"  Butacas EXTREME ocupadas: {len(todasExtremeOcup)}")
+                print(f"  Butacas NORMAL disponibles: {len(todasNormalDisp)}")
+                print(f"  Butacas NORMAL ocupadas: {len(todasNormalOcup)}")
+                
+                # Porcentajes
+                totalExtreme = len(todasExtremeDisp) + len(todasExtremeOcup)
+                totalNormal = len(todasNormalDisp) + len(todasNormalOcup)
+                if totalExtreme > 0:
+                    porcExtremeOcup = (len(todasExtremeOcup) / totalExtreme) * 100
+                    print(f"  Ocupación EXTREME: {porcExtremeOcup:.1f}%")
+                if totalNormal > 0:
+                    porcNormalOcup = (len(todasNormalOcup) / totalNormal) * 100
+                    print(f"  Ocupación NORMAL: {porcNormalOcup:.1f}%")
+            
+            if opcionCines == "10":  # Análisis de funciones por día
+                print("\n--- ANÁLISIS DE FUNCIONES POR DÍA ---")
+                peliculaId = input("Ingrese ID de película: ")
+                if not peliculas.get(peliculaId):
+                    print("Película no encontrada.")
+                    continue
+                
+                cineId = input("Ingrese ID de cine: ")
+                if not cines.get(cineId):
+                    print("Cine no encontrado.")
+                    continue
+                
+                # Usando conjuntos para obtener todos los días con funciones
+                diasDisponibles = diasConFunciones(funciones, peliculaId, cineId)
+                
+                if diasDisponibles:
+                    print(f"\nDías con funciones: {', '.join(sorted(diasDisponibles))}")
+                    
+                    dia = input("\nIngrese un día para ver horarios: ").lower()
+                    if dia in diasDisponibles:
+                        # Usando unión de conjuntos para todos los horarios
+                        horarios = horariosEnDia(funciones, peliculaId, cineId, dia)
+                        print(f"Horarios disponibles el {dia}: {', '.join(sorted(horarios))}")
+                    else:
+                        print(f"No hay funciones el {dia}.")
+                else:
+                    print("No hay funciones programadas para esta combinación.")
+            
+            elif opcionCines == "10":  # Cines con y sin funciones
+                print("\n--- ANÁLISIS DE CINES CON/SIN FUNCIONES ---")
+                
+                # Usando operaciones de conjuntos
+                todosCinesSet = set(cines.keys())
+                cinesConFunc = cinesConFunciones(funciones)
+                cinesSinFunc = todosCinesSet - cinesConFunc
+                
+                print(f"\nCines CON funciones programadas ({len(cinesConFunc)}):")
+                for cineId in sorted(cinesConFunc):
+                    print(f"  - {cines[cineId]['nombre']} (ID: {cineId})")
+                
+                print(f"\nCines SIN funciones programadas ({len(cinesSinFunc)}):")
+                for cineId in sorted(cinesSinFunc):
+                    print(f"  - {cines[cineId]['nombre']} (ID: {cineId})")
 
             input("\nPresione ENTER para volver al menú.")
             print("\n\n")
