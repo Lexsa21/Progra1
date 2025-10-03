@@ -1,0 +1,14 @@
+- Agregar property "habilitada" a la butaca
+    - Revisar flujo de compra de entrada para mejorar experiencia
+    - En el flujo de una entrada, chequear si la butaca esta disponible o no, si esta habilitada o no. Si ambas true, entonces puede reservar la butaca, sino no
+    - Hacer que la reserva de la entrada se pueda reservar multiples bajo un mismo cliente
+    - Informe de dinero recaudado (Una vez terminado el tema de precios de entradas)
+- Agregar dato de precio de la entrada, asi como las operaciones de modificar el precio. Hay que ver en qué flujo integrarlo
+- Revisar estructura de "funciones"
+- Ranking de pelis mas vistas (En base a ventas de entradas)
+- Cambiar el tipo de validacion del DNI del cliente. Es int, no str
+- Poder agregar mas salas a un cine cuando lo modifico
+- Poder dar de baja salas
+- Dar de baja funciones de una pelicula
+- Dar de baja cines en los que se da una pelicula
+- Revisar el menu de la pelicula. Hay que modificar el flujo para que funcione de otra manera
