@@ -108,84 +108,84 @@ cines = {
     }
 #ARMAR ENTIDAD SALAS COMO CONJUNTO
 salas = { 
-        "1": { #salaID
-            "cineId": "1",
-            "numeroSala": "1", #Nombre de la sala
-            "asientos": {
-                "A1": {"ocupado": True, "tipo": "extreme"},
-                "B1": {"ocupado": False, "tipo": "extreme"},
-                "C1": {"ocupado": False, "tipo": "normal"},
-                "D1": {"ocupado": False, "tipo": "normal"},
-                "E1": {"ocupado": False, "tipo": "normal"},
-                "F1": {"ocupado": False, "tipo": "normal"},
-                "G1": {"ocupado": False, "tipo": "normal"},
-                "H1": {"ocupado": False, "tipo": "normal"},
-                "A2": {"ocupado": False, "tipo": "extreme"},
-                "B2": {"ocupado": False, "tipo": "extreme"},
-                "C2": {"ocupado": False, "tipo": "normal"},
-                "D2": {"ocupado": False, "tipo": "normal"},
-                "E2": {"ocupado": False, "tipo": "normal"},
-                "F2": {"ocupado": False, "tipo": "normal"},
-                "G2": {"ocupado": False, "tipo": "normal"},
-                "H2": {"ocupado": False, "tipo": "normal"},
-                "A3": {"ocupado": False, "tipo": "extreme"},
-                "B3": {"ocupado": False, "tipo": "extreme"},
-                "C3": {"ocupado": False, "tipo": "normal"},
-                "D3": {"ocupado": False, "tipo": "normal"},
-                "E3": {"ocupado": False, "tipo": "normal"},
-                "F3": {"ocupado": False, "tipo": "normal"},
-                "G3": {"ocupado": False, "tipo": "normal"},
-                "H3": {"ocupado": False, "tipo": "normal"},
-                "A4": {"ocupado": False, "tipo": "extreme"},
-                "B4": {"ocupado": False, "tipo": "extreme"},
-                "C4": {"ocupado": False, "tipo": "normal"},
-                "D4": {"ocupado": False, "tipo": "normal"},
-                "E4": {"ocupado": False, "tipo": "normal"},
-                "F4": {"ocupado": False, "tipo": "normal"},
-                "G4": {"ocupado": False, "tipo": "normal"},
-                "H4": {"ocupado": False, "tipo": "normal"},
-                "A5": {"ocupado": False, "tipo": "extreme"},
-                "B5": {"ocupado": False, "tipo": "extreme"},
-                "C5": {"ocupado": False, "tipo": "normal"},
-                "D5": {"ocupado": False, "tipo": "normal"},
-                "E5": {"ocupado": False, "tipo": "normal"},
-                "F5": {"ocupado": False, "tipo": "normal"},
-                "G5": {"ocupado": False, "tipo": "normal"},
-                "H5": {"ocupado": False, "tipo": "normal"},
-                "A6": {"ocupado": False, "tipo": "extreme"},
-                "B6": {"ocupado": False, "tipo": "extreme"},
-                "C6": {"ocupado": False, "tipo": "normal"},
-                "D6": {"ocupado": False, "tipo": "normal"},
-                "E6": {"ocupado": False, "tipo": "normal"},
-                "F6": {"ocupado": False, "tipo": "normal"},
-                "G6": {"ocupado": False, "tipo": "normal"},
-                "H6": {"ocupado": False, "tipo": "normal"},
-                "A7": {"ocupado": False, "tipo": "extreme"},
-                "B7": {"ocupado": False, "tipo": "extreme"},
-                "C7": {"ocupado": False, "tipo": "normal"},
-                "D7": {"ocupado": False, "tipo": "normal"},
-                "E7": {"ocupado": False, "tipo": "normal"},
-                "F7": {"ocupado": False, "tipo": "normal"},
-                "G7": {"ocupado": False, "tipo": "normal"},
-                "H7": {"ocupado": False, "tipo": "normal"},
-                "A8": {"ocupado": False, "tipo": "extreme"},
-                "B8": {"ocupado": False, "tipo": "extreme"},
-                "C8": {"ocupado": False, "tipo": "normal"},
-                "D8": {"ocupado": False, "tipo": "normal"},
-                "E8": {"ocupado": False, "tipo": "normal"},
-                "F8": {"ocupado": False, "tipo": "normal"},
-                "G8": {"ocupado": False, "tipo": "normal"},
-                "H8": {"ocupado": False, "tipo": "normal"},
-                "A9": {"ocupado": False, "tipo": "extreme"},
-                "B9": {"ocupado": False, "tipo": "extreme"},
-                "C9": {"ocupado": False, "tipo": "normal"},
-                "D9": {"ocupado": False, "tipo": "normal"},
-                "E9": {"ocupado": False, "tipo": "normal"},
-                "F9": {"ocupado": False, "tipo": "normal"},
-                "G9": {"ocupado": False, "tipo": "normal"},
-                "H9": {"ocupado": False, "tipo": "normal"}
-        }
-        }
+    "1": { #salaID
+        "cineId": "1",
+        "numeroSala": "1", #Nombre de la sala
+        "asientos": {
+        "A1": {"ocupado": True, "tipo": "extreme"},
+        "A2": {"ocupado": False, "tipo": "extreme"},
+        "A3": {"ocupado": False, "tipo": "extreme"},
+        "A4": {"ocupado": False, "tipo": "extreme"},
+        "A5": {"ocupado": False, "tipo": "extreme"},
+        "A6": {"ocupado": False, "tipo": "extreme"},
+        "A7": {"ocupado": False, "tipo": "extreme"},
+        "A8": {"ocupado": False, "tipo": "extreme"},
+        "A9": {"ocupado": False, "tipo": "extreme"},
+        "B1": {"ocupado": False, "tipo": "extreme"},
+        "B2": {"ocupado": False, "tipo": "extreme"},
+        "B3": {"ocupado": False, "tipo": "extreme"},
+        "B4": {"ocupado": False, "tipo": "extreme"},
+        "B5": {"ocupado": False, "tipo": "extreme"},
+        "B6": {"ocupado": False, "tipo": "extreme"},
+        "B7": {"ocupado": False, "tipo": "extreme"},
+        "B8": {"ocupado": False, "tipo": "extreme"},
+        "B9": {"ocupado": False, "tipo": "extreme"},
+        "C1": {"ocupado": False, "tipo": "normal"},
+        "C2": {"ocupado": False, "tipo": "normal"},
+        "C3": {"ocupado": False, "tipo": "normal"},
+        "C4": {"ocupado": False, "tipo": "normal"},
+        "C5": {"ocupado": False, "tipo": "normal"},
+        "C6": {"ocupado": False, "tipo": "normal"},
+        "C7": {"ocupado": False, "tipo": "normal"},
+        "C8": {"ocupado": False, "tipo": "normal"},
+        "C9": {"ocupado": False, "tipo": "normal"},
+        "D1": {"ocupado": False, "tipo": "normal"},
+        "D2": {"ocupado": False, "tipo": "normal"},
+        "D3": {"ocupado": False, "tipo": "normal"},
+        "D4": {"ocupado": False, "tipo": "normal"},
+        "D5": {"ocupado": False, "tipo": "normal"},
+        "D6": {"ocupado": False, "tipo": "normal"},
+        "D7": {"ocupado": False, "tipo": "normal"},
+        "D8": {"ocupado": False, "tipo": "normal"},
+        "D9": {"ocupado": False, "tipo": "normal"},
+        "E1": {"ocupado": False, "tipo": "normal"},
+        "E2": {"ocupado": False, "tipo": "normal"},
+        "E3": {"ocupado": False, "tipo": "normal"},
+        "E4": {"ocupado": False, "tipo": "normal"},
+        "E5": {"ocupado": False, "tipo": "normal"},
+        "E6": {"ocupado": False, "tipo": "normal"},
+        "E7": {"ocupado": False, "tipo": "normal"},
+        "E8": {"ocupado": False, "tipo": "normal"},
+        "E9": {"ocupado": False, "tipo": "normal"},
+        "F1": {"ocupado": False, "tipo": "normal"},
+        "F2": {"ocupado": False, "tipo": "normal"},
+        "F3": {"ocupado": False, "tipo": "normal"},
+        "F4": {"ocupado": False, "tipo": "normal"},
+        "F5": {"ocupado": False, "tipo": "normal"},
+        "F6": {"ocupado": False, "tipo": "normal"},
+        "F7": {"ocupado": False, "tipo": "normal"},
+        "F8": {"ocupado": False, "tipo": "normal"},
+        "F9": {"ocupado": False, "tipo": "normal"},
+        "G1": {"ocupado": False, "tipo": "normal"},
+        "G2": {"ocupado": False, "tipo": "normal"},
+        "G3": {"ocupado": False, "tipo": "normal"},
+        "G4": {"ocupado": False, "tipo": "normal"},
+        "G5": {"ocupado": False, "tipo": "normal"},
+        "G6": {"ocupado": False, "tipo": "normal"},
+        "G7": {"ocupado": False, "tipo": "normal"},
+        "G8": {"ocupado": False, "tipo": "normal"},
+        "G9": {"ocupado": False, "tipo": "normal"},
+        "H1": {"ocupado": False, "tipo": "normal"},
+        "H2": {"ocupado": False, "tipo": "normal"},
+        "H3": {"ocupado": False, "tipo": "normal"},
+        "H4": {"ocupado": False, "tipo": "normal"},
+        "H5": {"ocupado": False, "tipo": "normal"},
+        "H6": {"ocupado": False, "tipo": "normal"},
+        "H7": {"ocupado": False, "tipo": "normal"},
+        "H8": {"ocupado": False, "tipo": "normal"},
+        "H9": {"ocupado": False, "tipo": "normal"}
+    }
+    }
     }
 """
     La estructura es:
@@ -492,12 +492,12 @@ while True:
                     if not asientosDisponiblesSet:
                         print("No hay butacas disponibles en esta sala.")
                         continue
-
+                    
                     extremeDisponibles = butacasDisponiblesPorTipo(salaData["asientos"], "extreme")
                     normalDisponibles = butacasDisponiblesPorTipo(salaData["asientos"], "normal")
-                    
-                    print(f"\nButacas EXTREME disponibles ({len(extremeDisponibles)}): {', '.join(sorted(extremeDisponibles))}")
-                    print(f"Butacas NORMAL disponibles ({len(normalDisponibles)}): {', '.join(sorted(normalDisponibles))}")
+                    print(f"\nButacas EXTREME disponibles ({len(extremeDisponibles)})")
+                    print(f"Butacas NORMAL disponibles ({len(normalDisponibles)})s")
+                    imprimirSala(salaData["asientos"])
                     
                     butaca = input("\nSeleccione una butaca disponible: ").strip().upper()
                     while butaca not in asientosDisponiblesSet:
@@ -633,11 +633,9 @@ while True:
                     
                     extremeOcupadas = butacasOcupadasPorTipo(sala['asientos'], "extreme")
                     normalOcupadas = butacasOcupadasPorTipo(sala['asientos'], "normal")
-                    
                     print(f"  EXTREME: {len(extremeTotal)} totales | {len(extremeDisponibles)} disponibles | {len(extremeOcupadas)} ocupadas")
-                    print(f"    Disponibles: {', '.join(sorted(extremeDisponibles)) if extremeDisponibles else 'Ninguna'}")
                     print(f"  NORMAL: {len(normalTotal)} totales | {len(normalDisponibles)} disponibles | {len(normalOcupadas)} ocupadas")
-                    print(f"    Disponibles: {', '.join(sorted(normalDisponibles)) if normalDisponibles else 'Ninguna'}")
+                    imprimirSala(sala['asientos'])
 
             input("\nPresione ENTER para volver al menú.")
             print("\n\n")
