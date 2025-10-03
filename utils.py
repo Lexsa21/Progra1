@@ -46,10 +46,7 @@ def agregarPelicula(peliculaData, peliculas):
     """
     peliculaId = generarId(peliculas)
 
-    sala = crearSala()
-
     peliculaData["activo"] = True
-    peliculaData["sala"] = sala
 
     peliculas[peliculaId] = peliculaData.copy()
 
@@ -113,30 +110,41 @@ def imprimirSalasPorCine(cineId, salas):
             print(f"ID: {salaId} | Número de Sala: {sala['numeroSala']}")
     print("\n")
 
-def crearSala():
+def crearSala(cineId, numeroSala, salas):
     """
-    Crea una nueva sala con configuración de butacas predeterminada.
+    Crea una nueva sala con configuración de butacas predeterminada y la agrega al diccionario de salas.
+    
+    Parámetros:
+        cineId (string): ID del cine al que pertenece la sala
+        numeroSala (string): Número o nombre identificador de la sala
+        salas (diccionario): Diccionario de salas existente donde:
+            - key: ID de la sala (string)
+            - value: Diccionario con datos de la sala
     
     Return:
-        diccionario: Diccionario donde:
-            - key: Identificador de butaca (ej: "A1", "B3") (str)
-            - value: Diccionario con:
-                - ocupado (booleano): True si está ocupada, False si disponible
-                - tipo (string): "normal" o "extreme"
+        diccionario: Diccionario de salas actualizado con la nueva sala agregada
     """
-    sala = {}
+    salaId = str(int(max(salas.keys(), default="0")) + 1)
+    
+    butacas = {}
     filas, columnas = CONFIGURACION_SALA
     
     for i in range(0, filas):
-        for j in range(columnas + 1):
-            asiento = f"{NUMERACION_FILAS[i]}{j}"
-            # Las primeras 2 filas son "extreme", el resto "normal"
-            tipoButaca = "extreme" if j < 2 else "normal"
-            sala[asiento] = {
+        for j in range(0, columnas):
+            asiento = f"{NUMERACION_FILAS[i]}{j + 1}"
+            tipoButaca = "extreme" if i < 2 else "normal"
+            butacas[asiento] = {
                 "ocupado": False,
                 "tipo": tipoButaca
             }
-    return sala
+    
+    salas[salaId] = {
+        "cineId": cineId,
+        "numeroSala": numeroSala,
+        "asientos": butacas
+    }
+    
+    return salas
 
 def generarFuncion(cineId, salaId):
     dia = input(
@@ -484,19 +492,21 @@ def nuevoCine(cineData, cines):
         cineData (tupla/lista): Datos del cine en formato [nombre, dirección]
             - cineData[0] (string): Nombre del cine
             - cineData[1] (string): Dirección del cine
-        cines (dccionario): Diccionario de cines existentes donde:
+        cines (diccionario): Diccionario de cines existentes donde:
             - key: ID del cine (string)
             - value: Diccionario con 'nombre' y 'direccion'
     
     Return:
-        dccionario: Diccionario de cines actualizado con el nuevo cine agregado
+        tupla: (cines_actualizado, nuevo_id)
+            - cines_actualizado (diccionario): Diccionario de cines actualizado
+            - nuevo_id (string): ID del nuevo cine creado
     """
     nuevo_id = str(int(max(cines.keys(), default="0")) + 1)
 
     cines[nuevo_id] = {"nombre": cineData[0], "direccion": cineData[1]}
 
     print(f"\nCine agregado con éxito: {cineData[0]} (ID: {nuevo_id})")
-    return cines
+    return cines, nuevo_id
 
 def imprimirCines(cines):
     """
@@ -642,8 +652,8 @@ def imprimirSala(butacas):
     print("\n--- CONFIGURACIÓN DE SALA ---")
     for i in range(0, filas):
         fila_str = ""
-        for j in range(columnas + 1):
-            asiento = f"{NUMERACION_FILAS[i]}{j}"
+        for j in range(0, columnas):
+            asiento = f"{NUMERACION_FILAS[i]}{j + 1}"
             if asiento in butacas:
                 estado = "❌" if butacas[asiento]["ocupado"] else "✅"
                 tipo = butacas[asiento]["tipo"][0].upper()

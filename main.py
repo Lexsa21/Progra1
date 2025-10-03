@@ -120,7 +120,6 @@ salas = {
         "A6": {"ocupado": False, "tipo": "extreme"},
         "A7": {"ocupado": False, "tipo": "extreme"},
         "A8": {"ocupado": False, "tipo": "extreme"},
-        "A9": {"ocupado": False, "tipo": "extreme"},
         "B1": {"ocupado": False, "tipo": "extreme"},
         "B2": {"ocupado": False, "tipo": "extreme"},
         "B3": {"ocupado": False, "tipo": "extreme"},
@@ -129,7 +128,6 @@ salas = {
         "B6": {"ocupado": False, "tipo": "extreme"},
         "B7": {"ocupado": False, "tipo": "extreme"},
         "B8": {"ocupado": False, "tipo": "extreme"},
-        "B9": {"ocupado": False, "tipo": "extreme"},
         "C1": {"ocupado": False, "tipo": "normal"},
         "C2": {"ocupado": False, "tipo": "normal"},
         "C3": {"ocupado": False, "tipo": "normal"},
@@ -138,7 +136,6 @@ salas = {
         "C6": {"ocupado": False, "tipo": "normal"},
         "C7": {"ocupado": False, "tipo": "normal"},
         "C8": {"ocupado": False, "tipo": "normal"},
-        "C9": {"ocupado": False, "tipo": "normal"},
         "D1": {"ocupado": False, "tipo": "normal"},
         "D2": {"ocupado": False, "tipo": "normal"},
         "D3": {"ocupado": False, "tipo": "normal"},
@@ -147,7 +144,6 @@ salas = {
         "D6": {"ocupado": False, "tipo": "normal"},
         "D7": {"ocupado": False, "tipo": "normal"},
         "D8": {"ocupado": False, "tipo": "normal"},
-        "D9": {"ocupado": False, "tipo": "normal"},
         "E1": {"ocupado": False, "tipo": "normal"},
         "E2": {"ocupado": False, "tipo": "normal"},
         "E3": {"ocupado": False, "tipo": "normal"},
@@ -156,7 +152,6 @@ salas = {
         "E6": {"ocupado": False, "tipo": "normal"},
         "E7": {"ocupado": False, "tipo": "normal"},
         "E8": {"ocupado": False, "tipo": "normal"},
-        "E9": {"ocupado": False, "tipo": "normal"},
         "F1": {"ocupado": False, "tipo": "normal"},
         "F2": {"ocupado": False, "tipo": "normal"},
         "F3": {"ocupado": False, "tipo": "normal"},
@@ -165,7 +160,6 @@ salas = {
         "F6": {"ocupado": False, "tipo": "normal"},
         "F7": {"ocupado": False, "tipo": "normal"},
         "F8": {"ocupado": False, "tipo": "normal"},
-        "F9": {"ocupado": False, "tipo": "normal"},
         "G1": {"ocupado": False, "tipo": "normal"},
         "G2": {"ocupado": False, "tipo": "normal"},
         "G3": {"ocupado": False, "tipo": "normal"},
@@ -174,7 +168,6 @@ salas = {
         "G6": {"ocupado": False, "tipo": "normal"},
         "G7": {"ocupado": False, "tipo": "normal"},
         "G8": {"ocupado": False, "tipo": "normal"},
-        "G9": {"ocupado": False, "tipo": "normal"},
         "H1": {"ocupado": False, "tipo": "normal"},
         "H2": {"ocupado": False, "tipo": "normal"},
         "H3": {"ocupado": False, "tipo": "normal"},
@@ -182,8 +175,7 @@ salas = {
         "H5": {"ocupado": False, "tipo": "normal"},
         "H6": {"ocupado": False, "tipo": "normal"},
         "H7": {"ocupado": False, "tipo": "normal"},
-        "H8": {"ocupado": False, "tipo": "normal"},
-        "H9": {"ocupado": False, "tipo": "normal"}
+        "H8": {"ocupado": False, "tipo": "normal"}
     }
     }
     }
@@ -655,8 +647,23 @@ while True:
                 nombre = input("Ingrese el nombre del cine: ").strip()
                 direccion = input("Ingrese la dirección del cine: ").strip()
                 cineData = (nombre, direccion)
-                cines = nuevoCine(cineData, cines)
+                cines, nuevoCineId = nuevoCine(cineData, cines)
                 print("¡Cine agregado con éxito!")
+                
+                print(f"\n--- CREACIÓN DE SALAS PARA EL CINE '{nombre}' ---")
+                while True:
+                    cantidadSalas = input("Ingrese la cantidad de salas a crear: ").strip()
+                    while not cantidadSalas:
+                        cantidadSalas = input("Error. La cantidad de salas no puede estar vacía. Ingrese la cantidad de salas a crear: ").strip()
+                    cantidadSalas = int(cantidadSalas)
+
+                    for i in range(cantidadSalas):
+                        salas = crearSala(nuevoCineId, f"Sala {i + 1}", salas)
+
+                    print(f"¡Salas creadas exitosamente!")
+                    break
+                
+                print(f"\nCine '{nombre}' creado con todas sus salas.")
 
             if opcionCines == "3": 
                 cineId = input("Ingrese el ID del cine que desea eliminar: ")
