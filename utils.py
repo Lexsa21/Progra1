@@ -135,7 +135,8 @@ def crearSala(cineId, numeroSala, salas):
             tipoButaca = "extreme" if i < 2 else "normal"
             butacas[asiento] = {
                 "ocupado": False,
-                "tipo": tipoButaca
+                "tipo": tipoButaca,
+                "habilitado": True
             }
     
     salas[salaId] = {
@@ -634,7 +635,7 @@ def informeButacasDisponibles(butacas):
     Return:
         set: Conjunto de IDs de butacas disponibles
     """
-    return {butaca for butaca, info in butacas.items() if not info["ocupado"]}
+    return {butaca for butaca, info in butacas.items() if not info["ocupado"] and info["habilitado"]}
 
 def imprimirSala(butacas):
     """
@@ -655,7 +656,11 @@ def imprimirSala(butacas):
         for j in range(0, columnas):
             asiento = f"{NUMERACION_FILAS[i]}{j + 1}"
             if asiento in butacas:
-                estado = "❌" if butacas[asiento]["ocupado"] else "✅"
+                estado = "✅"
+                if not butacas[asiento]["habilitado"]:
+                    estado = "🛠️ "
+                elif butacas[asiento]["ocupado"]:
+                    estado = "❌"
                 tipo = butacas[asiento]["tipo"][0].upper()
                 fila_str += f"{asiento}({tipo}): {estado} "
             else:

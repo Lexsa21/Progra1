@@ -1,4 +1,4 @@
-- Agregar property "habilitada" a la butaca
+- Agregar property "habilitada" a la butaca ✅
     - Revisar flujo de compra de entrada para mejorar experiencia
     - En el flujo de una entrada, chequear si la butaca esta disponible o no, si esta habilitada o no. Si ambas true, entonces puede reservar la butaca, sino no
     - Hacer que la reserva de la entrada se pueda reservar multiples bajo un mismo cliente
