@@ -127,9 +127,9 @@ def crearSala():
     sala = {}
     filas, columnas = CONFIGURACION_SALA
     
-    for i in range(1, filas + 1):
-        for j in range(columnas):
-            asiento = f"{NUMERACION_FILAS[j]}{i}"
+    for i in range(0, filas):
+        for j in range(columnas + 1):
+            asiento = f"{NUMERACION_FILAS[i]}{j}"
             # Las primeras 2 filas son "extreme", el resto "normal"
             tipoButaca = "extreme" if j < 2 else "normal"
             sala[asiento] = {
@@ -625,6 +625,33 @@ def informeButacasDisponibles(butacas):
         set: Conjunto de IDs de butacas disponibles
     """
     return {butaca for butaca, info in butacas.items() if not info["ocupado"]}
+
+def imprimirSala(butacas):
+    """
+    Imprime la configuración de una sala con el estado de cada butaca.
+    
+    Parámetros:
+        butacas (diccionario): Diccionario de butacas donde:
+            - key: ID de butaca (string)
+            - value: Diccionario con 'ocupado' y 'tipo'
+    
+    Return:
+        None: Solo imprime en consola
+    """
+    filas, columnas = CONFIGURACION_SALA
+    print("\n--- CONFIGURACIÓN DE SALA ---")
+    for i in range(0, filas):
+        fila_str = ""
+        for j in range(columnas + 1):
+            asiento = f"{NUMERACION_FILAS[i]}{j}"
+            if asiento in butacas:
+                estado = "❌" if butacas[asiento]["ocupado"] else "✅"
+                tipo = butacas[asiento]["tipo"][0].upper()
+                fila_str += f"{asiento}({tipo}): {estado} "
+            else:
+                fila_str += "---- "
+        print(fila_str.strip())
+    print("✅: Disponible | ❌: Ocupada\n")
 
 def modificarCine(cineId, cineData, cines):
     """
