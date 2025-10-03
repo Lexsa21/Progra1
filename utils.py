@@ -401,8 +401,8 @@ def peliculasPorIdiomaYFormato(peliculas, idioma, formato):
     Return:
         set: Conjunto de IDs de películas que coinciden
     """
-    peliculasPorIdioma = {peliculaId for peliculaId, pelicula in peliculas.items() if pelicula.get('idioma') == idioma}
-    peliculasPorFormato = {peliculaId for peliculaId, pelicula in peliculas.items() if pelicula.get('formato') == formato}
+    peliculasPorIdioma = {peliculaId for peliculaId, pelicula in peliculas.items() if pelicula.get('idioma').upper() == idioma.upper()}
+    peliculasPorFormato = {peliculaId for peliculaId, pelicula in peliculas.items() if pelicula.get('formato').upper() == formato.upper()}
     return peliculasPorIdioma.intersection(peliculasPorFormato)
 
 def peliculasActivasIds(peliculas):
