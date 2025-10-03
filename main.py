@@ -18,6 +18,14 @@ MENU_PELICULAS = (
     "[0] Volver al menú"
 )
 
+MENU_MODIFICACION_PELICULA = (
+    "[1] Modificar Título",
+    "[2] Modificar Idioma",
+    "[3] Modificar Formato",
+    "[4] Modificar Complejos",
+    "[0] Guardar"
+)
+
 MENU_ENTRADAS = (
     "[1] Generar Entrada",
     "[2] Eliminar Venta",
@@ -332,75 +340,71 @@ while True:
                 print(f"¡Película '{peliculaData['titulo']}' agregada con éxito!")
 
             elif opcionPeliculas == "2": 
+                imprimirPeliculas(peliculas)
                 peliculaId = input("Ingresa el número de la película a modificar: ")
                 peliculaExistente = peliculas.get(peliculaId).copy()
-                peliculaEditada = {}
+                peliculaEditada = peliculaExistente.copy()
                 if not peliculaExistente:
                     print("Error: No se encontró una película con el ID proporcionado.")
-                    break
+                    continue
+                
+                while True:
+                    mostrarMenu("MODIFICAR DATOS DE LA PELÍCULA", MENU_MODIFICACION_PELICULA)
+                    opcionModificacionPelicula = input("Seleccione una opción: ")
 
-                nuevoTitulo = input(
-                    "Ingrese el nuevo título de la película (deje en blanco para no modificar): ").strip()
-
-                nuevoFormato = input(
-                    "Ingrese el nuevo formato de la película (deje en blanco para no modificar): ").strip()
-                while (nuevoFormato and nuevoFormato.lower() not in FORMATOS_VALIDOS) or not nuevoFormato:
-                    print("Error. Formato no válido.")
-                    nuevoFormato = input("Ingrese el nuevo formato de la película (deje en blanco para no modificar): ")
-
-                nuevoIdioma = input(
-                    "Ingrese el nuevo idioma de la película (deje en blanco para no modificar): ").strip()
-                while (nuevoIdioma and nuevoIdioma.lower() not in IDIOMAS_VALIDOS) or not nuevoIdioma:
-                    print("Error. Ingresa el idioma (Español/Subtitulado): ")
-                    nuevoIdioma = input("Ingrese el nuevo idioma de la película (deje en blanco para no modificar): ").strip()
-
-                peliculaEditada["complejos"] = peliculaExistente['complejos'].copy()
-                modificarComplejos = input(
-                    "¿Desea modificar los complejos? (s/n): ").strip().lower()
-                if modificarComplejos == 's':
-                    while True:
-                        mostrarMenu("GESTIÓN COMPLEJOS", MENU_PELICULAS_CINES)
-                        opcionComplejo = input("Seleccione una opción: ")
-
-                        if opcionComplejo == "1":
-                            for cineId in peliculaEditada["complejos"]:
-                                data = cines.get(cineId, {})
-                                nombre = data.get("nombre", "").strip()
-                                direccion = data.get("direccion", "").strip()
-                                print(f"ID: {cineId:<3} | Nombre: {nombre:<25} | Dirección: {direccion}")
-                        elif opcionComplejo == "2":
-                            print("Elija el cine en el que se proyectará.")
-                            imprimirCines(cines)
-                            nuevoComplejo = input(
-                                "Ingrese el ID del nuevo complejo: ").strip()
-                            if nuevoComplejo and cines.get(nuevoComplejo):
-                                peliculaEditada['complejos'].add(nuevoComplejo)
-                            else:
-                                print("Error: No se encontró un cine con el ID proporcionado.")
-                        elif opcionComplejo == "3":
-                            print("ADVERTENCIA: Esta acción no solo eliminará el cine de la lista de complejos de la película, " \
-                            "\nsino que también eliminará todas las funciones asociadas a ese cine para esta película.")
-                            complejoId = input(
-                                "Ingrese el ID del complejo a eliminar (vacío para cancelar): ").strip()
-                            if cines.get(complejoId):
-                                peliculaEditada['complejos'].remove(complejoId)
-                                funciones = eliminarFuncionesPorPeliculaCine(peliculaId, complejoId, funciones)
-                            else:
-                                print("Error: No se encontró un cine con el ID proporcionado.")
-                        else:
-                            break
-
-                peliculaEditada = {
-                    "titulo": nuevoTitulo if nuevoTitulo else peliculaExistente['titulo'],
-                    "formato": nuevoFormato if nuevoFormato else peliculaExistente['formato'],
-                    "idioma": nuevoIdioma if nuevoIdioma else peliculaExistente['idioma'],
-                    "activo": peliculaExistente['activo'],
-                    "complejos": peliculaEditada['complejos'].copy()
-                }
-                if (peliculaEditada != peliculaExistente):
-                    peliculas = modificarPelicula(peliculaId, peliculaEditada, peliculas)
-
-                print(f"¡Película '{peliculaId}' modificada con éxito!")
+                    if opcionModificacionPelicula == "0": break
+                    if opcionModificacionPelicula == "1":
+                        nuevoTitulo = input("Ingrese el nuevo título de la película: ").strip()
+                        peliculaEditada["titulo"] = nuevoTitulo
+                    elif opcionModificacionPelicula == "2":
+                        nuevoIdioma = input("Ingrese el nuevo idioma de la película: ").strip()
+                        while (nuevoIdioma and nuevoIdioma.lower() not in IDIOMAS_VALIDOS) or not nuevoIdioma:
+                            print("Error. Ingresa el idioma (Español/Subtitulado): ")
+                            nuevoIdioma = input("Ingrese el nuevo idioma de la película: ").strip()
+                    elif opcionModificacionPelicula == "3":
+                        nuevoFormato = input("Ingrese el nuevo formato de la película: ").strip()
+                        while (nuevoFormato and nuevoFormato.lower() not in FORMATOS_VALIDOS) or not nuevoFormato:
+                            print("Error. Formato no válido.")
+                            nuevoFormato = input("Ingrese el nuevo formato de la película: ")
+                        peliculaEditada["formato"] = nuevoFormato
+                    elif opcionModificacionPelicula == "4":
+                        peliculaEditada["complejos"] = peliculaExistente['complejos'].copy()
+                        modificarComplejos = input(
+                            "¿Desea modificar los complejos? (s/n): ").strip().lower()
+                        if modificarComplejos == 's':
+                            while True:
+                                mostrarMenu("GESTIÓN COMPLEJOS", MENU_PELICULAS_CINES)
+                                opcionComplejo = input("Seleccione una opción: ")
+                                if opcionComplejo == "1":
+                                    for cineId in peliculaEditada["complejos"]:
+                                        data = cines.get(cineId, {})
+                                        nombre = data.get("nombre", "").strip()
+                                        direccion = data.get("direccion", "").strip()
+                                        print(f"ID: {cineId:<3} | Nombre: {nombre:<25} | Dirección: {direccion}")
+                                elif opcionComplejo == "2":
+                                    print("Elija el cine en el que se proyectará.")
+                                    imprimirCines(cines)
+                                    nuevoComplejo = input(
+                                        "Ingrese el ID del nuevo complejo: ").strip()
+                                    if nuevoComplejo and cines.get(nuevoComplejo):
+                                        peliculaEditada['complejos'].add(nuevoComplejo)
+                                    else:
+                                        print("Error: No se encontró un cine con el ID proporcionado.")
+                                elif opcionComplejo == "3":
+                                    print("ADVERTENCIA: Esta acción no solo eliminará el cine de la lista de complejos de la película, " \
+                                    "\nsino que también eliminará todas las funciones asociadas a ese cine para esta película.")
+                                    complejoId = input(
+                                        "Ingrese el ID del complejo a eliminar (vacío para cancelar): ").strip()
+                                    if cines.get(complejoId):
+                                        peliculaEditada['complejos'].remove(complejoId)
+                                        funciones = eliminarFuncionesPorPeliculaCine(peliculaId, complejoId, funciones)
+                                    else:
+                                        print("Error: No se encontró un cine con el ID proporcionado.")
+                                else:
+                                    break
+                    if (peliculaEditada != peliculaExistente):
+                        peliculas = modificarPelicula(peliculaId, peliculaEditada, peliculas)
+                        print(f"¡Película '{peliculaId}' modificada con éxito!")
 
             elif opcionPeliculas == "3": 
                 imprimirPeliculas(peliculas)
