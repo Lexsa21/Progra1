@@ -7,8 +7,8 @@
 - Revisar estructura de "funciones"
 - Ranking de pelis mas vistas (En base a ventas de entradas)
 - Cambiar el tipo de validacion del DNI del cliente. Es int, no str
-- Poder agregar mas salas a un cine cuando lo modifico
-- Poder dar de baja salas
+- Poder agregar mas salas a un cine cuando lo modifico ✅
+- Poder dar de baja salas 
 - Dar de baja funciones de una pelicula
 - Dar de baja cines en los que se da una pelicula
 - Revisar el menu de la pelicula. Hay que modificar el flujo para que funcione de otra manera
