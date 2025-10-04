@@ -674,9 +674,9 @@ def modificarCine(cineId, cineData, cines):
     
     Parámetros:
         cineId (string): ID del cine a modificar
-        cineData (tupla/lista): Nuevos datos del cine en formato [nombre, dirección]
-            - cineData[0] (string): Nuevo nombre del cine
-            - cineData[1] (string): Nueva dirección del cine
+        cineData (diccionario): Nuevos datos del cine
+            - cineData["nombre"] (string): Nuevo nombre del cine
+            - cineData["direccion"] (string): Nueva dirección del cine
         cines (diccionario): Diccionario de cines a modificar donde:
             - key: ID del cine (string)
             - value: Diccionario con 'nombre' y 'direccion'
@@ -684,11 +684,7 @@ def modificarCine(cineId, cineData, cines):
     Return:
         diccionario: Diccionario de cines actualizado con los nuevos datos
     """
-    cineModificado = {
-        "nombre": cineData[0],
-        "direccion": cineData[1]
-    }
-    cines[cineId].update(cineModificado)
+    cines[cineId].update(cineData)
     return cines
 
 def eliminarCine(cineId, cines):

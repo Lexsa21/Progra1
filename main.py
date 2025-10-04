@@ -54,6 +54,12 @@ MENU_CINES = (
     "[0] Volver al menú"
 )
 
+MENU_MODIFICACION_CINE = (
+    "[1] Modificar Nombre",
+    "[2] Modificar Dirección",
+    "[0] Guardar"
+)
+
 MENU_PELICULAS_CINES = (
     "[1] Listar Cines",
     "[2] Agregar Cine",
@@ -355,12 +361,13 @@ while True:
                     if opcionModificacionPelicula == "0": break
                     if opcionModificacionPelicula == "1":
                         nuevoTitulo = input("Ingrese el nuevo título de la película: ").strip()
-                        peliculaEditada["titulo"] = nuevoTitulo
+                        peliculaEditada["titulo"] = nuevoTitulo if nuevoTitulo else peliculaExistente["titulo"]
                     elif opcionModificacionPelicula == "2":
                         nuevoIdioma = input("Ingrese el nuevo idioma de la película: ").strip()
                         while (nuevoIdioma and nuevoIdioma.lower() not in IDIOMAS_VALIDOS) or not nuevoIdioma:
                             print("Error. Ingresa el idioma (Español/Subtitulado): ")
                             nuevoIdioma = input("Ingrese el nuevo idioma de la película: ").strip()
+                        peliculaEditada["idioma"] = nuevoIdioma if nuevoIdioma else peliculaExistente["idioma"]
                     elif opcionModificacionPelicula == "3":
                         nuevoFormato = input("Ingrese el nuevo formato de la película: ").strip()
                         while (nuevoFormato and nuevoFormato.lower() not in FORMATOS_VALIDOS) or not nuevoFormato:
@@ -680,22 +687,31 @@ while True:
                     print("¡Cine eliminado con éxito!")
 
             if opcionCines == "4": 
+                imprimirCines(cines)
                 cineId = input("Ingrese el ID del cine que desea modificar: ")
                 cineExistente = cines.get(cineId)
                 if not cineExistente:
                     print("Error: No se encontró un cine con el ID proporcionado.")
                     continue
 
-                nuevoNombre = input(
-                    "Ingrese el nuevo nombre del cine (deje en blanco para no modificar): ").strip()
-                nuevaDireccion = input(
-                    "Ingrese la nueva dirección del cine (deje en blanco para no modificar): ").strip()
-                cineEditado = (nuevoNombre if nuevoNombre else cineExistente['nombre'],
-                                nuevaDireccion if nuevaDireccion else cineExistente['direccion'])
-                
-                if (cineEditado != tuple(cineExistente.values())):
-                    cines = modificarCine(cineId, cineEditado, cines)
-                    print("¡Cine modificado con éxito!")
+                cineEditado = cineExistente.copy()
+                while True:
+                    mostrarMenu("MODIFICACIÓN DE CINE", MENU_MODIFICACION_CINE)
+                    opcionModificacionCine = input("Seleccione una opción: ")
+                    if opcionModificacionCine == "0": 
+                        if (tuple(cineEditado) != tuple(cineExistente.values())):
+                            cines = modificarCine(cineId, cineEditado, cines)
+                        break
+                    elif opcionModificacionCine == "1":
+                        nuevoNombre = input("Ingrese el nuevo nombre del cine (deje en blanco para no modificar): ").strip()
+                        if nuevoNombre:
+                            cineEditado['nombre'] = nuevoNombre
+                    elif opcionModificacionCine == "2":
+                        nuevaDireccion = input("Ingrese la nueva dirección del cine (deje en blanco para no modificar): ").strip()
+                        if nuevaDireccion:
+                            cineEditado['direccion'] = nuevaDireccion
+                    
+                print("¡Cine modificado con éxito!")
             elif opcionCines == "5":  # Películas en común entre dos cines
                 print("\n--- PELÍCULAS EN COMÚN ENTRE DOS CINES ---")
                 imprimirCines(cines)
@@ -784,7 +800,6 @@ while True:
                 print(f"  Butacas NORMAL disponibles: {len(todasNormalDisp)}")
                 print(f"  Butacas NORMAL ocupadas: {len(todasNormalOcup)}")
                 
-                # Porcentajes
                 totalExtreme = len(todasExtremeDisp) + len(todasExtremeOcup)
                 totalNormal = len(todasNormalDisp) + len(todasNormalOcup)
                 if totalExtreme > 0:
@@ -794,13 +809,14 @@ while True:
                     porcNormalOcup = (len(todasNormalOcup) / totalNormal) * 100
                     print(f"  Ocupación NORMAL: {porcNormalOcup:.1f}%")
             
-            if opcionCines == "10":  # Análisis de funciones por día
+            elif opcionCines == "9":
                 print("\n--- ANÁLISIS DE FUNCIONES POR DÍA ---")
+                imprimirPeliculas(peliculas)
                 peliculaId = input("Ingrese ID de película: ")
                 if not peliculas.get(peliculaId):
                     print("Película no encontrada.")
                     continue
-                
+                imprimirCines(cines)
                 cineId = input("Ingrese ID de cine: ")
                 if not cines.get(cineId):
                     print("Cine no encontrado.")
@@ -814,7 +830,6 @@ while True:
                     
                     dia = input("\nIngrese un día para ver horarios: ").lower()
                     if dia in diasDisponibles:
-                        # Usando unión de conjuntos para todos los horarios
                         horarios = horariosEnDia(funciones, peliculaId, cineId, dia)
                         print(f"Horarios disponibles el {dia}: {', '.join(sorted(horarios))}")
                     else:
@@ -825,7 +840,6 @@ while True:
             elif opcionCines == "10":  # Cines con y sin funciones
                 print("\n--- ANÁLISIS DE CINES CON/SIN FUNCIONES ---")
                 
-                # Usando operaciones de conjuntos
                 todosCinesSet = set(cines.keys())
                 cinesConFunc = cinesConFunciones(funciones)
                 cinesSinFunc = todosCinesSet - cinesConFunc
