@@ -5,7 +5,6 @@ MENU_PRINCIPAL = (
     "[2] Venta de Entradas", 
     "[3] Informes Generales",
     "[4] Gestión de Complejo de Cines",
-    "[5] Análisis con Operaciones de Conjuntos",
     "[0] Salir"
 )
 
@@ -45,12 +44,13 @@ MENU_CINES = (
     "[2] Agregar Nuevo Cine",
     "[3] Eliminar Cine",
     "[4] Modificar Cine",
-    "[5] Películas en común entre dos cines",
-    "[6] Cines sin películas asignadas",
-    "[7] Películas disponibles en todos los cines seleccionados",
-    "[8] Comparar butacas disponibles por tipo",
-    "[9] Análisis de funciones por día",
-    "[10] Cines con y sin funciones",
+    "[5] Modificar Salas de Cine",
+    "[6] Películas en común entre dos cines",
+    "[7] Cines sin películas asignadas",
+    "[8] Películas disponibles en todos los cines seleccionados",
+    "[9] Comparar butacas disponibles por tipo",
+    "[10] Análisis de funciones por día",
+    "[11] Cines con y sin funciones",
     "[0] Volver al menú"
 )
 
@@ -58,6 +58,20 @@ MENU_MODIFICACION_CINE = (
     "[1] Modificar Nombre",
     "[2] Modificar Dirección",
     "[0] Guardar"
+)
+
+MENU_MODIFICACION_SALAS = (
+    "[1] Listar Salas",
+    "[2] Generar nueva Sala",
+    "[3] Modificar Sala",
+    "[4] Eliminar Sala",
+    "[0] Volver"
+)
+
+MENU_MODIFICACION_SALA = (
+    "[1] Mostrar Sala",
+    "[2] Inhabilitar/Habilitar Butaca",
+    "[0] Volver"
 )
 
 MENU_PELICULAS_CINES = (
@@ -712,7 +726,56 @@ while True:
                             cineEditado['direccion'] = nuevaDireccion
                     
                 print("¡Cine modificado con éxito!")
-            elif opcionCines == "5":  # Películas en común entre dos cines
+
+            elif opcionCines == "5": 
+                print("\n--- MODIFICAR SALAS DE CINE ---")
+                imprimirCines(cines)
+                cineId = input("Ingrese el ID del cine cuyas salas se van a modificar: ")
+                cineExistente = cines.get(cineId)
+                if not cineExistente:
+                    print("Error: No se encontró un cine con el ID proporcionado.")
+                    continue
+
+                salasCine = [sala for sala in salas.values() if sala['cineId'] == cineId]
+                if not salasCine:
+                    print("Error: El cine seleccionado no tiene salas.")
+                    continue
+
+                while True:
+                    salasCine = {salaId: sala for salaId, sala in salas.items() if sala['cineId'] == cineId}
+                    mostrarMenu("MODIFICACIÓN DE SALAS", MENU_MODIFICACION_SALAS)
+                    opcionModificacionSala = input("Seleccione una opción: ")
+                    if opcionModificacionSala == "0":
+                        break
+                    elif opcionModificacionSala == "1":
+                        imprimirSalasPorCine(cineId, salas)
+                    elif opcionModificacionSala == "2":
+                        salas = crearSala(cineId, int(max(salas.keys())) + 1, salas)
+                        print("¡Sala creada con éxito!")
+                    elif opcionModificacionSala == "3":
+                        salaId = input("Ingrese el ID de la sala a modificar: ")
+                        salaExistente = salasCine.get(salaId)
+                        if not salaExistente:
+                            print("Error: No se encontró una sala con el ID proporcionado.")
+                            continue
+                        while True:
+                            mostrarMenu("MODIFICACIÓN DE SALA", MENU_MODIFICACION_SALA)
+                            opcionModificacion = input("Seleccione una opción: ")
+                            if opcionModificacion == "0":
+                                break
+                            elif opcionModificacion == "1":
+                                imprimirSala(salaExistente['asientos'])
+                            elif opcionModificacion == "2":
+                                imprimirSala(salaExistente['asientos'])
+                                codigoButaca = input("Ingrese el código de la butaca a modificar: ").upper()
+                                butacaExistente = salaExistente['asientos'].get(codigoButaca)
+                                if not butacaExistente:
+                                    print("Error: No se encontró una butaca con el código proporcionado.")
+                                    continue
+                                butacaExistente['habilitado'] = not butacaExistente['habilitado']
+                                print("¡Estado de la butaca modificado con éxito!")
+
+            elif opcionCines == "6":  # Películas en común entre dos cines
                 print("\n--- PELÍCULAS EN COMÚN ENTRE DOS CINES ---")
                 imprimirCines(cines)
                 cine1 = input("Ingrese el ID del primer cine: ")
@@ -725,7 +788,6 @@ while True:
                 peliculas1 = peliculasPorCine(peliculas, cine1)
                 peliculas2 = peliculasPorCine(peliculas, cine2)
                 
-                # Intersección de conjuntos de IDs de películas
                 idsComunes = set(peliculas1.keys()) & set(peliculas2.keys())
                 
                 if idsComunes:
@@ -735,7 +797,7 @@ while True:
                 else:
                     print(f"\nNo hay películas en común entre estos cines.")
 
-            elif opcionCines == "6":  # Cines sin películas
+            elif opcionCines == "7":
                 print("\n--- CINES SIN PELÍCULAS ASIGNADAS ---")
                 todosCinesSet = set(cines.keys())
                 cinesSinPelis = cinesSinPeliculas(todosCinesSet, peliculas)
@@ -747,7 +809,7 @@ while True:
                 else:
                     print("Todos los cines tienen al menos una película asignada.")
 
-            elif opcionCines == "7":  # Películas en todos los cines seleccionados
+            elif opcionCines == "8":
                 print("\n--- PELÍCULAS EN TODOS LOS CINES SELECCIONADOS ---")
                 imprimirCines(cines)
                 cinesSeleccionados = set()
@@ -773,10 +835,9 @@ while True:
                 else:
                     print("\nNo hay películas disponibles en todos los cines seleccionados.")
 
-            elif opcionCines == "8":  # Comparar butacas por tipo
+            elif opcionCines == "9":
                 print("\n--- ANÁLISIS DE BUTACAS POR TIPO (TODAS LAS SALAS) ---")
                 
-                # Usando operaciones de conjuntos para agregar datos de todas las salas
                 todasExtremeDisp = set()
                 todasNormalDisp = set()
                 todasExtremeOcup = set()
@@ -788,7 +849,6 @@ while True:
                     extremeOcup = butacasOcupadasPorTipo(sala['asientos'], "extreme")
                     normalOcup = butacasOcupadasPorTipo(sala['asientos'], "normal")
                     
-                    # Unión de conjuntos
                     todasExtremeDisp = todasExtremeDisp | extremeDisp
                     todasNormalDisp = todasNormalDisp | normalDisp
                     todasExtremeOcup = todasExtremeOcup | extremeOcup
@@ -809,7 +869,7 @@ while True:
                     porcNormalOcup = (len(todasNormalOcup) / totalNormal) * 100
                     print(f"  Ocupación NORMAL: {porcNormalOcup:.1f}%")
             
-            elif opcionCines == "9":
+            elif opcionCines == "10":
                 print("\n--- ANÁLISIS DE FUNCIONES POR DÍA ---")
                 imprimirPeliculas(peliculas)
                 peliculaId = input("Ingrese ID de película: ")
@@ -822,7 +882,6 @@ while True:
                     print("Cine no encontrado.")
                     continue
                 
-                # Usando conjuntos para obtener todos los días con funciones
                 diasDisponibles = diasConFunciones(funciones, peliculaId, cineId)
                 
                 if diasDisponibles:
@@ -837,7 +896,7 @@ while True:
                 else:
                     print("No hay funciones programadas para esta combinación.")
             
-            elif opcionCines == "10":  # Cines con y sin funciones
+            elif opcionCines == "11":
                 print("\n--- ANÁLISIS DE CINES CON/SIN FUNCIONES ---")
                 
                 todosCinesSet = set(cines.keys())

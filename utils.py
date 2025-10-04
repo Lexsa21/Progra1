@@ -105,9 +105,12 @@ def imprimirSalasPorCine(cineId, salas):
         None: Solo imprime en consola
     """
     print(f"\n--- SALAS DEL CINE ID: {cineId} ---")
-    for salaId, sala in salas.items():
-        if sala['cineId'] == cineId:
-            print(f"ID: {salaId} | Número de Sala: {sala['numeroSala']}")
+    salasPorCine = {salaId: sala for salaId, sala in salas.items() if sala['cineId'] == cineId}
+    if not salasPorCine:
+        print("No hay salas registradas para este cine.")
+        return
+    for salaId, sala in salasPorCine.items():
+        print(f"ID: {salaId} | Número de Sala: {sala['numeroSala']}")
     print("\n")
 
 def crearSala(cineId, numeroSala, salas):
@@ -658,7 +661,7 @@ def imprimirSala(butacas):
             if asiento in butacas:
                 estado = "✅"
                 if not butacas[asiento]["habilitado"]:
-                    estado = "🛠️ "
+                    estado = "🛠️"
                 elif butacas[asiento]["ocupado"]:
                     estado = "❌"
                 tipo = butacas[asiento]["tipo"][0].upper()
@@ -666,7 +669,7 @@ def imprimirSala(butacas):
             else:
                 fila_str += "---- "
         print(fila_str.strip())
-    print("✅: Disponible | ❌: Ocupada\n")
+    print("✅: Disponible | ❌: Ocupada | 🛠️: Inhabilitada\n")
 
 def modificarCine(cineId, cineData, cines):
     """
