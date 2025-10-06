@@ -4,7 +4,7 @@ DIAS_SEMANA = ("lunes", "martes", "miercoles", "jueves", "viernes", "sabado", "d
 TIPOS_BUTACA = ("normal", "extreme")
 
 NUMERACION_FILAS = ("A", "B", "C", "D", "E", "F", "G", "H", "I")
-CONFIGURACION_SALA = (9, 8)  # (filas, columnas)
+CONFIGURACION_SALA = (8, 8)  # (filas, columnas)
 
 def imprimirPeliculas(peliculas):
     """
@@ -113,7 +113,7 @@ def imprimirSalasPorCine(cineId, salas):
         print(f"ID: {salaId} | Número de Sala: {sala['numeroSala']}")
     print("\n")
 
-def crearSala(cineId, numeroSala, salas):
+def crearSala(cineId, salas):
     """
     Crea una nueva sala con configuración de butacas predeterminada y la agrega al diccionario de salas.
     
@@ -141,7 +141,8 @@ def crearSala(cineId, numeroSala, salas):
                 "tipo": tipoButaca,
                 "habilitado": True
             }
-    
+    numeroSala = int(list(filter(lambda sala: sala['cineId'] == cineId, salas.values()))[-1]['numeroSala']) + 1 if list(filter(lambda sala: sala['cineId'] == cineId, salas.values())) else 1
+
     salas[salaId] = {
         "cineId": cineId,
         "numeroSala": numeroSala,
@@ -638,6 +639,7 @@ def informeButacasDisponibles(butacas):
     Return:
         set: Conjunto de IDs de butacas disponibles
     """
+    
     return {butaca for butaca, info in butacas.items() if not info["ocupado"] and info["habilitado"]}
 
 def imprimirSala(butacas):

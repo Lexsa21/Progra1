@@ -626,13 +626,24 @@ while True:
             if opcionInformes == "3": #INFORME DE BUTACAS 
                 print("\n--- INFORME DE BUTACAS DISPONIBLES POR CINE ---")
                 for salaId, sala in salas.items():
-                    print(f"ID del cine: {sala['cineId']}")
+                    print(f"\nID del cine: {sala['cineId']}")
                     print(
-                        f"\nID de la sala: {salaId} - {sala['numeroSala']} - Butacas totales: {len(sala['asientos'])}")
+                        f"\nID de la sala: {salaId} \nN° de la sala: {sala['numeroSala']} \nButacas totales: {len(sala['asientos'])}")
                     print("Butacas disponibles:")
                     butacasDisponibles = informeButacasDisponibles(sala['asientos'])
                     if butacasDisponibles:
-                        print(", ".join(sorted(butacasDisponibles)))
+                        filas, columnas = CONFIGURACION_SALA
+                        for i in range(0, filas):
+                            fila_str = ""
+                            for j in range(0, columnas):
+                                asiento = f"{NUMERACION_FILAS[i]}{j + 1}"
+                                if asiento in butacasDisponibles:
+                                    estado = "✅"
+                                    fila_str += f"{asiento}({estado})"
+                                else:
+                                    estado = "❌"
+                                    fila_str += f"{asiento}({estado})"
+                            print(fila_str.strip())
                     else:
                         print("No hay butacas disponibles.")
 
@@ -736,11 +747,6 @@ while True:
                     print("Error: No se encontró un cine con el ID proporcionado.")
                     continue
 
-                salasCine = [sala for sala in salas.values() if sala['cineId'] == cineId]
-                if not salasCine:
-                    print("Error: El cine seleccionado no tiene salas.")
-                    continue
-
                 while True:
                     salasCine = {salaId: sala for salaId, sala in salas.items() if sala['cineId'] == cineId}
                     mostrarMenu("MODIFICACIÓN DE SALAS", MENU_MODIFICACION_SALAS)
@@ -750,7 +756,7 @@ while True:
                     elif opcionModificacionSala == "1":
                         imprimirSalasPorCine(cineId, salas)
                     elif opcionModificacionSala == "2":
-                        salas = crearSala(cineId, int(max(salas.keys())) + 1, salas)
+                        salas = crearSala(cineId, salas)
                         print("¡Sala creada con éxito!")
                     elif opcionModificacionSala == "3":
                         salaId = input("Ingrese el ID de la sala a modificar: ")
