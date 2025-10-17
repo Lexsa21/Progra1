@@ -1,0 +1,2940 @@
+{
+    "1": {
+        "1": {
+            "1": {
+                "martes": {
+                    "14:00": {
+                        "butacas": {
+                            "A1": {
+                                "ocupado": true,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "A2": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": false
+                            },
+                            "A3": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "A4": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "A5": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "A6": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "A7": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "A8": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "B1": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "B2": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "B3": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "B4": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "B5": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "B6": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "B7": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "B8": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "C1": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "C2": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "C3": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "C4": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "C5": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "C6": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "C7": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "C8": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "D1": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "D2": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "D3": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "D4": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "D5": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "D6": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "D7": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "D8": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "E1": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "E2": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "E3": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "E4": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "E5": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "E6": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "E7": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "E8": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "F1": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "F2": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "F3": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "F4": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "F5": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "F6": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "F7": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "F8": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "G1": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "G2": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "G3": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "G4": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "G5": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "G6": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "G7": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "G8": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "H1": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "H2": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "H3": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "H4": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "H5": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "H6": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "H7": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "H8": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            }
+                        }
+                    },
+                    "18:00": {
+                        "butacas": {
+                            "A1": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "A2": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": false
+                            },
+                            "A3": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "A4": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "A5": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "A6": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "A7": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "A8": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "B1": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "B2": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "B3": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "B4": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "B5": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "B6": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "B7": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "B8": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "C1": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "C2": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "C3": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "C4": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "C5": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "C6": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "C7": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "C8": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "D1": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "D2": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "D3": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "D4": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "D5": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "D6": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "D7": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "D8": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "E1": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "E2": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "E3": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "E4": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "E5": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "E6": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "E7": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "E8": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "F1": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "F2": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "F3": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "F4": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "F5": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "F6": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "F7": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "F8": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "G1": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "G2": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "G3": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "G4": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "G5": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "G6": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "G7": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "G8": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "H1": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "H2": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "H3": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "H4": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "H5": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "H6": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "H7": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "H8": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            }
+                        }
+                    },
+                    "21:00": {
+                        "butacas": {
+                            "A1": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "A2": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": false
+                            },
+                            "A3": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "A4": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "A5": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "A6": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "A7": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "A8": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "B1": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "B2": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "B3": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "B4": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "B5": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "B6": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "B7": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "B8": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "C1": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "C2": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "C3": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "C4": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "C5": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "C6": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "C7": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "C8": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "D1": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "D2": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "D3": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "D4": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "D5": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "D6": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "D7": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "D8": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "E1": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "E2": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "E3": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "E4": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "E5": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "E6": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "E7": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "E8": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "F1": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "F2": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "F3": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "F4": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "F5": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "F6": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "F7": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "F8": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "G1": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "G2": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "G3": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "G4": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "G5": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "G6": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "G7": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "G8": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "H1": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "H2": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "H3": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "H4": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "H5": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "H6": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "H7": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "H8": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            }
+                        }
+                    }
+                },
+                "miercoles": {
+                    "15:00": {
+                        "butacas": {
+                            "A1": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "A2": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": false
+                            },
+                            "A3": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "A4": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "A5": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "A6": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "A7": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "A8": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "B1": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "B2": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "B3": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "B4": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "B5": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "B6": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "B7": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "B8": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "C1": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "C2": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "C3": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "C4": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "C5": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "C6": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "C7": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "C8": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "D1": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "D2": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "D3": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "D4": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "D5": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "D6": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "D7": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "D8": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "E1": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "E2": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "E3": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "E4": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "E5": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "E6": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "E7": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "E8": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "F1": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "F2": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "F3": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "F4": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "F5": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "F6": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "F7": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "F8": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "G1": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "G2": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "G3": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "G4": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "G5": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "G6": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "G7": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "G8": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "H1": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "H2": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "H3": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "H4": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "H5": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "H6": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "H7": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "H8": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            }
+                        }
+                    },
+                    "19:00": {
+                        "butacas": {
+                            "A1": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "A2": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": false
+                            },
+                            "A3": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "A4": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "A5": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "A6": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "A7": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "A8": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "B1": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "B2": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "B3": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "B4": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "B5": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "B6": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "B7": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "B8": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "C1": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "C2": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "C3": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "C4": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "C5": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "C6": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "C7": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "C8": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "D1": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "D2": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "D3": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "D4": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "D5": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "D6": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "D7": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "D8": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "E1": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "E2": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "E3": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "E4": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "E5": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "E6": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "E7": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "E8": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "F1": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "F2": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "F3": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "F4": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "F5": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "F6": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "F7": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "F8": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "G1": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "G2": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "G3": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "G4": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "G5": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "G6": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "G7": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "G8": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "H1": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "H2": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "H3": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "H4": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "H5": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "H6": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "H7": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "H8": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            }
+                        }
+                    }
+                }
+            },
+            "2": {
+                "martes": {
+                    "16:00": {
+                        "butacas": {
+                            "A1": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "A2": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "A3": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "A4": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "A5": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "A6": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "A7": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "A8": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "B1": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "B2": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "B3": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "B4": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "B5": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "B6": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "B7": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "B8": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "C1": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "C2": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "C3": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "C4": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "C5": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "C6": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "C7": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "C8": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "D1": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "D2": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "D3": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "D4": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "D5": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "D6": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "D7": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "D8": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "E1": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "E2": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "E3": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "E4": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "E5": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "E6": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "E7": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "E8": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "F1": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "F2": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "F3": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "F4": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "F5": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "F6": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "F7": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "F8": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "G1": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "G2": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "G3": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "G4": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "G5": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "G6": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "G7": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "G8": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "H1": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "H2": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "H3": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "H4": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "H5": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "H6": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "H7": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "H8": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            }
+                        }
+                    },
+                    "20:00": {
+                        "butacas": {
+                            "A1": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "A2": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "A3": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "A4": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "A5": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "A6": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "A7": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "A8": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "B1": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "B2": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "B3": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "B4": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "B5": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "B6": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "B7": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "B8": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "C1": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "C2": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "C3": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "C4": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "C5": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "C6": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "C7": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "C8": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "D1": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "D2": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "D3": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "D4": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "D5": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "D6": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "D7": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "D8": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "E1": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "E2": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "E3": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "E4": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "E5": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "E6": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "E7": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "E8": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "F1": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "F2": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "F3": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "F4": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "F5": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "F6": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "F7": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "F8": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "G1": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "G2": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "G3": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "G4": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "G5": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "G6": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "G7": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "G8": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "H1": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "H2": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "H3": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "H4": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "H5": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "H6": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "H7": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "H8": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "2": {
+        "2": {
+            "3": {
+                "jueves": {
+                    "17:00": {
+                        "butacas": {
+                            "A1": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "A2": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "A3": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "A4": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "A5": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "A6": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "A7": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "A8": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "B1": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "B2": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "B3": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "B4": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "B5": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "B6": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "B7": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "B8": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "C1": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "C2": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "C3": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "C4": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "C5": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "C6": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "C7": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "C8": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "D1": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "D2": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "D3": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "D4": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "D5": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "D6": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "D7": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "D8": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "E1": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "E2": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "E3": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "E4": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "E5": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "E6": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "E7": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "E8": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "F1": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "F2": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "F3": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "F4": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "F5": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "F6": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "F7": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "F8": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "G1": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "G2": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "G3": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "G4": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "G5": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "G6": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "G7": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "G8": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "H1": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "H2": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "H3": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "H4": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "H5": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "H6": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "H7": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "H8": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            }
+                        }
+                    },
+                    "20:30": {
+                        "butacas": {
+                            "A1": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "A2": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "A3": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "A4": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "A5": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "A6": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "A7": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "A8": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "B1": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "B2": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "B3": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "B4": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "B5": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "B6": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "B7": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "B8": {
+                                "ocupado": false,
+                                "tipo": "extreme",
+                                "habilitado": true
+                            },
+                            "C1": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "C2": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "C3": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "C4": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "C5": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "C6": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "C7": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "C8": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "D1": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "D2": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "D3": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "D4": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "D5": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "D6": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "D7": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "D8": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "E1": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "E2": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "E3": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "E4": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "E5": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "E6": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "E7": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "E8": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "F1": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "F2": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "F3": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "F4": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "F5": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "F6": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "F7": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "F8": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "G1": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "G2": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "G3": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "G4": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "G5": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "G6": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "G7": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "G8": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "H1": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "H2": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "H3": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "H4": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "H5": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "H6": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "H7": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            },
+                            "H8": {
+                                "ocupado": false,
+                                "tipo": "normal",
+                                "habilitado": true
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

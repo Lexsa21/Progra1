@@ -1,0 +1,29 @@
+{
+    "1": {
+        "titulo": "Spiderman",
+        "formato": "2D",
+        "idioma": "Español",
+        "activo": true,
+        "complejos": [
+            "1"
+        ]
+    },
+    "2": {
+        "titulo": "Avengers: Endgame",
+        "formato": "3D",
+        "idioma": "Subtitulado",
+        "activo": true,
+        "complejos": [
+            "2"
+        ]
+    },
+    "3": {
+        "titulo": "Coco",
+        "formato": "2D",
+        "idioma": "Español",
+        "activo": true,
+        "complejos": [
+            "4"
+        ]
+    }
+}

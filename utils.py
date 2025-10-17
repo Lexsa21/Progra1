@@ -37,57 +37,109 @@ def generarAsientosSala():
 
 def obtenerPeliculas():
     try:
-        archivoPeliculas = open(ARCHIVO_PELICULAS,
-                                mode="r", encoding="UTF-8")
-        peliculas = json.load(archivoPeliculas)
-        archivoPeliculas.close()
+        with open(ARCHIVO_PELICULAS, mode="r", encoding="UTF-8") as archivoPeliculas:
+            peliculas = json.load(archivoPeliculas)
+            peliculas["complejos"] = set(peliculas.get("complejos", []))
         return peliculas
     except Exception:
         print("\n⚠️  No se pudieron cargar las películas.")
         return {}
+    
+def obtenerPelicula(peliculaId):
+    try:
+        with open(ARCHIVO_PELICULAS, mode="r", encoding="UTF-8") as archivoPeliculas:
+            peliculas = json.load(archivoPeliculas)
+            pelicula = peliculas.get(peliculaId, {})
+            pelicula["complejos"] = set(pelicula.get("complejos", []))
+        return pelicula
+    except Exception:
+        print("\n⚠️  No se pudo cargar la película.")
+        return {}
 
 def obtenerCines():
     try:
-        archivoCines = open(ARCHIVO_CINES,
-                                mode="r", encoding="UTF-8")
-        cines = json.load(archivoCines)
-        archivoCines.close()
+        with open(ARCHIVO_CINES, mode="r", encoding="UTF-8") as archivoCines:
+            cines = json.load(archivoCines)
         return cines
     except Exception:
         print("\n⚠️  No se pudieron cargar los cines.")
         return {}
+    
+def obtenerCine(cineId):
+    try:
+        with open(ARCHIVO_CINES, mode="r", encoding="UTF-8") as archivoCines:
+            cines = json.load(archivoCines)
+            cine = cines.get(cineId, {})
+        return cine
+    except Exception:
+        print("\n⚠️  No se pudo cargar el cine.")
+        return {}
 
 def obtenerSalas():
     try:
-        archivoSalas = open(ARCHIVO_SALAS,
-                                mode="r", encoding="UTF-8")
-        salas = json.load(archivoSalas)
-        archivoSalas.close()
+        with open(ARCHIVO_SALAS, mode="r", encoding="UTF-8") as archivoSalas:
+            salas = json.load(archivoSalas)
         return salas
     except Exception:
         print("\n⚠️  No se pudieron cargar las salas.")
         return {}
     
+def obtenerSalasPorCine(cineId):
+    try:
+        with open(ARCHIVO_SALAS, mode="r", encoding="UTF-8") as archivoSalas:
+            salas = json.load(archivoSalas)
+            salasCine = {salaId: sala for salaId, sala in salas.items() if sala['cineId'] == cineId}
+        return salasCine
+    except Exception:
+        print("\n⚠️  No se pudieron cargar las salas.")
+        return {}
+
+def obtenerSala(salaId):
+    try:
+        with open(ARCHIVO_SALAS, mode="r", encoding="UTF-8") as archivoSalas:
+            salas = json.load(archivoSalas)
+            sala = salas.get(salaId, {})
+        return sala
+    except Exception:
+        print("\n⚠️  No se pudo cargar la sala.")
+        return {}
+
 def obtenerFunciones():
     try:
-        archivoFunciones = open(ARCHIVO_FUNCIONES,
-                                mode="r", encoding="UTF-8")
-        funciones = json.load(archivoFunciones)
-        archivoFunciones.close()
+        with open(ARCHIVO_FUNCIONES, mode="r", encoding="UTF-8") as archivoFunciones:
+            funciones = json.load(archivoFunciones)
         return funciones
     except Exception:
         print("\n⚠️  No se pudieron cargar las funciones.")
         return {}
-    
+
+def obtenerFuncion(peliculaId, cineId, salaId, dia, horario):
+    try:
+        with open(ARCHIVO_FUNCIONES, mode="r", encoding="UTF-8") as archivoFunciones:
+            funciones = json.load(archivoFunciones)
+            funcion = funciones.get(peliculaId, {}).get(cineId, {}).get(salaId, {}).get(dia, {}).get(horario, {})
+        return funcion
+    except Exception:
+        print("\n⚠️  No se pudo cargar la función.")
+        return {}
+
 def obtenerEntradas():
     try:
-        archivoEntradas = open(ARCHIVO_ENTRADAS,
-                                mode="r", encoding="UTF-8")
-        entradas = json.load(archivoEntradas)
-        archivoEntradas.close()
+        with open(ARCHIVO_ENTRADAS, mode="r", encoding="UTF-8") as archivoEntradas:
+            entradas = json.load(archivoEntradas)
         return entradas
     except Exception:
         print("\n⚠️  No se pudieron cargar las entradas.")
+        return {}
+
+def obtenerEntrada(entradaId):
+    try:
+        with open(ARCHIVO_ENTRADAS, mode="r", encoding="UTF-8") as archivoEntradas:
+            entradas = json.load(archivoEntradas)
+            entrada = entradas.get(entradaId, {})
+        return entrada
+    except Exception:
+        print("\n⚠️  No se pudo cargar la entrada.")
         return {}
 
 def imprimirPeliculas():
@@ -118,14 +170,25 @@ def agregarPelicula(peliculaData, peliculas):
         peliculas (diccionario): Diccionario existente de películas
     
     Return:
-        tupla: (peliculas_actualizado, peliculaId_generado)
+        string: peliculaId_generado
     """
+    peliculas = obtenerPeliculas()
     peliculaId = generarId(peliculas)
     peliculaData["activo"] = True
     peliculas[peliculaId] = peliculaData.copy()
-    return peliculas, peliculaId
+    for pelicula in peliculas.values():
+        pelicula["complejos"] = list(pelicula.get("complejos", []))
+    with open(ARCHIVO_PELICULAS, mode="w", encoding="UTF-8") as archivoPeliculas:
+        json.dump(peliculas, archivoPeliculas, indent=4, ensure_ascii=False)
+    return peliculaId
 
-def modificarPelicula(peliculaId, peliculaData, peliculas):
+def eliminarSala(salaId):
+    salas = obtenerSalas()
+    del salas[salaId]
+    with open(ARCHIVO_SALAS, mode="w", encoding="UTF-8") as archivoSalas:
+        json.dump(salas, archivoSalas, indent=4, ensure_ascii=False)
+
+def modificarPelicula(peliculaId, peliculaData):
     """
     Modifica los datos de una película existente.
     
@@ -137,8 +200,15 @@ def modificarPelicula(peliculaId, peliculaData, peliculas):
     Returns:
         diccionario: Diccionario de películas actualizado
     """
-    peliculas[peliculaId] = peliculaData.copy()
-    return peliculas
+    try:
+        peliculas = obtenerPeliculas()
+        peliculas[peliculaId] = peliculaData.copy()
+        for pelicula in peliculas.values():
+            pelicula["complejos"] = list(pelicula.get("complejos", []))
+        with open(ARCHIVO_PELICULAS, mode="w", encoding="UTF-8") as archivoPeliculas:
+            json.dump(peliculas, archivoPeliculas, indent=4, ensure_ascii=False)
+    except Exception as e:
+        print(f"⚠️  Error al modificar la película: {e}")
 
 def generarId(diccionario):
     """
@@ -155,7 +225,7 @@ def generarId(diccionario):
     nuevoId = max([int(k) for k in diccionario.keys()]) + 1
     return str(nuevoId)
 
-def imprimirSalasPorCine(cineId, salas):
+def imprimirSalasPorCine(cineId):
     """
     Imprime las salas pertenecientes a un cine específico.
     
@@ -168,6 +238,7 @@ def imprimirSalasPorCine(cineId, salas):
     """
     print(f"\n--- SALAS DEL CINE (ID: {cineId}) ---")
     print("-" * 60)
+    salas = obtenerSalas()
     salasPorCine = {salaId: sala for salaId, sala in salas.items() if sala['cineId'] == cineId}
     if not salasPorCine:
         print("⚠️  No hay salas registradas para este cine.")
@@ -177,7 +248,7 @@ def imprimirSalasPorCine(cineId, salas):
         disponibles = len(informeButacasDisponibles(sala['asientos']))
         print(f"[{salaId}] Sala {sala['numeroSala']} | {totalAsientos} asientos | {disponibles} disponibles (plantilla)")
 
-def crearSala(cineId, salas):
+def crearSala(cineId):
     """
     Crea una nueva sala con configuración de butacas predeterminada.
     
@@ -188,6 +259,7 @@ def crearSala(cineId, salas):
     Return:
         diccionario: Diccionario de salas actualizado
     """
+    salas = obtenerSalas()
     salaId = generarId(salas)
     butacas = generarAsientosSala()
     
@@ -202,14 +274,14 @@ def crearSala(cineId, salas):
         "numeroSala": str(numeroSala),
         "asientos": butacas
     }
-    
-    return salas
+    with open(ARCHIVO_SALAS, mode="w", encoding="UTF-8") as archivoSalas:
+        json.dump(salas, archivoSalas, indent=4, ensure_ascii=False)
 
-# MODIFICADO: La función agregarFunciones ahora maneja la nueva estructura anidada.
-def agregarFunciones(peliculaId, cineId, salaId, dia, horario, butacas, funciones):
+def agregarFunciones(peliculaId, cineId, salaId, dia, horario, butacas):
     """
     Agrega o actualiza una función con su propia copia de butacas.
     """
+    funciones = obtenerFunciones()
     if peliculaId not in funciones:
         funciones[peliculaId] = {}
     
@@ -222,23 +294,21 @@ def agregarFunciones(peliculaId, cineId, salaId, dia, horario, butacas, funcione
     if dia not in funciones[peliculaId][cineId][salaId]:
         funciones[peliculaId][cineId][salaId][dia] = {}
     
-    # Cada horario ahora es un diccionario que contiene las butacas
     funciones[peliculaId][cineId][salaId][dia][horario] = {"butacas": butacas}
-    
-    return funciones
 
-# MODIFICADO: imprimirFunciones adaptado a la nueva estructura.
-def imprimirFunciones(funciones, peliculas, cines, salas):
+def imprimirFunciones():
     """
     Imprime todas las funciones de manera organizada.
     """
     print("\n--- FUNCIONES PROGRAMADAS ---")
     print("=" * 80)
-    
+    funciones = obtenerFunciones()
     if not funciones:
         print("⚠️  No hay funciones programadas.")
         return
-    
+    peliculas = obtenerPeliculas()
+    cines = obtenerCines()
+    salas = obtenerSalas()
     for peliculaId, cineIDs in funciones.items():
         peliInfo = peliculas.get(peliculaId, {})
         print(f"\n📽️  {peliInfo.get('titulo', 'Desconocido')} (ID: {peliculaId})")
@@ -268,28 +338,53 @@ def eliminarFuncionesPorPeliculaCine(peliculaId, cineId, funciones):
             del funciones[peliculaId]
     return funciones
 
-def eliminarFuncion(peliculaId, cineId, salaId, dia, horario, funciones):
+def eliminarFuncion(peliculaId, cineId, salaId = None, dia = None, horario = None):
     """
-    Elimina una función específica.
+    Elimina una función específica o todas las funciones de un cine.
+    Si se proporciona solo cineId, elimina todas las funciones de esa película en ese cine.
+    Si se proporcionan parámetros adicionales, elimina de forma más específica.
     """
     try:
-        if horario in funciones[peliculaId][cineId][salaId][dia]:
-            del funciones[peliculaId][cineId][salaId][dia][horario]
-            
-            if not funciones[peliculaId][cineId][salaId][dia]:
-                del funciones[peliculaId][cineId][salaId][dia]
-            if not funciones[peliculaId][cineId][salaId]:
-                del funciones[peliculaId][cineId][salaId]
-            if not funciones[peliculaId][cineId]:
-                del funciones[peliculaId][cineId]
-            if not funciones[peliculaId]:
-                del funciones[peliculaId]
-            
-            return funciones, True
+        funciones = obtenerFunciones()
+        
+        if peliculaId not in funciones or cineId not in funciones[peliculaId]:
+            return funciones, False
+        
+        if not salaId:
+            del funciones[peliculaId][cineId]
+        else:
+            if not dia:
+                if salaId in funciones[peliculaId][cineId]:
+                    del funciones[peliculaId][cineId][salaId]
+            else:
+                if not horario:
+                    if salaId in funciones[peliculaId][cineId] and dia in funciones[peliculaId][cineId][salaId]:
+                        del funciones[peliculaId][cineId][salaId][dia]
+                else:
+                    if (salaId in funciones[peliculaId][cineId] and 
+                        dia in funciones[peliculaId][cineId][salaId] and
+                        horario in funciones[peliculaId][cineId][salaId][dia]):
+                        del funciones[peliculaId][cineId][salaId][dia][horario]
+                    
+                    if not funciones[peliculaId][cineId][salaId][dia]:
+                        del funciones[peliculaId][cineId][salaId][dia]
+                
+                if salaId in funciones[peliculaId][cineId] and not funciones[peliculaId][cineId][salaId]:
+                    del funciones[peliculaId][cineId][salaId]
+        
+        if not funciones[peliculaId][cineId]:
+            del funciones[peliculaId][cineId]
+        
+        if not funciones[peliculaId]:
+            del funciones[peliculaId]
+        
+        with open(ARCHIVO_FUNCIONES, mode="w", encoding="UTF-8") as archivoFunciones:
+            json.dump(funciones, archivoFunciones, indent=4, ensure_ascii=False)
+        
     except KeyError:
-        pass
-    
-    return funciones, False
+        print("\n⚠️  Error al eliminar la función.")
+    except Exception:
+        print("\n⚠️  Error al eliminar la función.")
 
 def esHorario(horario):
     """
@@ -304,40 +399,44 @@ def esHorario(horario):
     except ValueError:
         return False
 
-def peliculasPorCine(peliculas, cineId):
+def peliculasPorCine(cineId):
     """
     Retorna las películas que se proyectan en un cine específico.
     """
+    peliculas = obtenerPeliculas()
     return {
         peliculaId: pelicula 
         for peliculaId, pelicula in peliculas.items() 
         if cineId in pelicula.get('complejos', set())
     }
 
-def cinesSinPeliculas(todosCines, peliculas):
+def cinesSinPeliculas(todosCines):
     """
     Retorna conjunto de cines que NO tienen películas asignadas.
     """
     cinesConPeliculas = set()
+    peliculas = obtenerPeliculas()
     for pelicula in peliculas.values():
         cinesConPeliculas.update(pelicula.get('complejos', set()))
     return todosCines.difference(cinesConPeliculas)
 
-def peliculasEnTodosCines(peliculas, cinesRequeridos):
+def peliculasEnTodosCines(cinesRequeridos):
     """
     Retorna películas que se proyectan en TODOS los cines especificados.
     """
+    peliculas = obtenerPeliculas()
     return {
         peliculaId: pelicula
         for peliculaId, pelicula in peliculas.items()
         if cinesRequeridos.issubset(pelicula.get('complejos', set()))
     }
 
-def butacasPorTipo(asientos, tipo):
+def butacasPorTipo(butacas, tipo):
     """
     Retorna conjunto de butacas de un tipo específico.
     """
-    return {butaca for butaca, info in asientos.items() if info["tipo"] == tipo}
+
+    return {butaca for butaca, info in butacas.items() if info["tipo"] == tipo}
 
 def butacasDisponiblesPorTipo(asientos, tipo):
     """
@@ -356,43 +455,48 @@ def butacasOcupadasPorTipo(asientos, tipo):
     return butacasTipo.intersection(butacasOcupadas)
 
 
-def obtenerIdiomasDisponibles(peliculas):
+def obtenerIdiomasDisponibles():
     """
     Retorna conjunto de todos los idiomas disponibles.
     """
+    peliculas = obtenerPeliculas()
     return {pelicula['idioma'] for pelicula in peliculas.values() if pelicula.get('activo', True)}
 
-def obtenerFormatosDisponibles(peliculas):
+def obtenerFormatosDisponibles():
     """
     Retorna conjunto de todos los formatos disponibles.
     """
+    peliculas = obtenerPeliculas()
     return {pelicula['formato'] for pelicula in peliculas.values() if pelicula.get('activo', True)}
 
-def peliculasPorIdiomaYFormato(peliculas, idioma, formato):
+def peliculasPorIdiomaYFormato(idioma, formato):
     """
     Filtra películas por idioma Y formato.
     """
+    peliculas = obtenerPeliculas()
     resultado = set()
-    for peliculaId, pelicula in peliculas.items():
-        if (pelicula.get('idioma', '').lower() == idioma.lower() and 
+    for pelicula in peliculas.values():
+        if (pelicula.get('idioma', '').lower() == idioma.lower() and
             pelicula.get('formato', '').lower() == formato.lower()):
-            resultado.add(peliculaId)
+            resultado.add(pelicula)
     return resultado
 
-def cinesConFunciones(funciones):
+def cinesConFunciones():
     """
     Retorna conjunto de todos los cines que tienen funciones programadas.
     """
     cinesSet = set()
+    funciones = obtenerFunciones()
     for cines in funciones.values():
         cinesSet.update(cines.keys())
     return cinesSet
 
-def diasConFunciones(funciones, peliculaId, cineId):
+def diasConFunciones(peliculaId, cineId):
     """
     Retorna conjunto de días con funciones para una película en un cine.
     """
     dias = set()
+    funciones = obtenerFunciones()
     try:
         for diasData in funciones[peliculaId][cineId].values():
             dias.update(diasData.keys())
@@ -400,11 +504,12 @@ def diasConFunciones(funciones, peliculaId, cineId):
         pass
     return dias
 
-def horariosEnDia(funciones, peliculaId, cineId, dia):
+def horariosEnDia(peliculaId, cineId, dia):
     """
     Retorna conjunto de todos los horarios en un día específico.
     """
     horarios = set()
+    funciones = obtenerFunciones()
     try:
         for salaData in funciones[peliculaId][cineId].values():
             if dia in salaData:
@@ -413,18 +518,22 @@ def horariosEnDia(funciones, peliculaId, cineId, dia):
         pass
     return horarios
 
-def nuevoCine(cineData, cines):
+def nuevoCine(cineData):
     """
     Agrega un nuevo cine.
     """
-    nuevo_id = generarId(cines)
-    cines[nuevo_id] = {"nombre": cineData[0], "direccion": cineData[1]}
-    return cines, nuevo_id
+    cines = obtenerCines()
+    id = generarId(cines)
+    cines[id] = {"nombre": cineData[0], "direccion": cineData[1]}
+    with open(ARCHIVO_CINES, mode="w", encoding="UTF-8") as archivoCines:
+        json.dump(cines, archivoCines, indent=4, ensure_ascii=False)
+    return id
 
-def imprimirCines(cines):
+def imprimirCines():
     """
     Imprime un listado formateado de todos los cines.
     """
+    cines = obtenerCines()
     print("\n--- LISTADO DE CINES ---")
     print("-" * 80)
     for cineId, data in cines.items():
@@ -441,35 +550,45 @@ def generarEntrada(datosEntrada, entradas):
     entradas[entradaId] = datosEntrada
     return entradas
 
-def eliminarEntrada(entradaId, entradas):
+def eliminarEntrada(entradaId):
     """
     Elimina una entrada específica.
     """
-    if entradaId in entradas:
-        del entradas[entradaId]
-    return entradas
+    entradas = obtenerEntradas()
+    with open(ARCHIVO_ENTRADAS, mode="w", encoding="UTF-8") as archivoEntradas:
+        if entradaId in entradas:
+            del entradas[entradaId]
+        json.dump(entradas, archivoEntradas, indent=4, ensure_ascii=False)
 
-def buscarEntradasPorDNI(dni, entradas, peliculas, cines, salas):
+
+def buscarEntradasPorDNI(dni):
     """
     Busca todas las entradas de un cliente por DNI.
     """
     resultado = []
+    entradas = obtenerEntradas()
+    peliculas = obtenerPeliculas()
+    cines = obtenerCines()
+    salas = obtenerSalas()
     for entradaId, entrada in entradas.items():
         if entrada.get('dni') == dni:
-            info_entrada = entrada.copy()
-            info_entrada['entradaId'] = entradaId
-            info_entrada['titulopeli'] = peliculas.get(entrada['peliculaId'], {}).get('titulo', 'Desconocido')
-            info_entrada['nombrecine'] = cines.get(entrada['cineId'], {}).get('nombre', 'Desconocido')
-            info_entrada['numerosala'] = salas.get(entrada['salaId'], {}).get('numeroSala', '?')
-            resultado.append(info_entrada)
+            infoEntrada = entrada.copy()
+            infoEntrada['entradaId'] = entradaId
+            infoEntrada['titulopeli'] = peliculas.get(entrada['peliculaId'], {}).get('titulo', 'Desconocido')
+            infoEntrada['nombrecine'] = cines.get(entrada['cineId'], {}).get('nombre', 'Desconocido')
+            infoEntrada['numerosala'] = salas.get(entrada['salaId'], {}).get('numeroSala', '?')
+            resultado.append(infoEntrada)
     return resultado
 
-def informeVentas(entradas, peliculas, cines):
+def informeVentas():
     """
     Genera un informe detallado de ventas por cine y película.
     """
     informe = {}
     ventasGenerales = 0
+    entradas = obtenerEntradas()
+    peliculas = obtenerPeliculas()
+    cines = obtenerCines()
     
     for entrada in entradas.values():
         cineId = entrada.get("cineId")
@@ -495,25 +614,27 @@ def informeVentas(entradas, peliculas, cines):
 
     return informe, ventasGenerales
 
-def informeListadoPeliculasDisponibles(peliculas, cines):
+def informeListadoPeliculasDisponibles():
     """
     Genera listado de películas disponibles con sus cines.
     """
     disponibles = []
+    peliculas = obtenerPeliculas()
+    cines = obtenerCines()
     
     for peliculaId, data in peliculas.items():
         if not data.get("activo", True):
             continue
             
-        cines_nombres = [cines[cineId]["nombre"] for cineId in data.get("complejos", []) if cineId in cines]
-        cines_str = ", ".join(cines_nombres) if cines_nombres else "Sin cines"
+        cinesNombres = [cines[cineId]["nombre"] for cineId in data.get("complejos", []) if cineId in cines]
+        cinesString = ", ".join(cinesNombres) if cinesNombres else "Sin cines"
         
         disponibles.append((
             peliculaId,
             data["titulo"].strip(),
             data["idioma"],
             data["formato"],
-            cines_str
+            cinesString
         ))
 
     return disponibles
@@ -555,27 +676,41 @@ def imprimirSala(butacas):
     print("\n✅: Disponible | ❌: Ocupada | 🛠️: Inhabilitada")
     print("E: EXTREME | N: NORMAL\n")
 
-
 def modificarCine(cineId, cineData, cines):
     """
     Modifica los datos de un cine existente.
     """
-    cines[cineId].update(cineData)
-    return cines
+    try:
+        cines = obtenerCines()
+        cines[cineId] = cineData.copy()
+        with open(ARCHIVO_CINES, mode="w", encoding="UTF-8") as archivoCines:
+            json.dump(cines, archivoCines, indent=4, ensure_ascii=False)
+    except Exception as e:
+        print(f"⚠️  Error al modificar la película: {e}")
 
-def eliminarCine(cineId, cines):
+def eliminarCine(cineId):
     """
     Elimina un cine.
     """
-    if cineId in cines:
-        del cines[cineId]
-    return cines
+    try:
+        cines = obtenerCines()
+        if cineId in cines:
+            del cines[cineId]
+        with open(ARCHIVO_CINES, mode="w", encoding="UTF-8") as archivoCines:
+            json.dump(cines, archivoCines, indent=4, ensure_ascii=False)
+    except Exception:
+        print("\n⚠️  Error al eliminar el cine.")
 
-def gestionarFuncionesPelicula(peliculaId, complejosPelicula, peliculas, cines, salas, funciones):
+def gestionarFuncionesPelicula(peliculaId):
     """
     Gestiona las funciones de una película (ver, agregar, eliminar).
     """
     while True:
+        peliculas = obtenerPeliculas()
+        cines = obtenerCines()
+        salas = obtenerSalas()
+        funciones = obtenerFunciones()
+        complejosPelicula = peliculas[peliculaId].get('complejos', set())
         print(f"\nGestionando funciones de: {peliculas[peliculaId]['titulo']}")
         mostrarMenuFunciones()
         opcion = input("\n> Seleccione una opción: ").strip()
@@ -584,8 +719,8 @@ def gestionarFuncionesPelicula(peliculaId, complejosPelicula, peliculas, cines, 
             break
             
         elif opcion == "1":  # Ver funciones actuales
-            imprimirFunciones({peliculaId: funciones.get(peliculaId, {})}, peliculas, cines, salas)
-                            
+            imprimirFunciones({peliculaId: funciones.get(peliculaId, {})})
+
         elif opcion == "2":  # Agregar función
             print("\n--- AGREGAR NUEVA FUNCIÓN ---")
             
@@ -609,7 +744,7 @@ def gestionarFuncionesPelicula(peliculaId, complejosPelicula, peliculas, cines, 
                 continue
             
             print(f"\nSalas en {cines[cineId]['nombre']}:")
-            imprimirSalasPorCine(cineId, salas)
+            imprimirSalasPorCine(cineId)
             
             salaId = input("\nID de la sala: ").strip()
             if salaId not in salasCine:
@@ -634,8 +769,8 @@ def gestionarFuncionesPelicula(peliculaId, complejosPelicula, peliculas, cines, 
             except KeyError:
                 pass
             
-            butacas_funcion = generarAsientosSala()
-            funciones = agregarFunciones(peliculaId, cineId, salaId, dia, horario, butacas_funcion, funciones)
+            butacasFuncion = generarAsientosSala()
+            agregarFunciones(peliculaId, cineId, salaId, dia, horario, butacasFuncion)
             print(f"\n✓ Función agregada: {dia.capitalize()} {horario} en Sala {salas[salaId]['numeroSala']}")
             
         elif opcion == "3":  # Eliminar función
@@ -645,7 +780,7 @@ def gestionarFuncionesPelicula(peliculaId, complejosPelicula, peliculas, cines, 
             
             print("\n--- ELIMINAR FUNCIÓN ---")
             listaFunciones = []
-            idx = 1
+            index = 1
             
             for cineId, salasData in funciones[peliculaId].items():
                 for salaId, diasData in salasData.items():
@@ -655,8 +790,8 @@ def gestionarFuncionesPelicula(peliculaId, complejosPelicula, peliculas, cines, 
                                 'cineId': cineId, 'salaId': salaId,
                                 'dia': dia, 'horario': horario
                             })
-                            print(f"[{idx}] {cines.get(cineId,{}).get('nombre','?')} - Sala {salas.get(salaId,{}).get('numeroSala','?')} - {dia.capitalize()} {horario}")
-                            idx += 1
+                            print(f"[{index}] {cines.get(cineId,{}).get('nombre','?')} - Sala {salas.get(salaId,{}).get('numeroSala','?')} - {dia.capitalize()} {horario}")
+                            index += 1
             
             if not listaFunciones:
                 print("⚠️  No hay funciones para eliminar.")
@@ -668,25 +803,23 @@ def gestionarFuncionesPelicula(peliculaId, complejosPelicula, peliculas, cines, 
                 print("Operación cancelada.")
                 continue
             
-            idx_sel = int(seleccion) - 1
+            indexSeleccionado = int(seleccion) - 1
             
-            if not (0 <= idx_sel < len(listaFunciones)):
+            if not (0 <= indexSeleccionado < len(listaFunciones)):
                 print("⚠️  Selección inválida.")
                 continue
-            
-            func = listaFunciones[idx_sel]
-            confirmar = input(f"¿Confirma eliminar la función del {func['dia']} a las {func['horario']}? (s/n): ").strip().lower()
-            
+
+            funcion = listaFunciones[indexSeleccionado]
+            confirmar = input(f"¿Confirma eliminar la función del {funcion['dia']} a las {funcion['horario']}? (s/n): ").strip().lower()
+
             if confirmar == 's':
                 funciones, exito = eliminarFuncion(
-                    peliculaId, func['cineId'], func['salaId'], func['dia'], func['horario'], funciones
+                    peliculaId, funcion['cineId'], funcion['salaId'], funcion['dia'], funcion['horario'], funciones
                 )
                 if exito:
                     print("✓ Función eliminada con éxito.")
                 else:
                     print("⚠️  Error al eliminar la función.")
-    
-    return funciones
 
 def mostrarMenuFunciones():
     """ Muestra el menú de gestión de funciones. """

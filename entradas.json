@@ -1,0 +1,12 @@
+{
+    "1": {
+        "cliente": "Juan Perez",
+        "dni": "12345678",
+        "cineId": "1",
+        "peliculaId": "1",
+        "salaId": "1",
+        "butaca": "A1",
+        "dia": "martes",
+        "horario": "14:00"
+    }
+}
