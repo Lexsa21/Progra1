@@ -1,3 +1,5 @@
+import json
+
 FORMATOS_VALIDOS = ("2d", "3d")
 IDIOMAS_VALIDOS = ("español", "subtitulado")
 DIAS_SEMANA = ("lunes", "martes", "miercoles", "jueves", "viernes", "sabado", "domingo")
@@ -5,6 +7,11 @@ TIPOS_BUTACA = ("normal", "extreme")
 
 NUMERACION_FILAS = ("A", "B", "C", "D", "E", "F", "G", "H", "I")
 CONFIGURACION_SALA = (8, 8)  # (filas, columnas)
+ARCHIVO_PELICULAS = "peliculas.json"
+ARCHIVO_CINES = "cines.json"
+ARCHIVO_SALAS = "salas.json"
+ARCHIVO_FUNCIONES = "funciones.json"
+ARCHIVO_ENTRADAS = "entradas.json"
 
 def generarAsientosSala():
     """
@@ -28,7 +35,62 @@ def generarAsientosSala():
     
     return butacas
 
-def imprimirPeliculas(peliculas):
+def obtenerPeliculas():
+    try:
+        archivoPeliculas = open(ARCHIVO_PELICULAS,
+                                mode="r", encoding="UTF-8")
+        peliculas = json.load(archivoPeliculas)
+        archivoPeliculas.close()
+        return peliculas
+    except Exception:
+        print("\n⚠️  No se pudieron cargar las películas.")
+        return {}
+
+def obtenerCines():
+    try:
+        archivoCines = open(ARCHIVO_CINES,
+                                mode="r", encoding="UTF-8")
+        cines = json.load(archivoCines)
+        archivoCines.close()
+        return cines
+    except Exception:
+        print("\n⚠️  No se pudieron cargar los cines.")
+        return {}
+
+def obtenerSalas():
+    try:
+        archivoSalas = open(ARCHIVO_SALAS,
+                                mode="r", encoding="UTF-8")
+        salas = json.load(archivoSalas)
+        archivoSalas.close()
+        return salas
+    except Exception:
+        print("\n⚠️  No se pudieron cargar las salas.")
+        return {}
+    
+def obtenerFunciones():
+    try:
+        archivoFunciones = open(ARCHIVO_FUNCIONES,
+                                mode="r", encoding="UTF-8")
+        funciones = json.load(archivoFunciones)
+        archivoFunciones.close()
+        return funciones
+    except Exception:
+        print("\n⚠️  No se pudieron cargar las funciones.")
+        return {}
+    
+def obtenerEntradas():
+    try:
+        archivoEntradas = open(ARCHIVO_ENTRADAS,
+                                mode="r", encoding="UTF-8")
+        entradas = json.load(archivoEntradas)
+        archivoEntradas.close()
+        return entradas
+    except Exception:
+        print("\n⚠️  No se pudieron cargar las entradas.")
+        return {}
+
+def imprimirPeliculas():
     """
     Imprime un listado formateado de todas las películas.
     
@@ -40,6 +102,7 @@ def imprimirPeliculas(peliculas):
     """
     print("\n--- LISTADO DE PELÍCULAS ---")
     print("-" * 80)
+    peliculas = obtenerPeliculas()
     for peliculaId, pelicula in peliculas.items():
         estado = "✓" if pelicula.get('activo', True) else "✗"
         cines_list = ', '.join(pelicula['complejos']) if pelicula['complejos'] else "Sin cines"
