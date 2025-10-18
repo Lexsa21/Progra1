@@ -230,7 +230,7 @@ while True:
                     print("⚠️  Datos de cliente inválidos.")
                     continue
                 
-                imprimirCines()
+                imprimirFunciones()
                 idCine = input("\nID del cine: ").strip()
                 cine = obtenerCine(idCine)
                 if not cine:
@@ -245,14 +245,14 @@ while True:
                 print(f"\n--- PELÍCULAS EN {cine['nombre'].upper()} ---")
                 peliculasConFunciones = {}
                 funciones = obtenerFunciones()
-                for pelicula in peliculasEnCine.values():
-                    if pelicula['id'] in funciones and idCine in funciones[pelicula['id']]:
-                        peliculasConFunciones[pelicula['id']] = pelicula
-                        print(f"\n[{pelicula['id']}] {pelicula['titulo']} ({pelicula['formato']} - {pelicula['idioma']})")
+                for peliculaId, pelicula in peliculasEnCine.items():
+                    if peliculaId in funciones and idCine in funciones[peliculaId]:
+                        peliculasConFunciones[peliculaId] = pelicula
+                        print(f"\n[{peliculaId}] {pelicula['titulo']} ({pelicula['formato']} - {pelicula['idioma']})")
                         print("  Funciones disponibles:")
-                        for salaId, diasData in funciones[pelicula['id']][idCine].items():
-                            salaInfo = salas.get(salaId, {})
-                            print(f"    Sala {salaInfo.get('numeroSala', '?')}:")
+                        for salaId, diasData in funciones[peliculaId][idCine].items():
+                            salaInfo = obtenerSala(salaId)
+                            print(f"   [{salaId}] Sala {salaInfo.get('numeroSala', '?')}:")
                             for dia, horariosData in diasData.items():
                                 print(f"      • {dia.capitalize()}: {', '.join(sorted(horariosData.keys()))}")
                 
@@ -281,25 +281,30 @@ while True:
                     print("\n⚠️  No hay butacas disponibles para esta función.")
                     continue
 
-                imprimirSala(asientosFuncion)
-                
-                butaca = input("Seleccione una butaca: ").strip().upper()
-                if butaca not in asientosDisponiblesSet:
-                    print("⚠️  Butaca no válida o no disponible.")
-                    continue
-                
-                print("\n--- RESUMEN DE LA COMPRA ---")
-                print(f"Película: {pelicula['titulo']}, Butaca: {butaca}")
-                
-                if input("\n¿Confirmar compra? (s/n): ").strip().lower() == 's':
-                    asientosFuncion[butaca]["ocupado"] = True
+                butacasAComprar = []
+                seguirReservandoButacas = 's'
+                while seguirReservandoButacas == 's':
+                    imprimirSala(asientosFuncion)
+                    butaca = input("Seleccione una butaca: ").strip().upper()
+                    if butaca not in asientosDisponiblesSet:
+                        print("⚠️  Butaca no válida o no disponible.")
+                        continue
 
+                    butacasAComprar.append(butaca)
+                    asientosDisponiblesSet.remove(butaca)
+                    asientosFuncion[butaca]["ocupado"] = True
+                    seguirReservandoButacas = input("¿Desea reservar otra butaca? (s/n): ").strip().lower()
+
+                print("\n--- RESUMEN DE LA COMPRA ---")
+                print(f"Película: {pelicula['titulo']}, Butacas: {', '.join(butacasAComprar)}")
+
+                if input("\n¿Confirmar compra? (s/n): ").strip().lower() == 's':
                     nuevaEntrada = {
                         'cliente': nombreCliente, 'dni': dniCliente, 'cineId': idCine,
-                        'peliculaId': peliculaId, 'salaId': salaId, 'butaca': butaca,
+                        'peliculaId': peliculaId, 'salaId': salaId, 'butacas': butacasAComprar,
                         'dia': diaPelicula, 'horario': horaPelicula
                     }
-                    entradas = generarEntrada(nuevaEntrada, entradas)
+                    generarEntrada(nuevaEntrada)
                     print(f"\n✓ ¡Entrada generada con éxito!")
                 else:
                     print("\nCompra cancelada.")
@@ -346,7 +351,7 @@ while True:
                 else:
                     print(f"\n--- ENTRADAS DE {entradasCliente[0]['cliente'].upper()} ---")
                     for ent in entradasCliente:
-                        print(f"  • Película: {ent['titulopeli']}, Cine: {ent['nombrecine']}, Sala: {ent['numerosala']}, Butaca: {ent['butaca']}")
+                        print(f"  • Película: {ent['titulopeli']}, Cine: {ent['nombrecine']}, Sala: {ent['numerosala']}, Butacas: {', '.join(ent['butacas'])}, Día: {ent['dia'].capitalize()}, Horario: {ent['horario']}")
 
             input("\nPresione ENTER para continuar...")
     

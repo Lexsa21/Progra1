@@ -586,13 +586,16 @@ def imprimirCines():
         print(f"[{cineId}] {nombre}")
         print(f"    📍 {direccion}")
 
-def generarEntrada(datosEntrada, entradas):
+def generarEntrada(datosEntrada):
     """
     Genera una nueva entrada.
     """
+    entradas = obtenerEntradas()
     entradaId = generarId(entradas)
     entradas[entradaId] = datosEntrada
-    return entradas
+    with open(ARCHIVO_ENTRADAS, mode="w", encoding="UTF-8") as archivoEntradas:
+        json.dump(entradas, archivoEntradas, indent=4, ensure_ascii=False)
+    return entradaId
 
 def eliminarEntrada(entradaId):
     """
