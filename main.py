@@ -142,8 +142,8 @@ while True:
                             print("⚠️  Debe seleccionar al menos un cine.")
                             continue
                         break
-                    
-                    if cineId not in cines:
+                    cine = obtenerCine(cineId)
+                    if not cine:
                         print("⚠️  Cine no encontrado.")
                         continue
                     
@@ -152,7 +152,7 @@ while True:
                         continue
                         
                     peliculaData['complejos'].add(cineId)
-                    print(f"✓ Cine '{cines[cineId]['nombre']}' agregado")
+                    print(f"✓ Cine '{cine['nombre']}' agregado")
 
                 peliculaId = agregarPelicula(peliculaData)
                 print(f"\n✓ ¡Película '{peliculaData['titulo']}' agregada con éxito! (ID: {peliculaId})")

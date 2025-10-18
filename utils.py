@@ -39,7 +39,8 @@ def obtenerPeliculas():
     try:
         with open(ARCHIVO_PELICULAS, mode="r", encoding="UTF-8") as archivoPeliculas:
             peliculas = json.load(archivoPeliculas)
-            peliculas["complejos"] = set(peliculas.get("complejos", []))
+            for pelicula in peliculas.values():
+                pelicula["complejos"] = set(pelicula.get("complejos", []))
         return peliculas
     except Exception:
         print("\n⚠️  No se pudieron cargar las películas.")
@@ -122,6 +123,15 @@ def obtenerFuncion(peliculaId, cineId, salaId, dia, horario):
     except Exception:
         print("\n⚠️  No se pudo cargar la función.")
         return {}
+    
+def obtenerFuncionesPorPelicula(peliculaId):
+    try:
+        with open(ARCHIVO_FUNCIONES, mode="r", encoding="UTF-8") as archivoFunciones:
+            funciones = json.load(archivoFunciones)
+            return {peliId: cineId for peliId, cineId in funciones.items() if peliId == peliculaId}
+    except Exception:
+        print("\n⚠️  No se pudieron cargar las funciones.")
+        return {}
 
 def obtenerEntradas():
     try:
@@ -161,7 +171,7 @@ def imprimirPeliculas():
         print(f"[{peliculaId}] {pelicula['titulo']} ({estado})")
         print(f"    {pelicula['idioma']} | {pelicula['formato']} | Cines: {cines_list}")
 
-def agregarPelicula(peliculaData, peliculas):
+def agregarPelicula(peliculaData):
     """
     Agrega una nueva película al diccionario de películas.
     
@@ -296,6 +306,9 @@ def agregarFunciones(peliculaId, cineId, salaId, dia, horario, butacas):
     
     funciones[peliculaId][cineId][salaId][dia][horario] = {"butacas": butacas}
 
+    with open(ARCHIVO_FUNCIONES, mode="w", encoding="UTF-8") as archivoFunciones:
+        json.dump(funciones, archivoFunciones, indent=4, ensure_ascii=False)
+
 def imprimirFunciones():
     """
     Imprime todas las funciones de manera organizada.
@@ -303,6 +316,37 @@ def imprimirFunciones():
     print("\n--- FUNCIONES PROGRAMADAS ---")
     print("=" * 80)
     funciones = obtenerFunciones()
+    if not funciones:
+        print("⚠️  No hay funciones programadas.")
+        return
+    peliculas = obtenerPeliculas()
+    cines = obtenerCines()
+    salas = obtenerSalas()
+    for peliculaId, cineIDs in funciones.items():
+        peliInfo = peliculas.get(peliculaId, {})
+        print(f"\n📽️  {peliInfo.get('titulo', 'Desconocido')} (ID: {peliculaId})")
+        print(f"   {peliInfo.get('idioma', '?')} | {peliInfo.get('formato', '?')}")
+        print("-" * 80)
+        
+        for cineId, salaIDs in cineIDs.items():
+            cineInfo = cines.get(cineId, {})
+            print(f"\n  🏢 {cineInfo.get('nombre', 'Desconocido')} (ID: {cineId})")
+            
+            for salaId, dias in salaIDs.items():
+                salaInfo = salas.get(salaId, {})
+                print(f"    🎬 Sala {salaInfo.get('numeroSala', '?')}")
+                
+                for dia, horariosData in dias.items():
+                    horarios_str = ', '.join(sorted(horariosData.keys())) # Extraemos las llaves que son los horarios
+                    print(f"       • {dia.capitalize()}: {horarios_str}")
+
+def imprimirFuncionesPorPelicula(peliculaId):
+    """
+    Imprime todas las funciones de una película específica de manera organizada.
+    """
+    print(f"\n--- FUNCIONES DE LA PELÍCULA (ID: {peliculaId}) ---")
+    print("=" * 80)
+    funciones = obtenerFuncionesPorPelicula(peliculaId)
     if not funciones:
         print("⚠️  No hay funciones programadas.")
         return
@@ -719,7 +763,7 @@ def gestionarFuncionesPelicula(peliculaId):
             break
             
         elif opcion == "1":  # Ver funciones actuales
-            imprimirFunciones({peliculaId: funciones.get(peliculaId, {})})
+            imprimirFuncionesPorPelicula(peliculaId)
 
         elif opcion == "2":  # Agregar función
             print("\n--- AGREGAR NUEVA FUNCIÓN ---")
