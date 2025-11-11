@@ -647,22 +647,18 @@ def eliminarEntrada(entradaId):
 
 def buscarEntradasPorDNI(dni):
     try:
-        resultado = []
         entradas = obtenerEntradas()
-        for entradaId, entrada in entradas.items():
-            if entrada.get("dni") == dni:
-                infoEntrada = entrada.copy()
-                infoEntrada["entradaId"] = entradaId
-                infoEntrada["titulopeli"] = obtenerPelicula(entrada["peliculaId"]).get(
-                    "titulo", "Desconocido"
-                )
-                infoEntrada["nombrecine"] = obtenerCine(entrada["cineId"]).get(
-                    "nombre", "Desconocido"
-                )
-                infoEntrada["numerosala"] = obtenerSala(entrada["salaId"]).get(
-                    "numeroSala", "?"
-                )
-                resultado.append(infoEntrada)
+        resultado = [
+            {
+                **entrada,
+                "entradaId": entradaId,
+                "titulopeli": obtenerPelicula(entrada["peliculaId"]).get("titulo", "Desconocido"),
+                "nombrecine": obtenerCine(entrada["cineId"]).get("nombre", "Desconocido"),
+                "numerosala": obtenerSala(entrada["salaId"]).get("numeroSala", "?"),
+            }
+            for entradaId, entrada in entradas.items()
+            if entrada.get("dni") == dni
+        ]
         return resultado
     except Exception as e:
         print("\n⚠️  No se pudo buscar las entradas por DNI.")
@@ -698,31 +694,23 @@ def informeVentas():
     return informe, ventasGenerales
 
 def informeListadoPeliculasDisponibles():
-    disponibles = []
     peliculas = obtenerPeliculas()
     cines = obtenerCines()
-
-    for peliculaId, data in peliculas.items():
-        if not data.get("activo", True):
-            continue
-
-        cinesNombres = [
-            cines[cineId]["nombre"]
-            for cineId in data.get("complejos", [])
-            if cineId in cines
-        ]
-        cinesString = ", ".join(cinesNombres) if cinesNombres else "Sin cines"
-
-        disponibles.append(
-            (
-                peliculaId,
-                data["titulo"].strip(),
-                data["idioma"],
-                data["formato"],
-                cinesString,
-            )
+    disponibles = [
+        (
+            peliculaId,
+            data["titulo"].strip(),
+            data["idioma"],
+            data["formato"],
+            ", ".join([
+                cines[cineId]["nombre"]
+                for cineId in data.get("complejos", [])
+                if cineId in cines
+            ]) or "Sin cines",
         )
-
+        for peliculaId, data in peliculas.items()
+        if data.get("activo", True)
+    ]
     return disponibles
 
 def informeButacasDisponibles(butacas):

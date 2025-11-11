@@ -253,128 +253,141 @@ while True:
             elif opcionEntradas == "1":
                 print("\n--- GENERAR NUEVA ENTRADA ---")
 
+                # === Paso 1: Datos del cliente ===
                 nombreCliente = input("Nombre del cliente: ").strip()
                 valido_nombre, nombre_limpio, error_nombre = validar_entrada_completa(
                     nombreCliente, "nombre"
                 )
-
                 if not valido_nombre:
                     print(f"⚠️  {error_nombre}")
                     continue
-
                 nombreCliente = nombre_limpio
 
                 dni_input = input("DNI del cliente: ").strip()
                 valido_dni, dni_limpio, error_dni = validar_entrada_completa(
                     dni_input, "dni"
                 )
-
                 if not valido_dni:
                     print(f"⚠️  {error_dni}")
                     continue
-
                 dniCliente = dni_limpio
 
-                imprimirFunciones()
-                idCine = input("\nID del cine: ").strip()
-                cine = obtenerCine(idCine)
+                # === Paso 2: Selección del cine ===
+                cines = obtenerCines()
+                print("\n--- CINES DISPONIBLES ---")
+                for cid, cinfo in cines.items():
+                    print(f"[{cid}] {cinfo['nombre']} – {cinfo['direccion']}")
+                idCine = input("\nSeleccione el ID del cine: ").strip()
+                cine = cines.get(idCine)
                 if not cine:
                     print("⚠️  Cine no encontrado.")
                     continue
 
+                # === Paso 3: Selección de película ===
                 peliculasEnCine = peliculasPorCine(idCine)
-                if not peliculasEnCine:
-                    print(f"\n⚠️  No hay películas disponibles en '{cine['nombre']}'.")
-                    continue
-
-                print(f"\n--- PELÍCULAS EN {cine['nombre'].upper()} ---")
-                peliculasConFunciones = {}
                 funciones = obtenerFunciones()
-                for peliculaId, pelicula in peliculasEnCine.items():
-                    if peliculaId in funciones and idCine in funciones[peliculaId]:
-                        peliculasConFunciones[peliculaId] = pelicula
-                        print(
-                            f"\n[{peliculaId}] {pelicula['titulo']} ({pelicula['formato']} - {pelicula['idioma']})"
-                        )
-                        print("  Funciones disponibles:")
-                        for salaId, diasData in funciones[peliculaId][idCine].items():
-                            salaInfo = obtenerSala(salaId)
-                            print(
-                                f"   [{salaId}] Sala {salaInfo.get('numeroSala', '?')}:"
-                            )
-                            for dia, horariosData in diasData.items():
-                                print(
-                                    f"      • {dia.capitalize()}: {', '.join(sorted(horariosData.keys()))}"
-                                )
+
+                peliculasConFunciones = {
+                    pid: peli for pid, peli in peliculasEnCine.items()
+                    if pid in funciones and idCine in funciones[pid]
+                }
 
                 if not peliculasConFunciones:
-                    print(f"\n⚠️  No hay funciones programadas en este cine.")
+                    print(f"\n⚠️  No hay películas disponibles en el cine '{cine['nombre']}'.")
                     continue
 
-                peliculaId = input("\nID de la película: ").strip()
+                print(f"\n--- CARTELERA EN {cine['nombre']} ---")
+                for pid, peli in peliculasConFunciones.items():
+                    print(f"[{pid}] 🎬 {peli['titulo']} ({peli['formato']} - {peli['idioma']})")
+
+                peliculaId = input("\nSeleccione el ID de la película: ").strip()
                 if peliculaId not in peliculasConFunciones:
                     print("⚠️  Película no válida.")
                     continue
+                pelicula = peliculasConFunciones[peliculaId]
 
-                salaId = input("\nID de la sala: ").strip()
-                diaPelicula = input("Día: ").strip().lower()
-                horaPelicula = input("Horario: ").strip()
+                # === Paso 4: Selección de función (sala + día + hora) ===
+                print(f"\n--- FUNCIONES DISPONIBLES DE '{pelicula['titulo']}' ---")
+                funcionesDisponibles = []
+                for salaId, diasData in funciones[peliculaId][idCine].items():
+                    sala = obtenerSala(salaId)
+                    for dia, horariosData in diasData.items():
+                        for horario in sorted(horariosData.keys()):
+                            funcionesDisponibles.append((salaId, dia, horario))
+                            print(f"[{len(funcionesDisponibles)}] Sala {sala['numeroSala']} – {dia.capitalize()} {horario}")
 
-                try:
-                    funcionSeleccionada = funciones[peliculaId][idCine][salaId][
-                        diaPelicula
-                    ][horaPelicula]
-                    asientosFuncion = funcionSeleccionada["butacas"]
-                except KeyError:
-                    print("⚠️  Función (sala, día u horario) no válida.")
+                if not funcionesDisponibles:
+                    print("⚠️  No hay funciones disponibles para esta película.")
                     continue
 
-                asientosDisponiblesSet = informeButacasDisponibles(asientosFuncion)
-                if not asientosDisponiblesSet:
+                seleccion = input("\nSeleccione el número de función: ").strip()
+                if not seleccion.isdigit() or not (1 <= int(seleccion) <= len(funcionesDisponibles)):
+                    print("⚠️  Selección inválida.")
+                    continue
+
+                salaId, diaPelicula, horaPelicula = funcionesDisponibles[int(seleccion) - 1]
+                funcionSeleccionada = funciones[peliculaId][idCine][salaId][diaPelicula][horaPelicula]
+                asientosFuncion = funcionSeleccionada["butacas"]
+
+                # === Paso 5: Selección de butacas ===
+                asientosDisponibles = informeButacasDisponibles(asientosFuncion)
+                if not asientosDisponibles:
                     print("\n⚠️  No hay butacas disponibles para esta función.")
                     continue
 
-                butacasAComprar = []
-                seguirReservandoButacas = "s"
-                while seguirReservandoButacas == "s":
-                    imprimirSala(asientosFuncion)
-                    butaca_input = input("Seleccione una butaca: ").strip()
-                    valido, butaca, error = validar_entrada_completa(
-                        butaca_input, "butaca"
-                    )
+                print("\n--- SELECCIÓN DE BUTACAS ---")
+                imprimirSala(asientosFuncion)
+                print("✅ Disponible | ❌ Ocupada | 🛠️ Inhabilitada")
 
-                    if not valido:
-                        print(f"⚠️  {error}")
-                        continue
 
-                    if butaca not in asientosDisponiblesSet:
-                        print("⚠️  Butaca no disponible. Por favor seleccione otra.")
-                        continue
+                butacasValidas = []
+                while True:
+                    butacas_input = input("\nIngrese las butacas a reservar (separadas por coma, ENTER para finalizar): ").strip()
+                    if not butacas_input:
+                        if butacasValidas:
+                            break
+                        else:
+                            print("⚠️  Debe seleccionar al menos una butaca.")
+                            continue
+                    butacasAComprar = [b.strip().upper() for b in butacas_input.split(",") if b.strip()]
+                    alguna_valida = False
+                    for butaca in butacasAComprar:
+                        valido, butacaValida, error = validar_entrada_completa(butaca, "butaca")
+                        if not valido:
+                            print(f"⚠️  {error}")
+                            continue
+                        if butacaValida not in asientosDisponibles:
+                            print(f"⚠️  La butaca {butacaValida} no está disponible.")
+                            continue
+                        asientosFuncion[butacaValida]["ocupado"] = True
+                        butacasValidas.append(butacaValida)
+                        alguna_valida = True
+                    if not alguna_valida:
+                        respuesta = input("¿Desea intentar seleccionar otra butaca? (s/n): ").strip()
+                        confirmacion = validar_confirmacion(respuesta)
+                        if not confirmacion:
+                            print("Operación cancelada.")
+                            butacasValidas = []
+                            break
 
-                    butacasAComprar.append(butaca)
-                    asientosDisponiblesSet.remove(butaca)
-                    asientosFuncion[butaca]["ocupado"] = True
-                    respuesta_butaca = input(
-                        "¿Desea reservar otra butaca? (s/n): "
-                    ).strip()
-                    confirmacion_butaca = validar_confirmacion(respuesta_butaca)
+                # === Paso 6: Confirmación y ticket ===
+                precio_unitario = 2500
+                total = precio_unitario * len(butacasValidas)
 
-                    if confirmacion_butaca is None:
-                        seguirReservandoButacas = "n"
-                    else:
-                        seguirReservandoButacas = "s" if confirmacion_butaca else "n"
+                print("\n🎟️  RESUMEN DE COMPRA")
+                print("-" * 50)
+                print(f"Cliente: {nombreCliente} (DNI {dniCliente})")
+                print(f"Cine: {cine['nombre']}")
+                print(f"Película: {pelicula['titulo']}")
+                print(f"Sala: {obtenerSala(salaId)['numeroSala']}")
+                print(f"Horario: {diaPelicula.capitalize()} {horaPelicula}")
+                print(f"Butacas: {', '.join(butacasValidas)}")
+                print(f"Precio unitario: ${precio_unitario}")
+                print(f"Total a pagar: ${total}")
+                print("-" * 50)
 
-                print("\n--- RESUMEN DE LA COMPRA ---")
-                print(
-                    f"Película: {pelicula['titulo']}, Butacas: {', '.join(butacasAComprar)}"
-                )
-
-                respuesta_compra = input("\n¿Confirmar compra? (s/n): ").strip()
+                respuesta_compra = input("¿Confirmar compra? (s/n): ").strip()
                 confirmacion_compra = validar_confirmacion(respuesta_compra)
-
-                if confirmacion_compra is None:
-                    print("⚠️  Respuesta inválida. Operación cancelada.")
-                    confirmacion_compra = False
 
                 if confirmacion_compra:
                     nuevaEntrada = {
@@ -383,14 +396,25 @@ while True:
                         "cineId": idCine,
                         "peliculaId": peliculaId,
                         "salaId": salaId,
-                        "butacas": butacasAComprar,
+                        "butacas": butacasValidas,
                         "dia": diaPelicula,
                         "horario": horaPelicula,
+                        "precio_unitario": precio_unitario,
+                        "total": total,
                     }
                     generarEntrada(nuevaEntrada)
-                    print(f"\n✓ ¡Entrada generada con éxito!")
+                    # Actualizar estado de butacas en funciones.json
+                    import json
+                    from utils import ARCHIVO_FUNCIONES
+                    with open(ARCHIVO_FUNCIONES, mode="r", encoding="utf-8") as f:
+                        funciones = json.load(f)
+                    for butaca in butacasValidas:
+                        funciones[peliculaId][idCine][salaId][diaPelicula][horaPelicula]["butacas"][butaca]["ocupado"] = True
+                    with open(ARCHIVO_FUNCIONES, mode="w", encoding="utf-8") as f:
+                        json.dump(funciones, f, indent=4, ensure_ascii=False)
+                    print(f"\n✅ ¡Entrada generada con éxito!\n")
                 else:
-                    print("\nCompra cancelada.")
+                    print("\n⚠️  Compra cancelada.")
 
             elif opcionEntradas == "2":
                 print("\n--- ELIMINAR VENTA ---")
