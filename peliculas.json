@@ -25,5 +25,23 @@
         "complejos": [
             "4"
         ]
+    },
+    "4": {
+        "titulo": "pruebaPelicula",
+        "formato": "2d",
+        "idioma": "español",
+        "complejos": [
+            "3"
+        ],
+        "activo": true
+    },
+    "5": {
+        "titulo": "pruebaAxel",
+        "formato": "2d",
+        "idioma": "español",
+        "complejos": [
+            "3"
+        ],
+        "activo": true
     }
 }

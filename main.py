@@ -498,16 +498,26 @@ while True:
             elif opcionInformes == "1":
                 informe, ventasGenerales = informeVentas()
                 print("\n--- INFORME DE VENTAS ---")
+
+                total_entradas = 0  # <-- contador general de entradas
+
                 for cineId, cineData in informe.items():
                     print(f"\n{cineData['nombre']}")
                     print("-" * 50)
+
                     for peliculaId, peliculaData in cineData["entradas"].items():
-                        print(
-                            f"  • {peliculaData['titulo']}: {peliculaData['cantidad']} entradas"
-                        )
+                        cantidad = peliculaData["cantidad"]
+                        total = peliculaData["total"]
+
+                        print(f" • {peliculaData['titulo']}: {cantidad} entradas — ${total}")
+
+                        total_entradas += cantidad  # <-- sumar al total general
+
                 print(f"\n{'=' * 50}")
-                print(f"TOTAL DE VENTAS: {ventasGenerales} entradas")
+                print(f"TOTAL DE ENTRADAS VENDIDAS: {total_entradas}")
+                print(f"TOTAL RECAUDADO: ${ventasGenerales}")
                 print("=" * 50)
+
 
             elif opcionInformes == "2":
                 disponibles = informeListadoPeliculasDisponibles()

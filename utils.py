@@ -668,6 +668,7 @@ def buscarEntradasPorDNI(dni):
 def informeVentas():
     informe = {}
     ventasGenerales = 0
+
     entradas = obtenerEntradas()
     peliculas = obtenerPeliculas()
     cines = obtenerCines()
@@ -679,19 +680,37 @@ def informeVentas():
         if not cines.get(cineId) or not peliculas.get(peliculaId):
             continue
 
+        # ---- NUEVO: calcular precio por formato ----
+        formato = peliculas[peliculaId].get("formato", "").lower()
+        if formato == "2d":
+            precio = 8000
+        elif formato == "3d":
+            precio = 12000
+        else:
+            precio = 0  # por si algún registro está incompleto
+
+        # Acumular recaudación total
+        ventasGenerales += precio
+
+        # Armar estructura por cine → película → cantidad y total $
         if cineId not in informe:
-            informe[cineId] = {"nombre": cines[cineId]["nombre"], "entradas": {}}
+            informe[cineId] = {
+                "nombre": cines[cineId]["nombre"],
+                "entradas": {}
+            }
 
         if peliculaId not in informe[cineId]["entradas"]:
             informe[cineId]["entradas"][peliculaId] = {
                 "titulo": peliculas[peliculaId]["titulo"],
                 "cantidad": 0,
+                "total": 0
             }
 
         informe[cineId]["entradas"][peliculaId]["cantidad"] += 1
-        ventasGenerales += 1
+        informe[cineId]["entradas"][peliculaId]["total"] += precio
 
     return informe, ventasGenerales
+
 
 def informeListadoPeliculasDisponibles():
     peliculas = obtenerPeliculas()
@@ -915,3 +934,50 @@ def mostrarMenuFunciones():
     print("[3] Eliminar función")
     print("[0] Volver")
     print("=" * 50)
+
+
+# === FUNCIÓN FALTANTE HITO 1 ===
+def obtenerPrimerasPeliculas(peliculas, cantidad=3):
+    """
+    Devuelve una lista con los primeros 'cantidad' títulos de películas activas.
+    Usa list comprehension y slicing.
+    """
+    try:
+        # list comprehension + slicing
+        titulos = [p["titulo"] for p in peliculas.values() if p.get("activo", True)]
+        return titulos[:cantidad]
+    except Exception as e:
+        registrarExcepcion(e)
+        return []
+
+
+# === FUNCIÓN FALTANTE HITO 2 ===
+def obtenerPeliculasPorFormato(formato_buscado):
+    """
+    Devuelve las películas que coinciden con el formato indicado (2D o 3D)
+    usando filter() y lambda.
+    """
+    try:
+        peliculas = obtenerPeliculas()
+        resultado = dict(filter(lambda item: item[1]["formato"].lower() == formato_buscado.lower(), peliculas.items()))
+        return resultado
+    except Exception as e:
+        registrarExcepcion(e)
+        return {}
+
+
+# === FUNCIÓN FALTANTE HITO 3 ===
+def contarButacasDisponiblesRecursivo(butacas):
+    """
+    Cuenta recursivamente cuántas butacas están disponibles (no ocupadas y habilitadas).
+    Se aplica recursividad.
+    """
+    if not butacas:
+        return 0
+
+    # Extraemos un asiento cualquiera del diccionario
+    clave, datos = butacas.popitem()
+    contador_actual = 1 if not datos["ocupado"] and datos["habilitado"] else 0
+    return contador_actual + contarButacasDisponiblesRecursivo(butacas)
+
+
