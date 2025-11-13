@@ -13,6 +13,7 @@ ARCHIVO_CINES = "cines.json"
 ARCHIVO_SALAS = "salas.json"
 ARCHIVO_FUNCIONES = "funciones.json"
 ARCHIVO_ENTRADAS = "entradas.json"
+ARCHIVO_PRECIOS = "precios.json"
 ARCHIVO_LOG = "errores.log"
 
 def registrarExcepcion(e):
@@ -672,6 +673,7 @@ def informeVentas():
     entradas = obtenerEntradas()
     peliculas = obtenerPeliculas()
     cines = obtenerCines()
+    precios = obtenerPreciosEntradas()  # <- leemos precios desde el JSON
 
     for entrada in entradas.values():
         cineId = entrada.get("cineId")
@@ -680,14 +682,11 @@ def informeVentas():
         if not cines.get(cineId) or not peliculas.get(peliculaId):
             continue
 
-        # ---- NUEVO: calcular precio por formato ----
+        # Formato de la película (ej: "2D", "3D")
         formato = peliculas[peliculaId].get("formato", "").lower()
-        if formato == "2d":
-            precio = 8000
-        elif formato == "3d":
-            precio = 12000
-        else:
-            precio = 0  # por si algún registro está incompleto
+
+        # Precio según formato usando el JSON (si no está, toma 0)
+        precio = precios.get(formato, 0)
 
         # Acumular recaudación total
         ventasGenerales += precio
@@ -710,6 +709,7 @@ def informeVentas():
         informe[cineId]["entradas"][peliculaId]["total"] += precio
 
     return informe, ventasGenerales
+
 
 
 def informeListadoPeliculasDisponibles():
@@ -981,3 +981,22 @@ def contarButacasDisponiblesRecursivo(butacas):
     return contador_actual + contarButacasDisponiblesRecursivo(butacas)
 
 
+# === LECTURA DE PRECIOS DE ENTRADAS ===
+def obtenerPreciosEntradas():
+    """
+    Lee los precios de las entradas desde precios.json.
+    Devuelve un diccionario con las claves en minúscula (ej: '2d', '3d').
+    Si hay un error, devuelve un diccionario vacío y registra la excepción.
+    """
+    try:
+        with open(ARCHIVO_PRECIOS, mode="r", encoding="UTF-8") as archivoPrecios:
+            precios = json.load(archivoPrecios)
+
+        # Normalizamos las claves a minúsculas por las dudas
+        precios_normalizados = {k.lower(): v for k, v in precios.items()}
+        return precios_normalizados
+
+    except Exception as e:
+        print("\n⚠️  No se pudo cargar el archivo de precios. Se asumirá precio $0.")
+        registrarExcepcion(e)
+        return {}
