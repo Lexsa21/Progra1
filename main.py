@@ -793,6 +793,7 @@ while True:
 
                         imprimirSalasPorCine(cineId)
                         salaId = input("\nID de la sala a modificar: ").strip()
+                        salas = obtenerSalas()
 
                         if salaId not in salasCine:
                             print("⚠️  Sala no encontrada.")
@@ -1053,7 +1054,7 @@ while True:
 
             elif opcionCines == "11":
                 print("\n--- ANÁLISIS DE CINES CON/SIN FUNCIONES ---")
-
+                cines = obtenerCines()
                 todosCinesSet = set(cines.keys())
                 cinesConFunc = cinesConFunciones()
                 cinesSinFunc = todosCinesSet - cinesConFunc
