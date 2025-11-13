@@ -253,7 +253,6 @@ while True:
             elif opcionEntradas == "1":
                 print("\n--- GENERAR NUEVA ENTRADA ---")
 
-                # === Paso 1: Datos del cliente ===
                 nombreCliente = input("Nombre del cliente: ").strip()
                 valido_nombre, nombre_limpio, error_nombre = validar_entrada_completa(
                     nombreCliente, "nombre"
@@ -272,7 +271,6 @@ while True:
                     continue
                 dniCliente = dni_limpio
 
-                # === Paso 2: Selección del cine ===
                 cines = obtenerCines()
                 print("\n--- CINES DISPONIBLES ---")
                 for cid, cinfo in cines.items():
@@ -283,7 +281,6 @@ while True:
                     print("⚠️  Cine no encontrado.")
                     continue
 
-                # === Paso 3: Selección de película ===
                 peliculasEnCine = peliculasPorCine(idCine)
                 funciones = obtenerFunciones()
 
@@ -306,7 +303,6 @@ while True:
                     continue
                 pelicula = peliculasConFunciones[peliculaId]
 
-                # === Paso 4: Selección de función (sala + día + hora) ===
                 print(f"\n--- FUNCIONES DISPONIBLES DE '{pelicula['titulo']}' ---")
                 funcionesDisponibles = []
                 for salaId, diasData in funciones[peliculaId][idCine].items():
@@ -329,7 +325,6 @@ while True:
                 funcionSeleccionada = funciones[peliculaId][idCine][salaId][diaPelicula][horaPelicula]
                 asientosFuncion = funcionSeleccionada["butacas"]
 
-                # === Paso 5: Selección de butacas ===
                 asientosDisponibles = informeButacasDisponibles(asientosFuncion)
                 if not asientosDisponibles:
                     print("\n⚠️  No hay butacas disponibles para esta función.")
@@ -370,7 +365,6 @@ while True:
                             butacasValidas = []
                             break
 
-                # === Paso 6: Confirmación y ticket ===
                 precio_unitario = 2500
                 total = precio_unitario * len(butacasValidas)
 
@@ -403,7 +397,6 @@ while True:
                         "total": total,
                     }
                     generarEntrada(nuevaEntrada)
-                    # Actualizar estado de butacas en funciones.json
                     import json
                     from utils import ARCHIVO_FUNCIONES
                     with open(ARCHIVO_FUNCIONES, mode="r", encoding="utf-8") as f:
@@ -482,7 +475,7 @@ while True:
                     )
                     for ent in entradasCliente:
                         print(
-                            f"  • Película: {ent['titulopeli']}, Cine: {ent['nombrecine']}, Sala: {ent['numerosala']}, Butacas: {', '.join(ent['butacas'])}, Día: {ent['dia'].capitalize()}, Horario: {ent['horario']}"
+                            f"  • Película: {ent['titulopeli']}, Cine: {ent['nombrecine']}, Sala: {ent['numerosala']}, Butacas: {', '.join(ent.get('butacas', []))}, Día: {ent['dia'].capitalize()}, Horario: {ent['horario']}"
                         )
 
             input("\nPresione ENTER para continuar...")
@@ -499,7 +492,7 @@ while True:
                 informe, ventasGenerales = informeVentas()
                 print("\n--- INFORME DE VENTAS ---")
 
-                total_entradas = 0  # <-- contador general de entradas
+                total_entradas = 0
 
                 for cineId, cineData in informe.items():
                     print(f"\n{cineData['nombre']}")
@@ -511,7 +504,7 @@ while True:
 
                         print(f" • {peliculaData['titulo']}: {cantidad} entradas — ${total}")
 
-                        total_entradas += cantidad  # <-- sumar al total general
+                        total_entradas += cantidad
 
                 print(f"\n{'=' * 50}")
                 print(f"TOTAL DE ENTRADAS VENDIDAS: {total_entradas}")

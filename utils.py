@@ -673,7 +673,7 @@ def informeVentas():
     entradas = obtenerEntradas()
     peliculas = obtenerPeliculas()
     cines = obtenerCines()
-    precios = obtenerPreciosEntradas()  # <- leemos precios desde el JSON
+    precios = obtenerPreciosEntradas()
 
     for entrada in entradas.values():
         cineId = entrada.get("cineId")
@@ -682,16 +682,12 @@ def informeVentas():
         if not cines.get(cineId) or not peliculas.get(peliculaId):
             continue
 
-        # Formato de la película (ej: "2D", "3D")
         formato = peliculas[peliculaId].get("formato", "").lower()
 
-        # Precio según formato usando el JSON (si no está, toma 0)
         precio = precios.get(formato, 0)
 
-        # Acumular recaudación total
         ventasGenerales += precio
 
-        # Armar estructura por cine → película → cantidad y total $
         if cineId not in informe:
             informe[cineId] = {
                 "nombre": cines[cineId]["nombre"],
@@ -936,14 +932,12 @@ def mostrarMenuFunciones():
     print("=" * 50)
 
 
-# === FUNCIÓN FALTANTE HITO 1 ===
 def obtenerPrimerasPeliculas(peliculas, cantidad=3):
     """
     Devuelve una lista con los primeros 'cantidad' títulos de películas activas.
     Usa list comprehension y slicing.
     """
     try:
-        # list comprehension + slicing
         titulos = [p["titulo"] for p in peliculas.values() if p.get("activo", True)]
         return titulos[:cantidad]
     except Exception as e:
@@ -951,7 +945,6 @@ def obtenerPrimerasPeliculas(peliculas, cantidad=3):
         return []
 
 
-# === FUNCIÓN FALTANTE HITO 2 ===
 def obtenerPeliculasPorFormato(formato_buscado):
     """
     Devuelve las películas que coinciden con el formato indicado (2D o 3D)
@@ -966,7 +959,6 @@ def obtenerPeliculasPorFormato(formato_buscado):
         return {}
 
 
-# === FUNCIÓN FALTANTE HITO 3 ===
 def contarButacasDisponiblesRecursivo(butacas):
     """
     Cuenta recursivamente cuántas butacas están disponibles (no ocupadas y habilitadas).
@@ -975,13 +967,11 @@ def contarButacasDisponiblesRecursivo(butacas):
     if not butacas:
         return 0
 
-    # Extraemos un asiento cualquiera del diccionario
     clave, datos = butacas.popitem()
     contador_actual = 1 if not datos["ocupado"] and datos["habilitado"] else 0
     return contador_actual + contarButacasDisponiblesRecursivo(butacas)
 
 
-# === LECTURA DE PRECIOS DE ENTRADAS ===
 def obtenerPreciosEntradas():
     """
     Lee los precios de las entradas desde precios.json.
@@ -992,7 +982,6 @@ def obtenerPreciosEntradas():
         with open(ARCHIVO_PRECIOS, mode="r", encoding="UTF-8") as archivoPrecios:
             precios = json.load(archivoPrecios)
 
-        # Normalizamos las claves a minúsculas por las dudas
         precios_normalizados = {k.lower(): v for k, v in precios.items()}
         return precios_normalizados
 
