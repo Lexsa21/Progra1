@@ -28,8 +28,8 @@
     },
     "4": {
         "titulo": "pruebaPelicula",
-        "formato": "2d",
-        "idioma": "español",
+        "formato": "2D",
+        "idioma": "Español",
         "complejos": [
             "3"
         ],
@@ -37,8 +37,8 @@
     },
     "5": {
         "titulo": "pruebaAxel",
-        "formato": "2d",
-        "idioma": "español",
+        "formato": "2D",
+        "idioma": "Español",
         "complejos": [
             "3"
         ],
