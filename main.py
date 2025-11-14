@@ -734,7 +734,8 @@ while True:
 
                     if opcionMod == "0":
                         if cineEditado != cineExistente:
-                            cines = modificarCine(cineId, cineEditado)
+                            cines = obtenerCines()
+                            cines = modificarCine(cineId, cineEditado, cines)
                             print("\n✓ Cine modificado con éxito!")
                         break
 
