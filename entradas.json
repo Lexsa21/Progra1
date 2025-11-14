@@ -8,5 +8,33 @@
         "butaca": "A1",
         "dia": "martes",
         "horario": "14:00"
+    },
+    "2": {
+        "cliente": "Pau",
+        "dni": "1234567",
+        "cineId": "1",
+        "peliculaId": "1",
+        "salaId": "1",
+        "butacas": [
+            "B2"
+        ],
+        "dia": "martes",
+        "horario": "14:00",
+        "precio_unitario": 2500,
+        "total": 2500
+    },
+    "3": {
+        "cliente": "pau",
+        "dni": "1234567",
+        "cineId": "2",
+        "peliculaId": "2",
+        "salaId": "3",
+        "butacas": [
+            "A2"
+        ],
+        "dia": "jueves",
+        "horario": "17:00",
+        "precio_unitario": 2500,
+        "total": 2500
     }
 }

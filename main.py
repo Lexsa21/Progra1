@@ -204,12 +204,135 @@ while True:
 
                     if opcionMod == "0":
                         if peliculaEditada != peliculaExistente:
-                            modificarPelicula(peliculaId, peliculaEditada)
-                            print("\n✓ Película modificada con éxito!")
+                            try:
+                                # Asegurar que 'complejos' sea serializable a JSON (lista)
+                                if "complejos" in peliculaEditada and isinstance(
+                                    peliculaEditada["complejos"], set
+                                ):
+                                    peliculaEditada["complejos"] = list(
+                                        peliculaEditada["complejos"]
+                                    )
+                                modificarPelicula(peliculaId, peliculaEditada)
+
+                                # Verificar que se guardó correctamente
+                                pelicula_guardada = obtenerPelicula(peliculaId)
+                                guardado_ok = True
+                                # comparar campos relevantes
+                                for key in ("titulo", "idioma", "formato"):
+                                    if peliculaEditada.get(key) and peliculaEditada.get(key) != pelicula_guardada.get(
+                                        key
+                                    ):
+                                        guardado_ok = False
+                                # comparar complejos (ambos normalizados a conjuntos)
+                                orig_complejos = set(peliculaEditada.get("complejos", []))
+                                guard_complejos = set(pelicula_guardada.get("complejos", []))
+                                if orig_complejos != guard_complejos:
+                                    guardado_ok = False
+
+                                if guardado_ok:
+                                    print("\n✓ Película modificada con éxito!")
+                                else:
+                                    print(
+                                        "\n⚠️  La película se guardó, pero la verificación no coincide."
+                                    )
+                            except Exception as e:
+                                print(f"\n⚠️  No se pudo guardar la película: {e}")
                         break
 
                     elif opcionMod == "5":
                         gestionarFuncionesPelicula(peliculaId)
+
+                    elif opcionMod == "1":
+                        # Modificar título
+                        nuevoTitulo = input(
+                            f"Nuevo título (actual: {peliculaExistente.get('titulo', '')}): "
+                        ).strip()
+                        if nuevoTitulo:
+                            valido, titulo_limpio, err = validar_entrada_completa(
+                                nuevoTitulo, "titulo"
+                            )
+                            if valido:
+                                peliculaEditada["titulo"] = titulo_limpio
+                                print("✓ Título actualizado")
+                            else:
+                                print(f"⚠️  {err}")
+
+                    elif opcionMod == "2":
+                        # Modificar idioma
+                        print("\nIdiomas válidos: Español, Subtitulado")
+                        nuevoIdioma = input(
+                            f"Nuevo idioma (actual: {peliculaExistente.get('idioma', '')}): "
+                        ).strip()
+                        if nuevoIdioma:
+                            valido, idioma_limpio, err = validar_entrada_completa(
+                                nuevoIdioma, "idioma", idiomas_validos=IDIOMAS_VALIDOS
+                            )
+                            if valido:
+                                peliculaEditada["idioma"] = idioma_limpio
+                                print("✓ Idioma actualizado")
+                            else:
+                                print(f"⚠️  {err}")
+
+                    elif opcionMod == "3":
+                        # Modificar formato
+                        print("\nFormatos válidos: 2D, 3D")
+                        nuevoFormato = input(
+                            f"Nuevo formato (actual: {peliculaExistente.get('formato', '')}): "
+                        ).strip()
+                        if nuevoFormato:
+                            valido, formato_limpio, err = validar_entrada_completa(
+                                nuevoFormato, "formato"
+                            )
+                            if valido:
+                                peliculaEditada["formato"] = formato_limpio
+                                print("✓ Formato actualizado")
+                            else:
+                                print(f"⚠️  {err}")
+
+                    elif opcionMod == "4":
+                        # Modificar complejos (cines asignados)
+                        while True:
+                            mostrarMenu("GESTIÓN DE CINES ASIGNADOS", MENU_PELICULAS_CINES)
+                            opcionCines = input("\n> Seleccione una opción: ").strip()
+                            if opcionCines == "0":
+                                break
+                            elif opcionCines == "1":
+                                if not peliculaEditada.get("complejos"):
+                                    print("\n⚠️  No hay cines asignados a esta película.")
+                                else:
+                                    print("\nCines asignados:")
+                                    for cid in sorted(peliculaEditada.get("complejos", [])):
+                                        cine = obtenerCine(cid)
+                                        nombre = cine.get("nombre", "Desconocido") if cine else "Desconocido"
+                                        print(f"  • {nombre} (ID: {cid})")
+                            elif opcionCines == "2":
+                                imprimirCines()
+                                cineIdAgregar = input("\nID del cine a agregar: ").strip()
+                                cine = obtenerCine(cineIdAgregar)
+                                if not cine:
+                                    print("⚠️  Cine no encontrado.")
+                                elif cineIdAgregar in peliculaEditada.get("complejos", set()):
+                                    print("⚠️  Este cine ya está asignado a la película.")
+                                else:
+                                    peliculaEditada.setdefault("complejos", set()).add(cineIdAgregar)
+                                    print(f"✓ Cine '{cine['nombre']}' agregado")
+                            elif opcionCines == "3":
+                                if not peliculaEditada.get("complejos"):
+                                    print("⚠️  No hay cines para eliminar.")
+                                    continue
+                                print("\nCines asignados:")
+                                for cid in sorted(peliculaEditada.get("complejos", [])):
+                                    cine = obtenerCine(cid)
+                                    nombre = cine.get("nombre", "Desconocido") if cine else "Desconocido"
+                                    print(f"  • {nombre} (ID: {cid})")
+                                cineIdEliminar = input("\nID del cine a eliminar: ").strip()
+                                if cineIdEliminar not in peliculaEditada.get("complejos", set()):
+                                    print("⚠️  Cine no asignado a la película.")
+                                else:
+                                    peliculaEditada["complejos"].remove(cineIdEliminar)
+                                    print("✓ Cine eliminado")
+                            else:
+                                print("⚠️  Opción inválida. Intente nuevamente.")
 
             elif opcionPeliculas == "3":
                 imprimirPeliculas()
@@ -981,21 +1104,29 @@ while True:
             elif opcionCines == "9":
                 print("\n--- ANÁLISIS GLOBAL DE BUTACAS POR TIPO ---")
 
+                # Usar las funciones (instancias) para reflejar butacas ocupadas por ventas
+                funciones = obtenerFunciones()
+
                 todasExtremeDisp = set()
                 todasNormalDisp = set()
                 todasExtremeOcup = set()
                 todasNormalOcup = set()
 
-                for salaId, sala in salas.items():
-                    extremeDisp = butacasDisponiblesPorTipo(sala["asientos"], "extreme")
-                    normalDisp = butacasDisponiblesPorTipo(sala["asientos"], "normal")
-                    extremeOcup = butacasOcupadasPorTipo(sala["asientos"], "extreme")
-                    normalOcup = butacasOcupadasPorTipo(sala["asientos"], "normal")
+                for peliId, cineIDs in funciones.items():
+                    for cineId, salasData in cineIDs.items():
+                        for salaId, diasData in salasData.items():
+                            for dia, horariosData in diasData.items():
+                                for horario, funcData in horariosData.items():
+                                    butacas = funcData.get("butacas", {})
+                                    extremeDisp = butacasDisponiblesPorTipo(butacas, "extreme")
+                                    normalDisp = butacasDisponiblesPorTipo(butacas, "normal")
+                                    extremeOcup = butacasOcupadasPorTipo(butacas, "extreme")
+                                    normalOcup = butacasOcupadasPorTipo(butacas, "normal")
 
-                    todasExtremeDisp = todasExtremeDisp | extremeDisp
-                    todasNormalDisp = todasNormalDisp | normalDisp
-                    todasExtremeOcup = todasExtremeOcup | extremeOcup
-                    todasNormalOcup = todasNormalOcup | normalOcup
+                                    todasExtremeDisp |= extremeDisp
+                                    todasNormalDisp |= normalDisp
+                                    todasExtremeOcup |= extremeOcup
+                                    todasNormalOcup |= normalOcup
 
                 print("\nRESUMEN GLOBAL:")
                 print("=" * 60)

@@ -51,7 +51,7 @@
                                 "habilitado": true
                             },
                             "B2": {
-                                "ocupado": false,
+                                "ocupado": true,
                                 "tipo": "extreme",
                                 "habilitado": true
                             },
@@ -2293,7 +2293,7 @@
                                 "habilitado": true
                             },
                             "A2": {
-                                "ocupado": false,
+                                "ocupado": true,
                                 "tipo": "extreme",
                                 "habilitado": true
                             },
