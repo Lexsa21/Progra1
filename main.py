@@ -1118,15 +1118,23 @@ while True:
                             for dia, horariosData in diasData.items():
                                 for horario, funcData in horariosData.items():
                                     butacas = funcData.get("butacas", {})
-                                    extremeDisp = butacasDisponiblesPorTipo(butacas, "extreme")
-                                    normalDisp = butacasDisponiblesPorTipo(butacas, "normal")
-                                    extremeOcup = butacasOcupadasPorTipo(butacas, "extreme")
-                                    normalOcup = butacasOcupadasPorTipo(butacas, "normal")
+                                    # Use unique identifiers per función+butaca to avoid
+                                    # collisions de códigos iguales en distintas salas/funciones
+                                    for codigo, info in butacas.items():
+                                        tipo = info.get("tipo")
+                                        ocupado = info.get("ocupado", False)
+                                        uid = f"{peliId}|{cineId}|{salaId}|{dia}|{horario}|{codigo}"
 
-                                    todasExtremeDisp |= extremeDisp
-                                    todasNormalDisp |= normalDisp
-                                    todasExtremeOcup |= extremeOcup
-                                    todasNormalOcup |= normalOcup
+                                        if tipo == "extreme":
+                                            if ocupado:
+                                                todasExtremeOcup.add(uid)
+                                            else:
+                                                todasExtremeDisp.add(uid)
+                                        elif tipo == "normal":
+                                            if ocupado:
+                                                todasNormalOcup.add(uid)
+                                            else:
+                                                todasNormalDisp.add(uid)
 
                 print("\nRESUMEN GLOBAL:")
                 print("=" * 60)
@@ -1147,16 +1155,31 @@ while True:
 
             elif opcionCines == "10":
                 print("\n--- ANÁLISIS DE FUNCIONES POR DÍA ---")
-                imprimirPeliculas()
-
-                peliculaId = input("\nID de película: ").strip()
-
-                pelicula = obtenerPelicula(peliculaId)
-                if not pelicula:
-                    print("⚠️  Película no encontrada.")
+                # Mostrar películas y permitir selección por índice
+                peliculas = obtenerPeliculas()
+                if not peliculas:
+                    print("⚠️  No hay películas cargadas.")
                     input("\nPresione ENTER para continuar...")
                     continue
 
+                print("\n--- LISTADO DE PELÍCULAS ---")
+                pelicula_items = list(peliculas.items())
+                for idx, (pid, pinfo) in enumerate(pelicula_items, start=1):
+                    estado = "✓" if pinfo.get("activo", True) else "✗"
+                    cines_list = ", ".join(pinfo.get("complejos", [])) if pinfo.get("complejos") else "Sin cines"
+                    print(f"[{idx}] {pinfo.get('titulo', 'Desconocido')} ({estado})")
+                    print(f"    {pinfo.get('idioma', '')} | {pinfo.get('formato', '')} | Cines: {cines_list}")
+
+                sel = input("\nSeleccione película (número): ").strip()
+                if not sel.isdigit() or not (1 <= int(sel) <= len(pelicula_items)):
+                    print("⚠️  Selección inválida de película.")
+                    input("\nPresione ENTER para continuar...")
+                    continue
+
+                peliculaId = pelicula_items[int(sel) - 1][0]
+                pelicula = obtenerPelicula(peliculaId)
+
+                # Selección de cine (ID) — mantener por ID para consistencia
                 imprimirCines()
                 cineId = input("\nID de cine: ").strip()
                 cine = obtenerCine(cineId)
@@ -1168,18 +1191,40 @@ while True:
                 diasDisponibles = diasConFunciones(peliculaId, cineId)
 
                 if diasDisponibles:
-                    print(
-                        f"\nDías con funciones: {', '.join([d.capitalize() for d in sorted(diasDisponibles)])}"
-                    )
+                    # Ordenar días según la semana definida en utils (DIAS_SEMANA)
+                    try:
+                        from utils import DIAS_SEMANA
+                        ordered_days = [d for d in DIAS_SEMANA if d in diasDisponibles]
+                    except Exception:
+                        ordered_days = sorted(diasDisponibles)
 
-                    dia = input("\nDía para ver horarios: ").strip().lower()
-                    if dia in diasDisponibles:
-                        horarios = horariosEnDia(peliculaId, cineId, dia)
-                        print(
-                            f"\nHorarios el {dia.capitalize()}: {', '.join(sorted(horarios))}"
-                        )
+                    print("\nDías con funciones:")
+                    for idx, d in enumerate(ordered_days, start=1):
+                        print(f"[{idx}] {d.capitalize()}")
+
+                    sel_dia = input("\nSeleccione el día (número): ").strip()
+                    if not sel_dia.isdigit() or not (1 <= int(sel_dia) <= len(ordered_days)):
+                        print("⚠️  Selección inválida de día.")
+                        input("\nPresione ENTER para continuar...")
+                        continue
+
+                    dia = ordered_days[int(sel_dia) - 1]
+                    horarios = sorted(horariosEnDia(peliculaId, cineId, dia))
+
+                    if horarios:
+                        print(f"\nHorarios el {dia.capitalize()}:")
+                        for idx, h in enumerate(horarios, start=1):
+                            print(f"[{idx}] {h}")
+
+                        sel_hor = input("\nSeleccione el horario (número): ").strip()
+                        if not sel_hor.isdigit() or not (1 <= int(sel_hor) <= len(horarios)):
+                            print("⚠️  Selección inválida de horario.")
+                            input("\nPresione ENTER para continuar...")
+                        else:
+                            horario = horarios[int(sel_hor) - 1]
+                            print(f"\nFunciones para {pelicula.get('titulo', 'Desconocido')} — {cine.get('nombre', 'Desconocido')} — {dia.capitalize()} {horario}")
                     else:
-                        print(f"⚠️  No hay funciones el {dia}.")
+                        print(f"⚠️  No hay horarios disponibles el {dia}.")
                 else:
                     print("⚠️  No hay funciones programadas para esta combinación.")
 
