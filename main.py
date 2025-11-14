@@ -783,7 +783,7 @@ while True:
                             imprimirSalasPorCine(cineId)
 
                     elif opcionMod == "2":
-                        salas = crearSala(cineId, salas)
+                        crearSala(cineId)
                         print("✓ Sala creada con éxito!")
 
                     elif opcionMod == "3":
