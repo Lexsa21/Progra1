@@ -544,7 +544,7 @@ while True:
                 print(f"\n--- ENTRADAS DE {entradasCliente[0]['cliente'].upper()} ---")
                 for index, entrada in enumerate(entradasCliente, 1):
                     print(
-                        f"[{index}] ID: {entrada['entradaId']} - {entrada['titulopeli']} - Butaca: {entrada['butaca']}"
+                        f"[{index}] ID: {entrada['entradaId']} - {entrada['titulopeli']} - Butaca: {entrada['butacas']}"
                     )
 
                 try:
@@ -567,6 +567,7 @@ while True:
 
                     if confirmacion_eliminar:
                         try:
+                            funciones = obtenerFunciones()
                             funcion = funciones[entradaEliminar["peliculaId"]][
                                 entradaEliminar["cineId"]
                             ][entradaEliminar["salaId"]][entradaEliminar["dia"]][
@@ -575,6 +576,10 @@ while True:
                             funcion["butacas"][entradaEliminar["butaca"]]["ocupado"] = (
                                 False
                             )
+                            import json
+                            from utils import ARCHIVO_FUNCIONES
+                            with open(ARCHIVO_FUNCIONES, mode="w", encoding="utf-8") as f:
+                                json.dump(funciones, f, indent=4, ensure_ascii=False)
                             eliminarEntrada(entradaEliminar["entradaId"])
                             print("\n✓ Entrada eliminada y butaca liberada.")
                         except KeyError:
