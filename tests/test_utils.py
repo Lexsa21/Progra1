@@ -9,6 +9,12 @@ from utils import (
     peliculasPorCine,
     cinesSinPeliculas,
     peliculasEnTodosCines,
+    formatearPreciosEntradas,
+    obtenerTitulosPeliculasMayusculas,
+    aplicarDescuentoPrecios,
+    contarButacasDisponiblesRecursivo,
+    obtenerPrimerasPeliculas,
+    obtenerPeliculasPorFormato,
 )
 
 
@@ -85,8 +91,6 @@ def test_peliculas_en_todos_cines(monkeypatch):
     resultado = peliculasEnTodosCines({"C1", "C2"})
     assert "1" in resultado
     assert "2" not in resultado
-
-# Agregar tests para las funciones de Hito 2 y 3:
 
 def test_formatear_precios_entradas(monkeypatch):
     precios = {"2d": 2500, "3d": 3500}
