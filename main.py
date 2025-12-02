@@ -6,6 +6,7 @@ MENU_PRINCIPAL = (
     "[2] Venta de Entradas", 
     "[3] Informes Generales",
     "[4] Gestión de Complejo de Cines",
+    "[5] Promociones y Descuentos"
     "[0] Salir"
 )
 
@@ -15,6 +16,7 @@ MENU_PELICULAS = (
     "[3] Listar todas las películas",
     "[4] Listar todas las funciones",
     "[5] Películas por idioma Y formato",
+    "[6] Vista Rápida de Títulos",
     "[0] Volver al menú"
 )
 
@@ -39,6 +41,8 @@ MENU_INFORMES = (
     "[2] Emitir Listado de Películas Disponibles",
     "[3] Emitir Informe de Butacas (Plantillas de Salas)",
     "[4] Emitir Informe de Butacas por Tipo (Plantillas de Salas)",
+    "[5] Contar Butacas Disponibles
+    "[6] Mostrar Tarifas Actuales"
     "[0] Volver al menú"
 )
 
@@ -355,13 +359,17 @@ while True:
                 pelisResultado = peliculasPorIdiomaYFormato(idioma, formato)
 
                 if pelisResultado:
-                    print(
-                        f"\nPelículas en '{idioma.capitalize()}' Y formato '{formato.upper()}':"
-                    )
-                    for pelicula in pelisResultado:
-                        print(f"  • {pelicula['titulo']} (ID: {pelicula['id']})")
+                    print(f"\nPelículas en '{idioma.capitalize()}' Y formato '{formato.upper()}':")
+                    for peliculaId, pelicula in pelisResultado.items():
+                        print(f"  • {pelicula['titulo']} (ID: {peliculaId})")
                 else:
                     print(f"\n⚠️  No se encontraron películas con esos criterios.")
+
+            elif opcionPeliculas == "6":
+                print("\n--- TÍTULOS DE PELÍCULAS (MAYÚSCULAS) ---")
+                titulos = obtenerTitulosPeliculasMayusculas()
+                for idx, titulo in enumerate(titulos, 1):
+                    print(f"{idx}. {titulo}")
 
             input("\nPresione ENTER para continuar...")
 
@@ -507,30 +515,44 @@ while True:
                 confirmacion_compra = validar_confirmacion(respuesta_compra)
 
                 if confirmacion_compra:
-                    nuevaEntrada = {
-                        "cliente": nombreCliente,
-                        "dni": dniCliente,
-                        "cineId": idCine,
-                        "peliculaId": peliculaId,
-                        "salaId": salaId,
-                        "butacas": butacasValidas,
-                        "dia": diaPelicula,
-                        "horario": horaPelicula,
-                        "precio_unitario": precio_unitario,
-                        "total": total,
-                    }
-                    generarEntrada(nuevaEntrada)
-                    import json
-                    from utils import ARCHIVO_FUNCIONES
-                    with open(ARCHIVO_FUNCIONES, mode="r", encoding="utf-8") as f:
-                        funciones = json.load(f)
-                    for butaca in butacasValidas:
-                        funciones[peliculaId][idCine][salaId][diaPelicula][horaPelicula]["butacas"][butaca]["ocupado"] = True
-                    with open(ARCHIVO_FUNCIONES, mode="w", encoding="utf-8") as f:
-                        json.dump(funciones, f, indent=4, ensure_ascii=False)
-                    print(f"\n✅ ¡Entrada generada con éxito!\n")
+                    try:
+                        funciones = obtenerFunciones()
+                        for butaca in butacasValidas:
+                            funciones[peliculaId][idCine][salaId][diaPelicula][horaPelicula]["butacas"][butaca]["ocupado"] = True
+                        
+                        with open(ARCHIVO_FUNCIONES, mode="w", encoding="utf-8") as f:
+                            json.dump(funciones, f, indent=4, ensure_ascii=False)
+                        
+                        nuevaEntrada = {
+                            "cliente": nombreCliente,
+                            "dni": dniCliente,
+                            "cineId": idCine,
+                            "peliculaId": peliculaId,
+                            "salaId": salaId,
+                            "butacas": butacasValidas,
+                            "dia": diaPelicula,
+                            "horario": horaPelicula,
+                            "precio_unitario": precio_unitario,
+                            "total": total,
+                        }
+                        
+                        entradaId = generarEntrada(nuevaEntrada)
+                        
+                        if entradaId:
+                            print(f"\n✅ ¡Entrada generada con éxito! (ID: {entradaId})\n")
+                        else:
+                            funciones = obtenerFunciones()
+                            for butaca in butacasValidas:
+                                funciones[peliculaId][idCine][salaId][diaPelicula][horaPelicula]["butacas"][butaca]["ocupado"] = False
+                            with open(ARCHIVO_FUNCIONES, mode="w", encoding="utf-8") as f:
+                                json.dump(funciones, f, indent=4, ensure_ascii=False)
+                            print("\n⚠️ Error al generar la entrada. Butacas liberadas.")
+                            
+                    except Exception as e:
+                        print(f"\n⚠️ Error en la transacción de venta: {e}")
+                        registrarExcepcion(e)
                 else:
-                    print("\n⚠️  Compra cancelada.")
+                    print("\n⚠️ Compra cancelada.")
 
             elif opcionEntradas == "2":
                 print("\n--- ELIMINAR VENTA ---")
@@ -573,19 +595,24 @@ while True:
                             ][entradaEliminar["salaId"]][entradaEliminar["dia"]][
                                 entradaEliminar["horario"]
                             ]
-                            funcion["butacas"][entradaEliminar["butaca"]]["ocupado"] = (
-                                False
-                            )
-                            import json
-                            from utils import ARCHIVO_FUNCIONES
+                            
+                            butacasALiberar = entradaEliminar.get("butacas", [])
+                            if isinstance(butacasALiberar, str):
+                                butacasALiberar = [butacasALiberar]
+                            
+                            for butaca in butacasALiberar:
+                                if butaca in funcion["butacas"]:
+                                    funcion["butacas"][butaca]["ocupado"] = False
+                            
                             with open(ARCHIVO_FUNCIONES, mode="w", encoding="utf-8") as f:
                                 json.dump(funciones, f, indent=4, ensure_ascii=False)
+                            
                             eliminarEntrada(entradaEliminar["entradaId"])
-                            print("\n✓ Entrada eliminada y butaca liberada.")
-                        except KeyError:
-                            print(
-                                "⚠️ Error: La función asociada a esta entrada ya no existe, solo se eliminará la entrada."
-                            )
+                            print("\n✅ Entrada eliminada y butacas liberadas.")
+                            
+                        except KeyError as e:
+                            print(f"⚠️ Error: La función asociada no existe. Solo se eliminará la entrada.")
+                            registrarExcepcion(e)
                             eliminarEntrada(entradaEliminar["entradaId"])
                     else:
                         print("\nOperación cancelada.")
@@ -715,6 +742,29 @@ while True:
                     )
                     print()
                     imprimirSala(sala["asientos"])
+            
+            elif opcionInformes == "5":
+                print("\n--- CONTEO RECURSIVO DE BUTACAS DISPONIBLES ---")
+                salas = obtenerSalas()
+                cines = obtenerCines()
+                
+                for salaId, sala in salas.items():
+                    cineInfo = cines.get(sala["cineId"], {})
+                    print(f"\n{cineInfo.get('nombre', 'Desconocido')} - Sala {sala['numeroSala']}")
+                    print("-" * 60)
+                    
+                    # Llamada a la función recursiva
+                    disponibles = contarButacasDisponiblesRecursivo(sala["asientos"])
+                    totalButacas = len(sala["asientos"])
+                    
+                    print(f"Butacas disponibles (método recursivo): {disponibles}/{totalButacas}")
+                    print(f"Porcentaje de disponibilidad: {(disponibles/totalButacas)*100:.1f}%")
+            
+            elif opcionInformes == "6":
+                print("\n--- TARIFAS ACTUALES ---")
+                precios = formatearPreciosEntradas()
+                for precio in precios:
+                    print(f"  • {precio}")
 
             input("\nPresione ENTER para continuar...")
 
@@ -831,10 +881,10 @@ while True:
                     for entId in entradasAEliminar:
                         eliminarEntrada(entId)
 
-                    for pelicula in peliculas.values():
-                        if cineId in pelicula["complejos"]:
+                    for peliculaId, pelicula in peliculas.items():
+                        if cineId in pelicula.get("complejos", set()):
                             pelicula["complejos"].remove(cineId)
-                            modificarPelicula(pelicula["id"], pelicula)
+                            modificarPelicula(peliculaId, pelicula)
 
                     eliminarCine(cineId)
                     print("\n✓ Cine eliminado con éxito!")
@@ -1018,34 +1068,33 @@ while True:
                             print("✓ Sala eliminada con éxito!")
 
             elif opcionCines == "6":
-
                 print("\n--- PELÍCULAS EN COMÚN ENTRE DOS CINES ---")
                 imprimirCines()
 
-                cine1 = input("\nID del primer cine: ").strip()
-                cine2 = input("ID del segundo cine: ").strip()
+                cineId1 = input("\nID del primer cine: ").strip()
+                cineId2 = input("ID del segundo cine: ").strip()
 
-                cine1 = obtenerCine(cine1)
-                cine2 = obtenerCine(cine2)
+                cine1 = obtenerCine(cineId1)
+                cine2 = obtenerCine(cineId2)
+                
                 if not cine1 or not cine2:
                     print("⚠️  Uno o ambos cines no existen.")
                     input("\nPresione ENTER para continuar...")
                     continue
 
-                if cine1 == cine2:
+                if cineId1 == cineId2:
                     print("⚠️  Debe seleccionar dos cines diferentes.")
                     input("\nPresione ENTER para continuar...")
                     continue
 
-                peliculas1 = peliculasPorCine(cine1)
-                peliculas2 = peliculasPorCine(cine2)
+                peliculas1 = peliculasPorCine(cineId1)
+                peliculas2 = peliculasPorCine(cineId2)
 
                 idsComunes = set(peliculas1.keys()) & set(peliculas2.keys())
 
                 if idsComunes:
-                    print(
-                        f"\nPelículas en común entre '{cine1['nombre']}' y '{cine2['nombre']}':"
-                    )
+                    peliculas = obtenerPeliculas()
+                    print(f"\nPelículas en común entre '{cine1['nombre']}' y '{cine2['nombre']}':")
                     print("-" * 60)
                     for pid in sorted(idsComunes):
                         print(f"  • {peliculas[pid]['titulo']} (ID: {pid})")
@@ -1258,6 +1307,19 @@ while True:
                     print("  Ninguno")
 
             input("\nPresione ENTER para continuar...")
+
+    elif opcion == "5":
+       print("\n--- SIMULADOR DE DESCUENTOS ---")
+       print("Precios actuales:")
+       for formato, precio in formatearPreciosEntradas():
+           print(f"  {formato}: ${precio}")
+       
+       porcentaje = input("\nIngrese porcentaje de descuento: ")
+       if validar_numero_positivo(porcentaje):
+           precios_descuento = aplicarDescuentoPrecios(int(porcentaje))
+           print(f"\nPrecios con {porcentaje}% de descuento:")
+           for formato, precio in precios_descuento.items():
+               print(f"  {formato.upper()}: ${precio}")
 
     else:
         print("\n⚠️  Opción inválida. Por favor intente nuevamente.")

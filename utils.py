@@ -1,5 +1,6 @@
 import json
 from validaciones import *
+from functools import reduce
 
 FORMATOS_VALIDOS = ("2d", "3d")
 IDIOMAS_VALIDOS = ("español", "subtitulado")
@@ -449,7 +450,7 @@ def eliminarFuncion(peliculaId, cineId, salaId=None, dia=None, horario=None):
         with open(ARCHIVO_FUNCIONES, mode="w", encoding="UTF-8") as archivoFunciones:
             json.dump(funciones, archivoFunciones, indent=4, ensure_ascii=False)
 
-    except KeyError:
+    except KeyError as e:
         print("\n⚠️  Error al eliminar la función.")
         registrarExcepcion(e)
     except Exception as e:
@@ -540,18 +541,17 @@ def obtenerFormatosDisponibles():
 def peliculasPorIdiomaYFormato(idioma, formato):
     try:
         peliculas = obtenerPeliculas()
-        resultado = set()
-        for pelicula in peliculas.values():
-            if (
-                pelicula.get("idioma", "").lower() == idioma.lower()
-                and pelicula.get("formato", "").lower() == formato.lower()
-            ):
-                resultado.add(pelicula)
+        resultado = {
+            peliculaId: pelicula
+            for peliculaId, pelicula in peliculas.items()
+            if (pelicula.get("idioma", "").lower() == idioma.lower() and
+                pelicula.get("formato", "").lower() == formato.lower())
+        }
         return resultado
     except Exception as e:
         print("\n⚠️  No se pudieron cargar las películas.")
         registrarExcepcion(e)
-        return set()
+        return {}
 
 def cinesConFunciones():
     cinesSet = set()
@@ -668,8 +668,7 @@ def buscarEntradasPorDNI(dni):
 
 def informeVentas():
     informe = {}
-    ventasGenerales = 0
-
+    
     entradas = obtenerEntradas()
     peliculas = obtenerPeliculas()
     cines = obtenerCines()
@@ -683,10 +682,7 @@ def informeVentas():
             continue
 
         formato = peliculas[peliculaId].get("formato", "").lower()
-
         precio = precios.get(formato, 0)
-
-        ventasGenerales += precio
 
         if cineId not in informe:
             informe[cineId] = {
@@ -704,9 +700,55 @@ def informeVentas():
         informe[cineId]["entradas"][peliculaId]["cantidad"] += 1
         informe[cineId]["entradas"][peliculaId]["total"] += precio
 
+    ventasGenerales = reduce(
+        lambda acumulado, entrada: acumulado + precios.get(
+            peliculas.get(entrada.get("peliculaId"), {}).get("formato", "").lower(),
+            0
+        ),
+        entradas.values(),
+        0
+    )
+
     return informe, ventasGenerales
 
+def formatearPreciosEntradas():
+    try:
+        precios = obtenerPreciosEntradas()
+        precios_formateados = list(map(
+            lambda item: f"{item[0].upper()}: ${item[1]:,}",
+            precios.items()
+        ))
+        return precios_formateados
+    except Exception as e:
+        registrarExcepcion(e)
+        return []
 
+
+def obtenerTitulosPeliculasMayusculas():
+    try:
+        peliculas = obtenerPeliculas()
+        titulos_mayusculas = list(map(
+            lambda p: p["titulo"].upper(),
+            filter(lambda p: p.get("activo", True), peliculas.values())
+        ))
+        return titulos_mayusculas
+    except Exception as e:
+        registrarExcepcion(e)
+        return []
+
+def aplicarDescuentoPrecios(porcentaje_descuento):
+    try:
+        precios = obtenerPreciosEntradas()
+        factor = 1 - (porcentaje_descuento / 100)
+        
+        precios_con_descuento = dict(map(
+            lambda item: (item[0], int(item[1] * factor)),
+            precios.items()
+        ))
+        return precios_con_descuento
+    except Exception as e:
+        registrarExcepcion(e)
+        return {}
 
 def informeListadoPeliculasDisponibles():
     peliculas = obtenerPeliculas()
@@ -933,10 +975,6 @@ def mostrarMenuFunciones():
 
 
 def obtenerPrimerasPeliculas(peliculas, cantidad=3):
-    """
-    Devuelve una lista con los primeros 'cantidad' títulos de películas activas.
-    Usa list comprehension y slicing.
-    """
     try:
         titulos = [p["titulo"] for p in peliculas.values() if p.get("activo", True)]
         return titulos[:cantidad]
@@ -946,10 +984,6 @@ def obtenerPrimerasPeliculas(peliculas, cantidad=3):
 
 
 def obtenerPeliculasPorFormato(formato_buscado):
-    """
-    Devuelve las películas que coinciden con el formato indicado (2D o 3D)
-    usando filter() y lambda.
-    """
     try:
         peliculas = obtenerPeliculas()
         resultado = dict(filter(lambda item: item[1]["formato"].lower() == formato_buscado.lower(), peliculas.items()))
@@ -959,25 +993,23 @@ def obtenerPeliculasPorFormato(formato_buscado):
         return {}
 
 
-def contarButacasDisponiblesRecursivo(butacas):
-    """
-    Cuenta recursivamente cuántas butacas están disponibles (no ocupadas y habilitadas).
-    Se aplica recursividad.
-    """
-    if not butacas:
+def contarButacasDisponiblesRecursivo(butacas, claves=None):
+    if claves is None:
+        claves = list(butacas.keys())
+    
+    if not claves:
         return 0
-
-    clave, datos = butacas.popitem()
-    contador_actual = 1 if not datos["ocupado"] and datos["habilitado"] else 0
-    return contador_actual + contarButacasDisponiblesRecursivo(butacas)
+    
+    claveActual = claves[0]
+    clavesRestantes = claves[1:]
+    
+    datos = butacas[claveActual]
+    contadorActual = 1 if (not datos.get("ocupado", False) and datos.get("habilitado", True)) else 0
+    
+    return contadorActual + contarButacasDisponiblesRecursivo(butacas, clavesRestantes)
 
 
 def obtenerPreciosEntradas():
-    """
-    Lee los precios de las entradas desde precios.json.
-    Devuelve un diccionario con las claves en minúscula (ej: '2d', '3d').
-    Si hay un error, devuelve un diccionario vacío y registra la excepción.
-    """
     try:
         with open(ARCHIVO_PRECIOS, mode="r", encoding="UTF-8") as archivoPrecios:
             precios = json.load(archivoPrecios)
