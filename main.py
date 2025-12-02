@@ -6,7 +6,7 @@ MENU_PRINCIPAL = (
     "[2] Venta de Entradas", 
     "[3] Informes Generales",
     "[4] Gestión de Complejo de Cines",
-    "[5] Promociones y Descuentos"
+    "[5] Promociones y Descuentos",
     "[0] Salir"
 )
 
@@ -41,7 +41,7 @@ MENU_INFORMES = (
     "[2] Emitir Listado de Películas Disponibles",
     "[3] Emitir Informe de Butacas (Plantillas de Salas)",
     "[4] Emitir Informe de Butacas por Tipo (Plantillas de Salas)",
-    "[5] Contar Butacas Disponibles
+    "[5] Contar Butacas Disponibles",
     "[6] Mostrar Tarifas Actuales"
     "[0] Volver al menú"
 )
@@ -1311,8 +1311,8 @@ while True:
     elif opcion == "5":
        print("\n--- SIMULADOR DE DESCUENTOS ---")
        print("Precios actuales:")
-       for formato, precio in formatearPreciosEntradas():
-           print(f"  {formato}: ${precio}")
+       for precio_str in formatearPreciosEntradas():
+           print(f"  {precio_str}")
        
        porcentaje = input("\nIngrese porcentaje de descuento: ")
        if validar_numero_positivo(porcentaje):
