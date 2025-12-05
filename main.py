@@ -753,7 +753,6 @@ while True:
                     print(f"\n{cineInfo.get('nombre', 'Desconocido')} - Sala {sala['numeroSala']}")
                     print("-" * 60)
                     
-                    # Llamada a la función recursiva
                     disponibles = contarButacasDisponiblesRecursivo(sala["asientos"])
                     totalButacas = len(sala["asientos"])
                     
