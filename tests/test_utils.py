@@ -2,8 +2,6 @@ import sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-import json
-import pytest
 from utils import (
     generarAsientosSala,
     generarId,
@@ -11,14 +9,8 @@ from utils import (
     butacasDisponiblesPorTipo,
     informeButacasDisponibles,
     peliculasPorCine,
-    cinesSinPeliculas,
-    peliculasEnTodosCines,
-    formatearPreciosEntradas,
-    obtenerTitulosPeliculasMayusculas,
-    aplicarDescuentoPrecios,
     contarButacasDisponiblesRecursivo,
     obtenerPrimerasPeliculas,
-    obtenerPeliculasPorFormato,
 )
 
 
