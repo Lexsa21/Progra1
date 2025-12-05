@@ -1005,13 +1005,15 @@ while True:
                                     continue
 
                                 nuevoEstado = not butaca["habilitado"]
-                                butaca["habilitado"] = nuevoEstado
+                                inhabilitarButaca(salaId, codigoButaca)
+                                salas = obtenerSalas()
                                 estado_texto = (
                                     "habilitada" if nuevoEstado else "inhabilitada"
                                 )
                                 print(f"✓ Butaca {codigoButaca} {estado_texto}")
 
                     elif opcionMod == "4":
+                        salas = obtenerSalas()
                         salasCine = {
                             salaId: sala
                             for salaId, sala in salas.items()
@@ -1024,6 +1026,7 @@ while True:
                         imprimirSalasPorCine(cineId)
                         salaId = input("\nID de la sala a eliminar: ").strip()
                         sala = obtenerSala(salaId)
+                        funciones = obtenerFunciones()
                         if not sala:
                             print("⚠️  Sala no encontrada.")
                             continue
@@ -1054,7 +1057,7 @@ while True:
                                     and salaId in funciones[peliculaId][cineId]
                                 ):
                                     eliminarFuncion(peliculaId, cineId, salaId)
-
+                            entradas = obtenerEntradas()
                             entradasElim = [
                                 entId
                                 for entId, ent in entradas.items()

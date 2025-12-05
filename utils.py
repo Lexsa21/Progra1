@@ -313,6 +313,16 @@ def crearSala(cineId):
         print("\n⚠️  No se pudo crear la sala.")
         registrarExcepcion(e)
 
+def inhabilitarButaca(salaId, butacaId):
+    try:
+        salas = obtenerSalas()
+        salas[salaId]["asientos"][butacaId]["habilitado"] = False
+        with open(ARCHIVO_SALAS, mode="w", encoding="UTF-8") as archivoSalas:
+            json.dump(salas, archivoSalas, indent=4, ensure_ascii=False)
+    except Exception as e:
+        print("\n⚠️  No se pudo inhabilitar la butaca.")
+        registrarExcepcion(e)
+
 def agregarFunciones(peliculaId, cineId, salaId, dia, horario, butacas):
     try:
         funciones = obtenerFunciones()
