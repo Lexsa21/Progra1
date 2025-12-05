@@ -79,8 +79,8 @@ def test_contar_butacas_recursivo():
         "A4": {"ocupado": False, "habilitado": True, "tipo": "extreme"}
     }
     resultado = contarButacasDisponiblesRecursivo(butacas)
-    assert resultado == 2  # Solo A1 y A4 están disponibles
-    assert len(butacas) == 4  # Verificar que no se modificó el diccionario
+    assert resultado == 2 
+    assert len(butacas) == 4
 
 def test_obtener_primeras_peliculas():
     peliculas = {
