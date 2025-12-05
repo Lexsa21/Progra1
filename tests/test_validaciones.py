@@ -7,44 +7,56 @@ import re
 import validaciones as v
 
 
-@pytest.mark.parametrize("horario,esperado", [
-    ("00:00", True),
-    ("23:59", True),
-    ("7:30", True),
-    ("24:00", False),
-    ("abc", False),
-    (123, False),
-])
-def test_validar_horario(horario, esperado):
-    assert v.validar_horario(horario) == esperado
+def test_validar_horario_00_00():
+    assert v.validar_horario("00:00") == True
+
+def test_validar_horario_23_59():
+    assert v.validar_horario("23:59") == True
+
+def test_validar_horario_7_30():
+    assert v.validar_horario("7:30") == True
+
+def test_validar_horario_24_00():
+    assert v.validar_horario("24:00") == False
+
+def test_validar_horario_abc():
+    assert v.validar_horario("abc") == False
+
+def test_validar_horario_123():
+    assert v.validar_horario(123) == False
 
 
-@pytest.mark.parametrize("horario,esperado", [
-    ("07:30", True),
-    ("7:30", False),
-    ("23:59", True),
-])
-def test_validar_horario_estricto(horario, esperado):
-    assert v.validar_horario_estricto(horario) == esperado
+def test_validar_horario_estricto_07_30():
+    assert v.validar_horario_estricto("07:30") == True
+
+def test_validar_horario_estricto_7_30():
+    assert v.validar_horario_estricto("7:30") == False
+
+def test_validar_horario_estricto_23_59():
+    assert v.validar_horario_estricto("23:59") == True
 
 
-@pytest.mark.parametrize("dni,esperado", [
-    ("1234567", True),
-    ("12345678", True),
-    ("1234", False),
-    ("abc", False),
-])
-def test_validar_dni(dni, esperado):
-    assert v.validar_dni(dni) == esperado
+def test_validar_dni_1234567():
+    assert v.validar_dni("1234567") == True
+
+def test_validar_dni_12345678():
+    assert v.validar_dni("12345678") == True
+
+def test_validar_dni_1234():
+    assert v.validar_dni("1234") == False
+
+def test_validar_dni_abc():
+    assert v.validar_dni("abc") == False
 
 
-@pytest.mark.parametrize("dni,esperado", [
-    ("12.345.678", True),
-    ("12345678", True),
-    ("1.234.56", False),
-])
-def test_validar_dni_con_formato(dni, esperado):
-    assert v.validar_dni_con_formato(dni) == esperado
+def test_validar_dni_con_formato_12_345_678():
+    assert v.validar_dni_con_formato("12.345.678") == True
+
+def test_validar_dni_con_formato_12345678():
+    assert v.validar_dni_con_formato("12345678") == True
+
+def test_validar_dni_con_formato_1_234_56():
+    assert v.validar_dni_con_formato("1.234.56") == False
 
 
 def test_limpiar_dni():
@@ -53,14 +65,17 @@ def test_limpiar_dni():
     assert v.limpiar_dni(12345678) == ""
 
 
-@pytest.mark.parametrize("butaca,esperado", [
-    ("A1", True),
-    ("H8", True),
-    ("Z1", False),
-    ("A-1", False),
-])
-def test_validar_butaca(butaca, esperado):
-    assert v.validar_butaca(butaca) == esperado
+def test_validar_butaca_A1():
+    assert v.validar_butaca("A1") == True
+
+def test_validar_butaca_H8():
+    assert v.validar_butaca("H8") == True
+
+def test_validar_butaca_Z1():
+    assert v.validar_butaca("Z1") == False
+
+def test_validar_butaca_A_1():
+    assert v.validar_butaca("A-1") == False
 
 
 def test_extraer_fila_columna():
@@ -94,14 +109,17 @@ def test_validar_numero_positivo_y_id():
     assert not v.validar_id("0")
 
 
-@pytest.mark.parametrize("num,minimo,maximo,esperado", [
-    ("5", 1, 10, True),
-    ("-1", None, None, True),
-    ("0", 1, 5, False),
-    ("100", None, 99, False),
-])
-def test_validar_rango_numerico(num, minimo, maximo, esperado):
-    assert v.validar_rango_numerico(num, minimo, maximo) == esperado
+def test_validar_rango_numerico_5_1_10():
+    assert v.validar_rango_numerico("5", 1, 10) == True
+
+def test_validar_rango_numerico_neg1_none_none():
+    assert v.validar_rango_numerico("-1", None, None) == True
+
+def test_validar_rango_numerico_0_1_5():
+    assert v.validar_rango_numerico("0", 1, 5) == False
+
+def test_validar_rango_numerico_100_none_99():
+    assert v.validar_rango_numerico("100", None, 99) == False
 
 
 
