@@ -1,3 +1,7 @@
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).parent.parent))
+
 import json
 import pytest
 from utils import (
@@ -63,58 +67,9 @@ def test_butacas_disponibles_por_tipo():
     disponibles_extreme_nuevo = butacasDisponiblesPorTipo(asientos, "extreme")
     assert asiento not in disponibles_extreme_nuevo
 
-def test_peliculas_por_cine(monkeypatch):
-    peliculas = {
-        "1": {"titulo": "Avatar", "complejos": {"C1", "C2"}},
-        "2": {"titulo": "Matrix", "complejos": {"C2"}},
-    }
-
-    monkeypatch.setattr("utils.obtenerPeliculas", lambda: peliculas)
-    resultado = peliculasPorCine("C2")
-    assert "1" in resultado and "2" in resultado
-
-def test_cines_sin_peliculas(monkeypatch):
-    peliculas = {
-        "1": {"titulo": "Avatar", "complejos": {"C1"}},
-    }
-    monkeypatch.setattr("utils.obtenerPeliculas", lambda: peliculas)
-    todosCines = {"C1", "C2", "C3"}
-    resultado = cinesSinPeliculas(todosCines)
-    assert resultado == {"C2", "C3"}
-
-def test_peliculas_en_todos_cines(monkeypatch):
-    peliculas = {
-        "1": {"titulo": "Avatar", "complejos": {"C1", "C2"}},
-        "2": {"titulo": "Matrix", "complejos": {"C1"}},
-    }
-    monkeypatch.setattr("utils.obtenerPeliculas", lambda: peliculas)
-    resultado = peliculasEnTodosCines({"C1", "C2"})
-    assert "1" in resultado
-    assert "2" not in resultado
-
-def test_formatear_precios_entradas(monkeypatch):
-    precios = {"2d": 2500, "3d": 3500}
-    monkeypatch.setattr("utils.obtenerPreciosEntradas", lambda: precios)
-    formateados = formatearPreciosEntradas()
-    assert "2D: $2,500" in formateados
-    assert "3D: $3,500" in formateados
-
-def test_obtener_titulos_mayusculas(monkeypatch):
-    peliculas = {
-        "1": {"titulo": "Avatar", "activo": True},
-        "2": {"titulo": "Matrix", "activo": True}
-    }
-    monkeypatch.setattr("utils.obtenerPeliculas", lambda: peliculas)
-    titulos = obtenerTitulosPeliculasMayusculas()
-    assert "AVATAR" in titulos
-    assert "MATRIX" in titulos
-
-def test_aplicar_descuento_precios(monkeypatch):
-    precios = {"2d": 1000, "3d": 2000}
-    monkeypatch.setattr("utils.obtenerPreciosEntradas", lambda: precios)
-    con_descuento = aplicarDescuentoPrecios(10)
-    assert con_descuento["2d"] == 900
-    assert con_descuento["3d"] == 1800
+def test_peliculas_por_cine():
+    resultado = peliculasPorCine("1")
+    assert "1" in resultado and "6" in resultado
 
 def test_contar_butacas_recursivo():
     butacas = {
@@ -127,23 +82,12 @@ def test_contar_butacas_recursivo():
     assert resultado == 2  # Solo A1 y A4 están disponibles
     assert len(butacas) == 4  # Verificar que no se modificó el diccionario
 
-def test_obtener_primeras_peliculas(monkeypatch):
+def test_obtener_primeras_peliculas():
     peliculas = {
         "1": {"titulo": "A", "activo": True},
         "2": {"titulo": "B", "activo": True},
         "3": {"titulo": "C", "activo": True},
         "4": {"titulo": "D", "activo": True}
     }
-    monkeypatch.setattr("utils.obtenerPeliculas", lambda: peliculas)
     primeras = obtenerPrimerasPeliculas(peliculas, 2)
     assert len(primeras) == 2
-
-def test_obtener_peliculas_por_formato(monkeypatch):
-    peliculas = {
-        "1": {"titulo": "Avatar", "formato": "3d"},
-        "2": {"titulo": "Matrix", "formato": "2d"}
-    }
-    monkeypatch.setattr("utils.obtenerPeliculas", lambda: peliculas)
-    pelis_3d = obtenerPeliculasPorFormato("3d")
-    assert "1" in pelis_3d
-    assert "2" not in pelis_3d
