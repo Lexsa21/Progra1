@@ -58,9 +58,27 @@
         "formato": "2d",
         "idioma": "subtitulado",
         "complejos": [
-            "4",
+            "3",
             "2",
-            "3"
+            "4"
+        ],
+        "activo": true
+    },
+    "8": {
+        "titulo": "Thriller",
+        "formato": "2d",
+        "idioma": "subtitulado",
+        "complejos": [
+            "4"
+        ],
+        "activo": true
+    },
+    "9": {
+        "titulo": "Blanca Nieves",
+        "formato": "3d",
+        "idioma": "español",
+        "complejos": [
+            "4"
         ],
         "activo": true
     }

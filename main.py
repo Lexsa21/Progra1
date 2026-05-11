@@ -42,7 +42,7 @@ MENU_INFORMES = (
     "[3] Emitir Informe de Butacas (Plantillas de Salas)",
     "[4] Emitir Informe de Butacas por Tipo (Plantillas de Salas)",
     "[5] Contar Butacas Disponibles",
-    "[6] Mostrar Tarifas Actuales"
+    "[6] Mostrar Tarifas Actuales",
     "[0] Volver al menú"
 )
 
@@ -566,7 +566,7 @@ while True:
                 print(f"\n--- ENTRADAS DE {entradasCliente[0]['cliente'].upper()} ---")
                 for index, entrada in enumerate(entradasCliente, 1):
                     print(
-                        f"[{index}] ID: {entrada['entradaId']} - {entrada['titulopeli']} - Butaca: {entrada['butacas']}"
+                        f"[{index}] ID: {entrada['entradaId']} - {entrada['titulopeli']} - Butaca(s): {', '.join(entrada.get('butacas', [entrada.get('butaca', '?')]))}"
                     )
 
                 try:

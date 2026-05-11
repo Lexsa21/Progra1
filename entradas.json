@@ -5,9 +5,11 @@
         "cineId": "1",
         "peliculaId": "1",
         "salaId": "1",
-        "butaca": "A1",
         "dia": "martes",
-        "horario": "14:00"
+        "horario": "14:00",
+        "butacas": [
+            "A1"
+        ]
     },
     "2": {
         "cliente": "Pau",

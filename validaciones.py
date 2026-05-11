@@ -1,6 +1,7 @@
 import re
 
 def validar_horario(horario):
+    """Valida que el horario tenga formato H:MM o HH:MM (00:00 a 23:59). Acepta hora sin cero inicial."""
     if not isinstance(horario, str):
         return False
 
@@ -8,6 +9,7 @@ def validar_horario(horario):
     return bool(re.match(patron, horario.strip()))
 
 def validar_horario_estricto(horario):
+    """Valida horario en formato estricto HH:MM (requiere cero inicial, ej: 07:30)."""
     if not isinstance(horario, str):
         return False
 
@@ -15,6 +17,7 @@ def validar_horario_estricto(horario):
     return bool(re.match(patron, horario.strip()))
 
 def validar_dni(dni):
+    """Valida que el DNI contenga entre 7 y 8 dígitos sin puntos ni espacios."""
     if not isinstance(dni, str):
         return False
 
@@ -22,6 +25,7 @@ def validar_dni(dni):
     return bool(re.match(patron, dni.strip()))
 
 def validar_dni_con_formato(dni):
+    """Valida DNI con o sin puntos separadores (ej: 12.345.678 o 12345678)."""
     if not isinstance(dni, str):
         return False
 
@@ -29,12 +33,14 @@ def validar_dni_con_formato(dni):
     return bool(re.match(patron, dni.strip()))
 
 def limpiar_dni(dni):
+    """Elimina puntos, espacios y guiones de un DNI para dejarlo solo con dígitos."""
     if not isinstance(dni, str):
         return ""
 
     return re.sub(r"[.\s-]", "", dni.strip())
 
 def validar_butaca(butaca):
+    """Valida que el código de butaca tenga formato Letra(A-I) + Número(1-99). Ej: A1, H8."""
     if not isinstance(butaca, str):
         return False
 
@@ -42,6 +48,7 @@ def validar_butaca(butaca):
     return bool(re.match(patron, butaca.strip().upper()))
 
 def extraer_fila_columna(butaca):
+    """Extrae la fila (letra) y columna (número) de un código de butaca. Retorna (None, None) si es inválido."""
     if not validar_butaca(butaca):
         return None, None
 
@@ -56,6 +63,7 @@ def extraer_fila_columna(butaca):
     return None, None
 
 def validar_titulo(titulo):
+    """Valida que el título no esté vacío y solo contenga caracteres permitidos (letras, números y símbolos básicos)."""
     if not isinstance(titulo, str):
         return False
 
@@ -68,6 +76,7 @@ def validar_titulo(titulo):
     return bool(re.match(patron, titulo))
 
 def validar_nombre_persona(nombre):
+    """Valida que el nombre tenga al menos 2 caracteres y solo contenga letras, espacios y guiones."""
     if not isinstance(nombre, str):
         return False
 
@@ -80,6 +89,7 @@ def validar_nombre_persona(nombre):
     return bool(re.match(patron, nombre))
 
 def validar_direccion(direccion):
+    """Valida que la dirección tenga al menos 5 caracteres, una letra y un número (ej: Av. Corrientes 1234)."""
     if not isinstance(direccion, str):
         return False
 
@@ -96,6 +106,7 @@ def validar_direccion(direccion):
     return bool(re.match(patron, direccion)) and tiene_letra and tiene_numero
 
 def validar_nombre_cine(nombre):
+    """Valida que el nombre del cine tenga al menos 2 caracteres y solo use letras, números y símbolos básicos."""
     if not isinstance(nombre, str):
         return False
 
@@ -108,6 +119,7 @@ def validar_nombre_cine(nombre):
     return bool(re.match(patron, nombre))
 
 def validar_numero_positivo(numero_str):
+    """Valida que el string represente un número entero positivo (mayor a 0, sin ceros iniciales)."""
     if not isinstance(numero_str, str):
         return False
 
@@ -115,6 +127,7 @@ def validar_numero_positivo(numero_str):
     return bool(re.match(patron, numero_str.strip()))
 
 def validar_id(id_str):
+    """Valida que el string sea un ID válido (número entero positivo)."""
     return validar_numero_positivo(id_str)
 
 def validar_rango_numerico(numero_str, minimo=None, maximo=None):
@@ -142,6 +155,7 @@ def validar_opcion_menu(opcion, opciones_validas):
     return opcion.strip() in opciones_validas
 
 def validar_confirmacion(respuesta):
+    """Valida respuesta s/n. Retorna True para afirmativo, False para negativo, None si es inválida."""
     if not isinstance(respuesta, str):
         return None
 
@@ -158,6 +172,7 @@ def validar_confirmacion(respuesta):
     return None
 
 def validar_formato(formato):
+    """Valida que el formato sea 2D o 3D (case-insensitive)."""
     if not isinstance(formato, str):
         return False
 
@@ -165,6 +180,7 @@ def validar_formato(formato):
     return bool(re.match(patron, formato.strip()))
 
 def normalizar_formato(formato):
+    """Normaliza el formato a minúsculas (ej: 3D -> 3d). Retorna string vacío si es inválido."""
     if not validar_formato(formato):
         return ""
 
@@ -177,6 +193,7 @@ def validar_idioma(idioma, idiomas_validos=("español", "subtitulado")):
     return idioma.strip().lower() in idiomas_validos
 
 def normalizar_idioma(idioma):
+    """Normaliza el idioma a minúsculas sin espacios extra. Retorna string vacío si la entrada no es string."""
     if not isinstance(idioma, str):
         return ""
 
@@ -251,6 +268,7 @@ def normalizar_dia_semana(dia):
     return ""
 
 def limpiar_entrada(texto):
+    """Limpia una entrada de usuario: reemplaza saltos de línea y tabs por espacios, y colapsa espacios múltiples."""
     if not isinstance(texto, str):
         return ""
 
@@ -297,6 +315,11 @@ def extraer_numeros(texto):
     return re.findall(r"\d+", texto)
 
 def validar_entrada_completa(entrada, tipo_validacion, **kwargs):
+    """
+    Función unificada de validación que limpia y valida una entrada según su tipo.
+    Tipos soportados: horario, dni, butaca, titulo, nombre, direccion, numero_positivo, id, formato, idioma, dia.
+    Retorna una tupla (es_valido: bool, valor_limpio: str, mensaje_error: str).
+    """
     if not isinstance(entrada, str):
         return False, "", "Entrada inválida"
 
