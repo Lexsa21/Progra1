@@ -2,7 +2,7 @@
 
 Sistema de gestión para complejos cinematográficos en Python, con interfaz de consola. Administra películas, salas, funciones, venta de entradas e informes.
 
-Proyecto final de **Algoritmos y Estructuras de Datos I** (UADE). Después de la entrega le sumé tests unitarios y separé la lógica de negocio de las validaciones.
+Proyecto final de **Algoritmos y Estructuras de Datos I** (UADE), hecho en equipo de tres junto a Valentín Shingaki y Paulina Cabrera.
 
 ## Funcionalidades
 
@@ -59,6 +59,7 @@ Progra1/
 ├── main.py              # Punto de entrada, menús y flujo principal
 ├── utils.py             # Lógica de negocio y acceso a datos
 ├── validaciones.py      # Validaciones y expresiones regulares
+├── requirements.txt     # Dependencias (pytest)
 ├── tests/
 │   ├── test_utils.py
 │   └── test_validaciones.py
@@ -83,7 +84,7 @@ Progra1/
 
 **Operaciones con conjuntos.** Las comparaciones entre carteleras de distintos cines usan intersección, diferencia y subconjunto en lugar de recorrer listas anidadas.
 
-**Tests unitarios.** Suite con pytest sobre `utils` y `validaciones`, agregada después de la entrega para poder refactorizar sin romper nada.
+**Tests unitarios.** Suite con pytest sobre `utils` y `validaciones`, para poder refactorizar sin romper el comportamiento existente.
 
 ---
 
