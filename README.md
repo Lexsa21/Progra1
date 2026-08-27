@@ -1,44 +1,58 @@
-# 🎬 Sistema de Gestión de Cines
+# Sistema de Gestión de Cines
 
-Sistema de gestión integral para complejos cinematográficos desarrollado en Python. Permite administrar películas, salas, funciones, venta de entradas y generación de informes desde una interfaz de consola.
+Sistema de gestión para complejos cinematográficos en Python, con interfaz de consola. Administra películas, salas, funciones, venta de entradas e informes.
 
-Proyecto final de la materia **Algoritmos y Estructuras de Datos I**.
+Proyecto final de **Algoritmos y Estructuras de Datos I** (UADE). Después de la entrega le sumé tests unitarios y separé la lógica de negocio de las validaciones.
 
----
+## Funcionalidades
 
-## 📋 Funcionalidades
+**Películas**
+- Alta, modificación y listado
+- Filtros por idioma y formato (2D / 3D)
+- Funciones asociadas por día y horario
 
-### 🎥 Gestión de Películas
-- Agregar, modificar y listar películas
-- Filtrar por idioma y formato (2D / 3D)
-- Gestión de funciones por película (días y horarios)
-
-### 🎟️ Venta de Entradas
+**Venta de entradas**
 - Selección de cine, película, función y butacas
-- Visualización del mapa de sala en tiempo real
-- Cancelación de entradas con liberación automática de butacas
+- Mapa de sala actualizado en tiempo real
+- Cancelación con liberación automática de butacas
 - Consulta de entradas por DNI
 
-### 🏢 Gestión de Complejo de Cines
+**Complejo de cines**
 - Alta, baja y modificación de cines
-- Gestión de salas con planta visual de butacas (tipo EXTREME / NORMAL)
-- Habilitación/inhabilitación de butacas individuales
-- Operaciones con conjuntos: películas en común entre cines, cines sin películas, películas disponibles en múltiples cines
+- Salas con planta visual de butacas (EXTREME / NORMAL)
+- Habilitación e inhabilitación de butacas individuales
+- Comparación entre cines: películas en común, cines sin cartelera, películas disponibles en varios complejos
 
-### 📊 Informes
-- Informe de ventas por cine y película
-- Listado de películas disponibles
+**Informes**
+- Ventas por cine y por película
 - Plantillas de salas con estado de butacas
-- Análisis de butacas por tipo (EXTREME / NORMAL)
-- Conteo recursivo de butacas disponibles
-- Análisis de funciones por día y horario
+- Análisis de butacas por tipo y de funciones por día
 
-### 💰 Promociones
-- Simulador de descuentos sobre tarifas actuales
+**Promociones**
+- Simulador de descuentos sobre las tarifas vigentes
 
----
+## Requisitos
 
-## 🗂️ Estructura del proyecto
+- Python 3.8 o superior
+- pytest (solo para los tests)
+
+```bash
+pip install -r requirements.txt
+```
+
+## Ejecución
+
+```bash
+python main.py
+```
+
+Tests:
+
+```bash
+pytest tests/
+```
+
+## Estructura
 
 ```
 Progra1/
@@ -46,8 +60,8 @@ Progra1/
 ├── utils.py             # Lógica de negocio y acceso a datos
 ├── validaciones.py      # Validaciones y expresiones regulares
 ├── tests/
-│   ├── test_utils.py        # Tests unitarios de utilidades
-│   └── test_validaciones.py # Tests unitarios de validaciones
+│   ├── test_utils.py
+│   └── test_validaciones.py
 ├── peliculas.json       # Persistencia de películas
 ├── cines.json           # Persistencia de cines
 ├── salas.json           # Persistencia de salas y butacas
@@ -57,48 +71,20 @@ Progra1/
 └── errores.log          # Log de errores en tiempo de ejecución
 ```
 
----
+## Implementación
 
-## ⚙️ Requisitos
+**Persistencia en JSON.** Todo el estado del sistema —cines, salas, funciones, entradas y precios— vive en archivos JSON separados por entidad. No hay base de datos: al arrancar se cargan y al modificar se reescriben.
 
-- Python 3.8 o superior
-- pytest (solo para ejecutar los tests)
+**Manejo de errores con log.** Las excepciones se capturan y se registran en `errores.log` con su contexto, en vez de cortar la ejecución. El usuario ve un mensaje claro y el detalle técnico queda guardado.
 
-Instalación de dependencias:
-```bash
-pip install -r requirements.txt
-```
+**Validaciones con expresiones regulares.** DNI, horarios, identificadores de butaca, nombres y direcciones se validan antes de llegar a la lógica de negocio, en un módulo aparte.
 
----
+**Recursividad.** El conteo de butacas disponibles por sala está resuelto recursivamente recorriendo la matriz de la planta.
 
-## 🚀 Ejecución
+**Operaciones con conjuntos.** Las comparaciones entre carteleras de distintos cines usan intersección, diferencia y subconjunto en lugar de recorrer listas anidadas.
 
-```bash
-python main.py
-```
-
-Para correr los tests:
-```bash
-pytest tests/
-```
+**Tests unitarios.** Suite con pytest sobre `utils` y `validaciones`, agregada después de la entrega para poder refactorizar sin romper nada.
 
 ---
 
-## 🧪 Conceptos aplicados
-
-| Concepto | Aplicación en el proyecto |
-|---|---|
-| Matrices | Generación de la sala 8x8 con tipos de butaca |
-| Tuplas | Constantes de configuración (menús, días, formatos) |
-| Comprensión de listas | Filtrado y transformación de películas, entradas y salas |
-| Rebanado | Obtención de las primeras N películas |
-| Cadenas | Formateo de salidas, normalización de entradas del usuario |
-| Diccionarios | Estructura principal de datos (películas, cines, entradas) |
-| Conjuntos | Operaciones entre cines (intersección, diferencia, subconjunto) |
-| Lambda / map / filter / reduce | Informes de ventas, formateo de precios, filtros de películas |
-| Excepciones | Manejo de errores con log persistente en `errores.log` |
-| Archivos JSON | Persistencia completa de todos los datos del sistema |
-| Expresiones regulares | Validación de DNI, horarios, butacas, nombres, direcciones |
-| Recursividad | Conteo recursivo de butacas disponibles por sala |
-| Tests unitarios | Suite de tests con pytest para utils y validaciones |
-| Git | Historial de commits con ramas por entrega |
+Parte de mi portfolio: [lexsa21.github.io](https://lexsa21.github.io)
