@@ -76,7 +76,7 @@ Progra1/
 
 **Persistencia en JSON.** Todo el estado del sistema —cines, salas, funciones, entradas y precios— vive en archivos JSON separados por entidad. No hay base de datos: al arrancar se cargan y al modificar se reescriben.
 
-**Manejo de errores con log.** Las excepciones se capturan y se registran en `errores.log` con su contexto, en vez de cortar la ejecución. El usuario ve un mensaje claro y el detalle técnico queda guardado.
+**Manejo de errores con log.** Las excepciones se capturan y se escriben en `errores.log` en vez de cortar la ejecución: el usuario ve un mensaje entendible y el error queda registrado para revisarlo después.
 
 **Validaciones con expresiones regulares.** DNI, horarios, identificadores de butaca, nombres y direcciones se validan antes de llegar a la lógica de negocio, en un módulo aparte.
 
