@@ -80,7 +80,7 @@ Progra1/
 
 **Validaciones con expresiones regulares.** DNI, horarios, identificadores de butaca, nombres y direcciones se validan antes de llegar a la lógica de negocio, en un módulo aparte.
 
-**Recursividad.** El conteo de butacas disponibles por sala está resuelto recursivamente recorriendo la matriz de la planta.
+**Recursividad.** El conteo de butacas disponibles resuelve por recursión sobre las claves del diccionario de butacas: toma la primera, evalúa si está libre y habilitada, y se llama a sí misma con el resto hasta vaciar la lista.
 
 **Operaciones con conjuntos.** Las comparaciones entre carteleras de distintos cines usan intersección, diferencia y subconjunto en lugar de recorrer listas anidadas.
 
